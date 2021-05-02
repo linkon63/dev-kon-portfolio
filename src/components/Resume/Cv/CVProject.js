@@ -1,7 +1,7 @@
 import React from 'react';
 import './Cv.css';
 const CVProject = (props) => {
-    const {name , date , fun1 , fun2 , fun3 , btn} = props.project;
+    const {name , date , fun1 , fun2 , fun3 , btn, Live,ClientCode,serverCode} = props.project;
     return (
         <ul style={{listStyleType:"circle" , borderBottom: '4px solid lightgrey' , paddingBottom: "20px"}}> 
                         <li>
@@ -22,7 +22,7 @@ const CVProject = (props) => {
 Route, ImageBB, Axios, Heroku(Server Hosting)</li>
                             </ol>
                             <div className="siteBtn">
-                                <button>LIVE SITE</button><button>CLIENT CODE</button><button>SERVER CODE</button>{btn && <button>{btn}</button>}
+                                <button><a href={Live}>LIVE SITE</a></button> <button><a href={ClientCode}>CLIENT CODE</a></button><button><a href={serverCode}>SERVER CODE</a></button>{btn && <button>{btn}</button>}
                                 
                             </div>
                         </li>

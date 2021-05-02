@@ -15,24 +15,39 @@ const Cv = () => {
                     <a href={ResumePdf} download="Resume of Dev Linkon">
                         <button className="btn btn-success mb-5">Download Resume</button>
                     </a>
+                        <div className="row mb-5">
+                            <div className="col-md-12 col-sm-12 container">
+                                <h3>MD ABDUL AHAD LINKON</h3>
+                            </div>
+                        </div>
+                        {/* <h1 className="mb-5">MD ABDUL AHAD LINKON</h1> */}
 
-                        <h1 className="mb-5">MD ABDUL AHAD LINKON</h1>
                         <p>FULL STACK DEVELOPER</p>
                         <p>HABIGANJ SADAR</p>
                         <p>SYLHET, BANGLADESH</p>
                         <p className="phone"><small><b>+8801712508063</b></small></p>
 
-                        <div className="table">
-                            <span><i><b>Email :</b></i></span>
-                            <sapn><b>m.alinkon10@gmail.com</b></sapn>
-                        </div>
-                        <div className="table">
-                            <span><i><b>Github :</b></i></span>
-                            <sapn><b>https://github.com/linkon63</b></sapn>
-                        </div>
-                        <div className="table">
-                            <span><i><b>LinkedIn :</b></i></span>
-                            <sapn><b>https://github.com/linkon63</b></sapn>
+                        <div className="row">
+                            <div className="col-md-12  d-flex justify-content-center">
+                                <table className="text-center">
+                                    <tr>
+                                        <td>Email : </td>
+                                        <td>m.alinkon10@gmail.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Github : </td>
+                                        <td>https://github.com/linkon63</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LinkedIn : </td>
+                                        <td>https://www.linkedin.com/in/md-abdul-ahad-linkon-5988161b8/</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Portfolio : </td>
+                                        <td>https://dev-kon-portfolio.web.app/</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </header>
                     <section className="skils">

@@ -14,6 +14,7 @@ import 'fontsource-roboto';
 import Cv from './components/Resume/Cv/Cv';
 import Blog from './components/Blog/Blog';
 import About from './components/About/About';
+import Resume from './components/Resume/Resume';
 function App() {
   return (
     <div>
@@ -28,6 +29,7 @@ function App() {
           </Route>
           <Route path="/resume">
             <Cv></Cv>
+            {/* <Resume></Resume> */}
           </Route>
           <Route path="/blog">
             <Blog></Blog>

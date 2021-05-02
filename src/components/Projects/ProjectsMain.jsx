@@ -1,4 +1,4 @@
-import { Computer, ImportantDevices } from '@material-ui/icons';
+import { Computer, GitHub, ImportantDevices, ViewModule } from '@material-ui/icons';
 import React from 'react';
 import projectData from '../../Data/allProjectsData.json';
 const ProjectsMain = () => {
@@ -23,9 +23,9 @@ const ProjectsMain = () => {
                                             <li class="list-group-item"><Computer></Computer> STACK : {data.projectStack}</li>
                                         </ul>
                                         <div class="card-body">
-                                            <a href={data.liveSite} class="card-link">Live Site</a>
-                                            <a href={data['clientSiteCode:']} class="card-link">Client Code</a>
-                                            <a href={data.serverSiteCode} class="card-link">Server Code</a>
+                                            <a href={data.liveSite} class="card-link"><ViewModule></ViewModule> Live Site</a>
+                                            <a href={data['clientSiteCode:']} class="card-link"><GitHub></GitHub> C-Code</a>
+                                            <a href={data.serverSiteCode} class="card-link"><GitHub></GitHub> S-Code</a>
                                         </div>
                                         </div>
                                     </div>
