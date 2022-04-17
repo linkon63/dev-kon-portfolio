@@ -13,7 +13,6 @@ const HomeMain = () => {
                             <h3> <b>WELCOME</b> </h3>
                         </Typing>
                         <h6>TO <small>Dev</small> | KON </h6>
-                        {/* <h3 className="text-white"> </h3> */}
                     <div>
                         <Typing>
                             <h1>I Code Your Dream To Reality</h1>
