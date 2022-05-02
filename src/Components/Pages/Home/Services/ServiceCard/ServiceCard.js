@@ -13,7 +13,7 @@ const ServiceCard = () => {
                         <p style={{color: '#ddd'}}>
                             props.details
                         </p>
-                        <a className='text-white text-capitalize decoration-none' href="">
+                        <a className='text-white text-capitalize decoration-none' href="/">
                             projects
                         </a>
                     </div>
