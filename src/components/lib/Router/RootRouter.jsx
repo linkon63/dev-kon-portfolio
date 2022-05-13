@@ -5,13 +5,11 @@ import About from '../About/About';
 
 const RootRouter = () => {
     return (
-        <>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="home" element={<Home />} />
-                <Route path="about" element={<About />} />
-            </Routes>
-        </>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="about" element={<About />} />
+        </Routes>
     );
 };
 
