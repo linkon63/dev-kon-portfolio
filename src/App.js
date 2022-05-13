@@ -1,11 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import RootRouter from './components/lib/Router/RootRouter';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello Portfolio</h1>
-    </div>
+    <RootRouter />
   );
 }
 

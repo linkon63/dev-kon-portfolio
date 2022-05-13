@@ -1,10 +1,10 @@
 import React from 'react';
+import Layout from '../Layout/Layout';
+import HomeComponent from './HomeComponent';
 
 const Home = () => {
     return (
-        <div>
-            <h1>Home</h1>
-        </div>
+        <Layout key={Math.random()} props={<HomeComponent />} />
     );
 };
 
