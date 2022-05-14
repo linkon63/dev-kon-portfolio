@@ -1,12 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-
+import RootRouter from './components/lib/Router/RootRouter';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-          Learn React
-      </header>
+    <div>
+      <RootRouter />
     </div>
   );
 }
