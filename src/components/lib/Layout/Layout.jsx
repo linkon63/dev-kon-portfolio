@@ -1,13 +1,13 @@
 import React from 'react';
-// import TopNavbar from '../Shared/Navbar/TopNavbar';
+import TopNavbar from '../Shared/Navbar/TopNavbar';
 
 const Layout = ({ props }) => {
     return (
         <>
-            {/* <TopNavbar /> */}
+            <TopNavbar />
             <>
                 {props}
-            </> 
+            </>
         </>
     );
 };

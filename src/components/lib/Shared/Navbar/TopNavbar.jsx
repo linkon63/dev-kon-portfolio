@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import navbarIcon from '../../../icons/navbarIcon.png'
+import './TopNavbar.css'
 const TopNavbar = () => {
     return (
         <>
