@@ -14,6 +14,7 @@ const HomeComponent = () => {
                 <div className="d-flex ">
                     <div className="col-md-4">
                         <h1>Card 1</h1>
+                        {/* <Text />  */}
                     </div>
                     <div className="col-md-4">
                         <h1>Card 2</h1>
