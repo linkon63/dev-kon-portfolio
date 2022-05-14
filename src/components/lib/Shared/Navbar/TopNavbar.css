@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+/* router Style */
 section {
     font-family: "Inconsolata", monospace;
 }
@@ -12,3 +14,6 @@ a {
 a:hover {
     color: gray;
 }
+
+
+/* card style */

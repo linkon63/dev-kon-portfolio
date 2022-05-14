@@ -32,7 +32,7 @@ const TopNavbar = () => {
 
                 <div className="offcanvas-body">
                     <section>
-                        <div className="row">
+                        <div className="d-flex w-100">
                             <div className="col-md-4">
                                 <h4>Routes</h4>
                                 <Link to="/home">
@@ -57,15 +57,33 @@ const TopNavbar = () => {
                                 </Link>
 
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-2">
                                 <h4>Social Link</h4>
                                 <p className='m-0'>Facebook</p>
-                                <p className='m-0'>Facebook</p>
-                                <p className='m-0'>Facebook</p>
+                                <p className='m-0'>LinkedIn</p>
+                                <p className='m-0'>GitHub</p>
                             </div>
-                            <div className="col-md-4">
-                                <h4>Hire me</h4>
-                                <p>Lorem ipsum dolor sit amet cnecessitatibus expedita dolores asperiores neque, facere voluptatum corrupti perferendis. Nobis!</p>
+                            <div className="col-md-6 d-flex w-50 ">
+                                <div className="w-25 d-flex justify-content-center align-items-center">
+                                    <h4>Hire me</h4>
+                                </div>
+                                <div className="w-75">
+                                    <div className='bg-light'>
+                                        <div className="d-flex" >
+                                            <div className="col-md-4">
+                                                <img style={{ height: "100%", width: "100%" }}
+                                                    src="https://randomuser.me/api/portraits/men/3.jpg" className="img-fluid rounded-start" alt="user"
+                                                />
+                                            </div>
+                                            <div className="col-md-6 ms-2 d-flex justify-content-center align-items-center rounded">
+                                                <div className="text-center">
+                                                    <h5 className="card-title">MD. ABDUL AHAD LINKON</h5>
+                                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
