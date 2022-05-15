@@ -1,17 +1,28 @@
 import React from 'react';
+// dom
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// library
+// -------
+// components
+import Navbar from './Components/Sheared/Navbar/Navbar';
+import Home from './Components/Pages/Home/Home';
 import About from './Components/Pages/About/About';
 import Blog from './Components/Pages/Blog/Blog';
 import Contact from './Components/Pages/Contact/Contact';
-import Home from './Components/Pages/Home/Home';
 import Resume from './Components/Pages/Resume/Resume';
 import Footer from './Components/Sheared/Footer/Footer';
-import Navbar from './Components/Sheared/Navbar/Navbar';
 
+// style
+// ---
+
+// client db connection
+
+// initialization
+// -----
 function App() {
   return (
     <BrowserRouter>
-        <Navbar></Navbar>
+      <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
