@@ -25,7 +25,7 @@ const TopNavbar = () => {
     return (
         <>
             <section className='w-100 d-flex border border-bottom-1'>
-                <div className='d-flex align-items-center w-50 '>
+                <div className='d-flex align-items-center w-50 justify-content-end '>
                     <p className='m-0'>Dev <span className='fw-bold'>|KON</span></p>
                 </div>
                 <div className='d-flex w-50 justify-content-end'>
@@ -123,9 +123,9 @@ const TopNavbar = () => {
                                                     {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
                                                 </div>
                                             </div>
-                                            <div className="col-md-4 text-end">
+                                            <div className="col-md-4 text-end border rounded-circle bg-warning">
                                                 <img style={{ height: "100%", width: "80%" }}
-                                                    src={personalImage} className="img-fluid rounded-start m-0 p-0 " alt="user"
+                                                    src={personalImage} className="img-fluid rounded-start rounded-pill  " alt="user"
                                                 />
                                             </div>
                                         </div>

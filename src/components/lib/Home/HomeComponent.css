@@ -8,6 +8,7 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Zen+Loop&display=swap');
 
 * {
     padding: 0;
@@ -15,3 +16,28 @@
     box-sizing: border-box;
 }
 
+
+.font-style {
+    font-family: 'Zen Loop', cursive;
+    color: black;
+    font-weight: bolder;
+}
+
+.background-text-1 {
+    position: relative;
+}
+
+.background-text-1:before {
+    margin: 4rem;
+    content: "Experiences";
+    position: absolute;
+    font-size: 200px;
+    font-family: 'Zen Loop', cursive;
+    /* transform: rotate(120deg); */
+    /* -webkit-transform: rotate(120deg); */
+    color: rgb(0, 0, 0);
+    top: 300px;
+    opacity: 0.2;
+    left: 0;
+    z-index: -1;
+}

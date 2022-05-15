@@ -21,12 +21,12 @@ const HomeComponent = () => {
         onRest: () => set(!flip),
     })
     return (
-        <section className='container mt-2'>
+        <section className=''>
 
             {/* header section */}
-            <header className='row m-0 p-0' style={{ height: '60vh', width: "100%" }}>
+            <header className='row m-0 p-0 bg-dark' style={{ height: '100vh', width: "100%" }}>
                 {/* left site */}
-                <div className="col-md-6 col-sm-12 d-flex align-items-center w-50 m-0 p-0">
+                <div className="col-md-6 col-sm-12 d-flex align-items-center w-50 m-0 p-2 text-light">
                     <div className='m-0 p-0  w-100'>
                         <div className='row w-100'>
                             <h2 className='col-md-6 fw-bold w-50 m-0 p-0  text-end' >Hello Dreamer!</h2>
@@ -70,16 +70,20 @@ const HomeComponent = () => {
                 </div>
 
                 {/* right site */}
-                <div className="col-md-6 col-sm-12 w-50 ">
-                    <div className='m-0 p-0' style={{ height: "60vh" }}>
-                        <div className='row m-0 p-0' style={{ height: "15vh" }}>
-                            <div className="col-md-6 m-0 p-1 border bg-warning d-flex align-items-end justify-content-end">
+                <div className="col-md-6 col-sm-12 w-50 d-flex justify-content-center">
+                    <div className='m-0 p-0 w-100'
+                    // style={{ height: "60vh" }}
+                    >
+                        <div className='row m-0 p-0 mt-5 mb-5'
+                        style={{ height: "20vh" }}
+                        >
+                            <div className="col-md-6 m-0 p-1 bg-warning d-flex align-items-end justify-content-end">
                                 <Text inComing={<h1 className='fw-bold text-white'>Javascript</h1>} />
                             </div>
-                            <div className="col-md-4 m-0 p-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#8bc500' }}>
+                            <div className="col-md-4 m-0 p-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#3c823b' }}>
                                 <h1 className='text-white d-flex'
                                 // style={{ color: "#8bc500" }}
-                                >Node <Text inComing={"js"} /></h1>
+                                >Node <Text inComing={"JS"} /></h1>
                             </div>
                             <div className="col-md-2 m-0 p-1 text-center bg-light">
                                 <Text inComing={<h6 className='fw-lighter fst-italic'>Express js</h6>} />
@@ -87,7 +91,7 @@ const HomeComponent = () => {
                             </div>
                         </div>
                         {/* animation */}
-                        <div className=''>
+                        <div className='mb-5'>
                             <animated.div
                                 style={{
                                     position: '',
@@ -118,11 +122,11 @@ const HomeComponent = () => {
                             </animated.div>
                         </div>
                         {/* simple text */}
-                        <div className='text-center m-2 border' style={{ height: "5vh" }}>
-                            <p className='text-uppercase fw-bold fs-6 p-2 m-0'>Technologies you need</p>
+                        <div className='text-center mb-5 border' style={{ height: "5vh" }}>
+                            <p className='text-uppercase fw-bold fs-6 p-2 m-0 text-light'>Technologies you need</p>
                         </div>
                         {/* carousel */}
-                        <div className='' style={{ height: "15vh" }}>
+                        <div className='mb-5' style={{ height: "15vh" }}>
                             <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="false">
                                 <div className="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -191,37 +195,59 @@ const HomeComponent = () => {
                     </div>
                 </div>
             </header>
-            {/* projects section */}
-            <div className='border mt-5 text-center bg-light' >
+            {/* Experience section */}
+            <div className='text-center background-text-1 mt-2' style={{height: '100vh'}}>
                 <div>
-                    <h3 className='fst-italic'>Experience</h3>
+                    <h3 className='font-style'>Experiences</h3>
                 </div>
 
                 <div className="row justify-content-center g-0 m-0 p-0">
-                    <div className="col-md-2 col-sm-12 border bg-light" style={{ height: "40vh" }}>
+                    <div className="col-md-2 col-sm-12 border bg-light m-2" style={{ height: "40vh" }}>
                         <div className='bg-info d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
                             <img className='w-100 p-2' src={softzinoTechnologies} alt="softzinoTechnologies" />
                         </div>
+                        <div className="" style={{ height: '20vh' }}>
+                            <p>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
+                        </div>
+                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
+                            <button className='btn btn-info btn-sm fw-bold text-white w-100 border'>Go</button>
+                        </div>
                     </div>
-                    <div className="col-md-2 col-sm-12 border bg-secondary" style={{ height: "40vh" }}>
+                    <div className="col-md-2 col-sm-12 border bg-secondary m-2" style={{ height: "40vh" }}>
                         <div className='bg-light d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
                             <img className='w-100 p-2' src={mgpLogo} alt="mgpLogo" />
                         </div>
+                        <div className="" style={{ height: '20vh' }}>
+                            <p className='text-light'>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
+                        </div>
+                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
+                            <button className='btn btn-light btn-sm fw-bold text-dark w-100 border'>Go</button>
+                        </div>
                     </div>
-                    <div className="col-md-2 col-sm-12 border bg-secondary" style={{ height: "40vh" }}>
+                    <div className="col-md-2 col-sm-12 bg-secondary m-2" style={{ height: "40vh" }}>
                         <div className='bg-light' style={{ height: '15vh' }}>
                             <img className='w-100 p-2 w-100 border' src={hatherkache} alt="hatherkache"
-                                style={{ 
-                                    // size: "cover",
-                                    //  height: auto;
-                                    width: "100%", height: "15vh", 
+                                style={{
+                                    height: "15vh",
                                 }}
                             />
                         </div>
+                        <div className="" style={{ height: '20vh' }}>
+                            <p className='text-light'>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
+                        </div>
+                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
+                            <button className='btn btn-light btn-sm fw-bold text-dark w-100 border'>Go</button>
+                        </div>
                     </div>
-                    <div className="col-md-2 col-sm-12 border bg-light" style={{ height: "40vh" }}>
+                    <div className="col-md-2 col-sm-12 border bg-light m-2" style={{ height: "40vh" }}>
                         <div className='bg-info d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
                             <img className='w-100 p-2' src={freelancer} alt="mgpLogo" />
+                        </div>
+                        <div className="" style={{ height: '20vh' }}>
+                            <p>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
+                        </div>
+                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
+                            <button className='btn btn-info btn-sm fw-bold text-white border w-100'>Go</button>
                         </div>
                     </div>
                 </div>
