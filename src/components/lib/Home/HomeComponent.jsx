@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useSpring, animated, config } from 'react-spring';
 import Text from '../../animation/Text';
-
+import softzinoTechnologies from '../../assests/softzinoTechnology.png'
+import mgpLogo from '../../assests/mpgLogo.png'
+import hatherkache from '../../assests/hatherKache.jpg'
+import freelancer from '../../assests/freelancer.png'
 import './HomeComponent.css'
 const HomeComponent = () => {
     const [flip, set] = useState(false)
@@ -179,33 +182,57 @@ const HomeComponent = () => {
                             </div>
                             <div className="col-md-2 m-0 p-1 text-center text-white d-flex align-items-center" style={{ backgroundColor: '#5ed3f3' }}>
                                 <h6 className='fw-lighter fst-italic'>React Native</h6>
-                                {/* <Text inComing={} /> */}
-                                {/* <span className='text-warning fw-bold'>JS</span> */}
                             </div>
                             <div className="col-md-4 m-0 p-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#092d1f' }}>
                                 <h1 className='text-white d-flex fw-bold'
-                                // style={{ color: "#8bc500" }}
                                 ><Text inComing={"Django"} /></h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
-            {/* card section */}
-            <div className='border border-primary border-2 mt-5'>
-                <div className="row g-0 m-0">
-                    <div className="col-md-4 col-sm-12">
-                        <h1>Card 1</h1>
-                        {/* <Text />  */}
+            {/* projects section */}
+            <div className='border mt-5 text-center bg-light' >
+                <div>
+                    <h3 className='fst-italic'>Experience</h3>
+                </div>
+
+                <div className="row justify-content-center g-0 m-0 p-0">
+                    <div className="col-md-2 col-sm-12 border bg-light" style={{ height: "40vh" }}>
+                        <div className='bg-info d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
+                            <img className='w-100 p-2' src={softzinoTechnologies} alt="softzinoTechnologies" />
+                        </div>
                     </div>
-                    <div className="col-md-4 col-sm-12">
-                        <h1>Card 2</h1>
+                    <div className="col-md-2 col-sm-12 border bg-secondary" style={{ height: "40vh" }}>
+                        <div className='bg-light d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
+                            <img className='w-100 p-2' src={mgpLogo} alt="mgpLogo" />
+                        </div>
                     </div>
-                    <div className="col-md-4 col-sm-12">
-                        <h1>Card 2</h1>
+                    <div className="col-md-2 col-sm-12 border bg-secondary" style={{ height: "40vh" }}>
+                        <div className='bg-light' style={{ height: '15vh' }}>
+                            <img className='w-100 p-2 w-100 border' src={hatherkache} alt="hatherkache"
+                                style={{ 
+                                    // size: "cover",
+                                    //  height: auto;
+                                    width: "100%", height: "15vh", 
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-md-2 col-sm-12 border bg-light" style={{ height: "40vh" }}>
+                        <div className='bg-info d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
+                            <img className='w-100 p-2' src={freelancer} alt="mgpLogo" />
+                        </div>
                     </div>
                 </div>
+                <div>
+                    <h3 className='fst-italic'>.</h3>
+                </div>
             </div>
+
+            {/* another section */}
+            <h1>Details Section</h1>
+
         </section>
     );
 };
