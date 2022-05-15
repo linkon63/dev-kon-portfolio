@@ -51,8 +51,8 @@ const TopNavbar = () => {
 
                 <div className="offcanvas-body">
                     <section>
-                        <div className="d-flex w-100">
-                            <div className="col-md-4">
+                        <div className="row w-100">
+                            <div className="col-md-4 col-sm-12">
                                 <h4>Routes</h4>
                                 <Link to="/home">
                                     <span
@@ -76,13 +76,13 @@ const TopNavbar = () => {
                                 </Link>
 
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-2 col-sm-12">
                                 <h4>Social Link</h4>
                                 <p className='m-0'>Facebook</p>
                                 <p className='m-0'>LinkedIn</p>
                                 <p className='m-0'>GitHub</p>
                             </div>
-                            <div className="col-md-6 d-flex w-50  ">
+                            <div className="col-md-6 d-flex col-sm-12 ">
                                 <div className="w-25 p-5 mt-3">
                                     {/* animation react spring */}
                                     <div
