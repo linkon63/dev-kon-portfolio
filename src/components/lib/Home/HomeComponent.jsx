@@ -1,23 +1,21 @@
-import React from 'react';
-import { useSpring, animated } from 'react-spring';
-// import { useSpring, animated } from 'react-spring';
-// import nodeImage from '../../assests/nodejs_logo.png'
+import React, { useState } from 'react';
+import { useSpring, animated, config } from 'react-spring';
+import Text from '../../animation/Text';
+
 import './HomeComponent.css'
 const HomeComponent = () => {
-    const styles = useSpring({
-        loop: true,
-        to: [
-            { opacity: 3, color: '#5ed3f3' },
-            { opacity: 2, color: '#8bc500' },
-            { opacity: 1, color: '#146cad' },
-            { opacity: 0, color: '#00e962' },
-            { opacity: 3, color: '#5ed3f3' },
-            { opacity: 2, color: '#8bc500' },
-            { opacity: 1, color: '#146cad' },
-            { opacity: 0, color: '#00e962' },
-        ],
-        from: { opacity: 0, color: '#8bc500' },
-        delay: 1000
+    const [flip, set] = useState(false)
+
+    const words = ['React', 'mongoDB', 'Firebase', 'HTML', 'Redux', 'Vue JS']
+
+    const { scroll } = useSpring({
+        scroll: (words.length - 1) * 110,
+        from: { scroll: 0 },
+        reset: true,
+        reverse: flip,
+        delay: 400,
+        config: config.molasses,
+        onRest: () => set(!flip),
     })
     return (
         <section className='container mt-2'>
@@ -78,25 +76,64 @@ const HomeComponent = () => {
 
                 </div>
                 {/* right site */}
-                <div className="col-md-6 col-sm-12">
-                    {/* animation */}
-                    <div className='text-center'>
-                        <animated.div style={styles}>
-                            <h3 className='text-uppercase'>Technologies you need</h3>
-                        </animated.div>
-                    </div>
-                    {/* bg-warning d-flex justify-content-end align-items-end */}
-                    <div className=''>
-                        <h1 className='fw-bold text-warning'>JS</h1>
-                        <h1 className='fw-bold' style={{ color: "#8bc500" }}>Node</h1>
-                        <h3 className='fw-bold' style={{ color: "#5ed3f3" }}>React</h3>
-                        <h4 className=''>Express <span className='text-warning fw-bold'>JS</span></h4>
-                        <h1 className='fw-bold' style={{ color: "#00e962" }}>mongoDB</h1>
-                        <h1>HTML</h1>
-                        <h3 className='fw-bold' style={{ color: "#146cad" }}>CSS3</h3>
-                        <h4 className='fw-bold' style={{ color: "#bf578d" }}>Sass</h4>
-                        <h1 className='fw-bold' style={{ color: "#7430f9" }}>Bootstrap</h1>
-                        <h1 className='fw-bold' style={{ color: "#15b4c1" }}>tailwindcss</h1>
+                <div className="col-md-6 col-sm-12 w-50">
+                    <div className='h-100' style={{ height: "55vh" }}>
+                        <div className='row m-0 p-0 h-25'>
+                            <div className="col-md-6 m-0 p-1 border bg-warning d-flex align-items-end justify-content-end">
+                                <Text inComing={<h1 className='fw-bold text-white'>Javascript</h1>} />
+                            </div>
+                            <div className="col-md-4 m-0 p-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#8bc500' }}>
+                                <h1 className='text-white d-flex'
+                                // style={{ color: "#8bc500" }}
+                                >Node <Text inComing={"js"} /></h1>
+                            </div>
+                            <div className="col-md-2 m-0 p-1 text-center bg-light">
+                                <Text inComing={<h6 className='fw-lighter fst-italic'>Express js</h6>} />
+                                {/* <span className='text-warning fw-bold'>JS</span> */}
+                            </div>
+                        </div>
+                        {/* animation */}
+                        <div className='border mt-2'>
+
+                            <animated.div
+                                style={{
+                                    position: '',
+                                    width: '100%',
+                                    height: 110,
+                                    overflow: 'hidden',
+                                    fontSize: '80px',
+                                }}
+                                scrollTop={scroll}>
+                                {words.map((word, i) => (
+                                    <div className=''
+                                        key={`${word}_${i}`}
+                                        style={{
+                                            width: '100%', height: 110, textAlign: 'center',
+                                            color: 'white',
+                                            backgroundColor: `${word == 'React' ? "#5ed3f3"
+                                                : word == 'mongoDB' ? "#00e962"
+                                                    : word == 'Firebase' ? "#f19411" :
+                                                        word == 'Redux' ? "#f19411"
+                                                            : word == 'HTML' ? 'black'
+                                                                : word == 'Vue JS' ? '#3fb27f'
+                                                                    : 'silver'
+                                                }`
+                                        }}>
+                                        {word}
+                                    </div>
+                                ))}
+                            </animated.div>
+                        </div>
+
+                        <div className='text-center m-2 border'>
+                            <p className='text-uppercase fw-bold fs-6 p-2 m-0'>Technologies you need</p>
+                        </div>
+                        <div className='border'>
+                            <h3 className='fw-bold' style={{ color: "#146cad" }}>CSS3</h3>
+                            <h4 className='fw-bold' style={{ color: "#bf578d" }}>Sass</h4>
+                            <h1 className='fw-bold' style={{ color: "#7430f9" }}>Bootstrap</h1>
+                            <h1 className='fw-bold' style={{ color: "#15b4c1" }}>tailwindcss</h1>
+                        </div>
                     </div>
                 </div>
             </header>

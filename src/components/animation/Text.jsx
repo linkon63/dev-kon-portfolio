@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import { config, useSpring, animated } from 'react-spring';
 
-const Text = () => {
+const Text = ({ inComing }) => {
     const [flip, set] = useState(false)
     const props = useSpring({
         to: { opacity: 1 },
         from: { opacity: 0 },
         reset: true,
         reverse: flip,
-        delay: 200,
+        delay: 100,
         config: config.molasses,
         onRest: () => set(!flip),
     })
-    return (    
-        <animated.h5 style={props}>hireME!</animated.h5>
+    return (
+        <animated.div style={props}>
+            {/* hireME! */}
+            {
+                inComing ?
+                    inComing
+                    : <h5>hireME</h5>
+            }
+            {/* {
+                inComing ?
+                    inComing
+            } */}
+        </animated.div>
     );
 };
 
