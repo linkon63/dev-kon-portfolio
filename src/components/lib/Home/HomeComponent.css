@@ -1,7 +1,17 @@
-.top-header-left{
-    background-image: url('../../assests/background1.webp');
+.top-header-left {
+    /* background: "#8bc500"; */
+    /* background-image: url('../../assests/background1.webp'); */
     /* background: yellow */
     /* background-repeat: no-repeat;
     background-position: cover;
     background-size: auto; */
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
