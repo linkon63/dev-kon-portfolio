@@ -107,12 +107,12 @@ const HomeComponent = () => {
                                         style={{
                                             width: '100%', height: 110, textAlign: 'center',
                                             color: 'white',
-                                            backgroundColor: `${word == 'React' ? "#5ed3f3"
-                                                : word == 'mongoDB' ? "#00e962"
-                                                    : word == 'Firebase' ? "#f19411" :
-                                                        word == 'Redux' ? "#f19411"
-                                                            : word == 'HTML' ? 'black'
-                                                                : word == 'Vue JS' ? '#3fb27f'
+                                            backgroundColor: `${word === 'React' ? "#5ed3f3"
+                                                : word === 'mongoDB' ? "#00e962"
+                                                    : word === 'Firebase' ? "#f19411" :
+                                                        word === 'Redux' ? "#f19411"
+                                                            : word === 'HTML' ? 'black'
+                                                                : word === 'Vue JS' ? '#3fb27f'
                                                                     : 'silver'
                                                 }`
                                         }}>
