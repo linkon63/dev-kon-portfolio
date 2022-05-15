@@ -7,7 +7,7 @@ import Details from '../../../animation/Details';
 import styles from '../../../../../src/styles.module.css'
 
 import navbarIcon from '../../../icons/navbarIcon.png'
-
+import personalImage from '../../../assests/PersonalImage.png'
 import './TopNavbar.css'
 
 const AnimFeTurbulence = animated('feTurbulence')
@@ -52,7 +52,7 @@ const TopNavbar = () => {
                 <div className="offcanvas-body">
                     <section>
                         <div className="row w-100">
-                            <div className="col-md-4 col-sm-12">
+                            <div className="col-md-4 col-sm-12 text-center">
                                 <h4>Routes</h4>
                                 <Link to="/home">
                                     <span
@@ -76,7 +76,7 @@ const TopNavbar = () => {
                                 </Link>
 
                             </div>
-                            <div className="col-md-2 col-sm-12">
+                            <div className="col-md-2 col-sm-12 text-center">
                                 <h4>Social Link</h4>
                                 <p className='m-0'>Facebook</p>
                                 <p className='m-0'>LinkedIn</p>
@@ -113,20 +113,20 @@ const TopNavbar = () => {
                                     </div>
                                     <Text />
                                 </div>
-                                <div className="w-75">
+                                <div className="w-75 m-0 p-0 ">
                                     <div className='bg-light'>
-                                        <div className="d-flex" >
-                                            <div className="col-md-4">
-                                                <img style={{ height: "100%", width: "100%" }}
-                                                    src="https://randomuser.me/api/portraits/men/3.jpg" className="img-fluid rounded-start" alt="user"
-                                                />
-                                            </div>
+                                        <div className="d-flex justify-content-end" >
                                             <div className="col-md-6 ms-2 d-flex justify-content-center align-items-center rounded">
                                                 <div className="text-center">
                                                     <h5 className="card-title">MD. ABDUL AHAD LINKON</h5>
                                                     <Details />
                                                     {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
                                                 </div>
+                                            </div>
+                                            <div className="col-md-4 text-end">
+                                                <img style={{ height: "100%", width: "80%" }}
+                                                    src={personalImage} className="img-fluid rounded-start m-0 p-0 " alt="user"
+                                                />
                                             </div>
                                         </div>
                                     </div>
