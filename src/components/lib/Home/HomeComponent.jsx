@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { useSpring, animated, config } from 'react-spring';
 import Text from '../../animation/Text';
+
 import softzinoTechnologies from '../../assests/softzinoTechnology.png'
 import mgpLogo from '../../assests/mpgLogo.png'
-import hatherkache from '../../assests/hatherKache.jpg'
-import freelancer from '../../assests/freelancer.png'
+import hatherkache from '../../assests/hatherKachePng.png'
+import freelancer from '../../assests/freelancerPng.png'
 import './HomeComponent.css'
+import Card from './Cards/Card';
+import Detail from './Details/Detail';
+
 const HomeComponent = () => {
     const [flip, set] = useState(false)
 
     const words = ['React', 'mongoDB', 'Firebase', 'HTML', 'Redux', 'Vue JS']
+    const cardInfo = [
+        { id: 1, name: "Softzino Technologies", image: `${softzinoTechnologies}` },
+        { id: 2, name: "MY Path Guider", image: `${mgpLogo}` },
+        { id: 3, name: "Hather Kache", image: `${hatherkache}` },
+        { id: 4, name: "Freelancer", image: `${freelancer}` },
 
+    ]
     const { scroll } = useSpring({
         scroll: (words.length - 1) * 110,
         from: { scroll: 0 },
@@ -20,27 +32,48 @@ const HomeComponent = () => {
         config: config.molasses,
         onRest: () => set(!flip),
     })
+
+
+    const { pathname, hash, key } = useLocation();
+
+    useEffect(() => {
+        // if not a hash link, scroll to top
+        if (hash === '') {
+            window.scrollTo(0, 0);
+        }
+        // else scroll to id
+        else {
+            setTimeout(() => {
+                const id = hash.replace('#', 'Experience');
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView();
+                }
+            }, 0);
+        }
+    }, [pathname, hash, key]); // do this on route change
+
     return (
         <section className=''>
 
-            {/* header section */}
-            <header className='row m-0 p-0 bg-dark' style={{ height: '100vh', width: "100%" }}>
-                {/* left site */}
-                <div className="col-md-6 col-sm-12 d-flex align-items-center w-50 m-0 p-2 text-light">
-                    <div className='m-0 p-0  w-100'>
+            {/* header section start*/}
+            <header className='row m-0 p-0' style={{ height: '100vh', width: "100%" }}>
+                {/* left site start*/}
+                <div className="col-md-6 col-sm-12 row align-items-center w-50 m-0 p-2 ">
+                    <div className='m-0 p-0 w-100'>
                         <div className='row w-100'>
-                            <h2 className='col-md-6 fw-bold w-50 m-0 p-0  text-end' >Hello Dreamer!</h2>
-                            <span className='col-md-6 w-50 m-0 p-0'>build your dream project with me.</span>
+                            <h2 className='col-md-6 col-sm-12 fw-bold w-50 m-0 p-0  text-end' >Hello Dreamer!</h2>
+                            <span className='col-md-6 col-sm-12 w-50 m-0 p-0'>build your dream project with me.</span>
                         </div>
                         <div className='row w-100  m-0 p-0'>
-                            <p className='col-md-4 '>Choose your <b>technology.</b></p>
-                            <div className='col-md-5 m-0 p-0 '>
+                            <p className='col-md-4 col-sm-12'>Choose your <b>technology.</b></p>
+                            <div className='col-md-5 col-sm-12 m-0 p-0 '>
                                 <h1 className='fw-bold'>Let's start</h1>
                             </div>
-                            <p className='col-md-3  m-0 p-0 mt-4'>this <b>project</b></p>
+                            <p className='col-md-3 col-sm-12  m-0 p-0 mt-4'>this <b>project</b></p>
                         </div>
                         <div className="text-center">
-                            <span className='d-flex '>
+                            <span className='row'>
                                 I'm
                                 <h1 className='fw-bold ms-2 me-2'>Linkon.</h1>
                                 <span className="mt-4">Full-Stack Developer.</span>
@@ -49,7 +82,7 @@ const HomeComponent = () => {
                             </span>
                         </div>
                         <div className="text-end">
-                            <span className='d-flex'>
+                            <span className='row'>
 
                                 skilled in
                                 <h1 className='fw-bold ms-1'>Web Applications</h1>
@@ -60,7 +93,7 @@ const HomeComponent = () => {
                             <p className='fw-bold'>Back-End Development</p>
                         </div>
                         <div className="">
-                            <span className='d-flex'>
+                            <span className='row'>
                                 <h5 className='fw-bold me-1'>Web Security.Have</h5>
                                 strong engineering <b className='ms-1 me-1'>professional</b>  knowledge with <b className='ms-1'>experience</b>
                             </span>
@@ -68,14 +101,14 @@ const HomeComponent = () => {
                     </div>
 
                 </div>
-
-                {/* right site */}
+                {/* left site end*/}
+                {/* right site start*/}
                 <div className="col-md-6 col-sm-12 w-50 d-flex justify-content-center">
                     <div className='m-0 p-0 w-100'
                     // style={{ height: "60vh" }}
                     >
                         <div className='row m-0 p-0 mt-5 mb-5'
-                        style={{ height: "20vh" }}
+                            style={{ height: "20vh" }}
                         >
                             <div className="col-md-6 m-0 p-1 bg-warning d-flex align-items-end justify-content-end">
                                 <Text inComing={<h1 className='fw-bold text-white'>Javascript</h1>} />
@@ -85,8 +118,8 @@ const HomeComponent = () => {
                                 // style={{ color: "#8bc500" }}
                                 >Node <Text inComing={"JS"} /></h1>
                             </div>
-                            <div className="col-md-2 m-0 p-1 text-center bg-light">
-                                <Text inComing={<h6 className='fw-lighter fst-italic'>Express js</h6>} />
+                            <div className="col-md-2 m-0 p-1 text-center bg-primary">
+                                <Text inComing={<h6 className='fw-lighter fst-italic fw-bold'>Express js</h6>} />
                                 {/* <span className='text-warning fw-bold'>JS</span> */}
                             </div>
                         </div>
@@ -122,8 +155,8 @@ const HomeComponent = () => {
                             </animated.div>
                         </div>
                         {/* simple text */}
-                        <div className='text-center mb-5 border' style={{ height: "5vh" }}>
-                            <p className='text-uppercase fw-bold fs-6 p-2 m-0 text-light'>Technologies you need</p>
+                        <div className='text-center mb-5' style={{ height: "5vh" }}>
+                            <p className='text-uppercase fw-bold fs-6 p-2 m-0 text-dark'>Technologies you need</p>
                         </div>
                         {/* carousel */}
                         <div className='mb-5' style={{ height: "15vh" }}>
@@ -194,70 +227,42 @@ const HomeComponent = () => {
                         </div>
                     </div>
                 </div>
+                {/* right site end*/}
             </header>
-            {/* Experience section */}
-            <div className='text-center background-text-1 mt-2' style={{height: '100vh'}}>
+            {/* header section end*/}
+
+            {/* experience section start*/}
+            <div className='text-center background-text-1 p-3' id="#Experience" >
                 <div>
-                    <h3 className='font-style'>Experiences</h3>
+                    <h3 id="#Experience" className='font-style'>Experiences</h3>
                 </div>
 
-                <div className="row justify-content-center g-0 m-0 p-0">
-                    <div className="col-md-2 col-sm-12 border bg-light m-2" style={{ height: "40vh" }}>
-                        <div className='bg-info d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
-                            <img className='w-100 p-2' src={softzinoTechnologies} alt="softzinoTechnologies" />
-                        </div>
-                        <div className="" style={{ height: '20vh' }}>
-                            <p>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
-                        </div>
-                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
-                            <button className='btn btn-info btn-sm fw-bold text-white w-100 border'>Go</button>
-                        </div>
-                    </div>
-                    <div className="col-md-2 col-sm-12 border bg-secondary m-2" style={{ height: "40vh" }}>
-                        <div className='bg-light d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
-                            <img className='w-100 p-2' src={mgpLogo} alt="mgpLogo" />
-                        </div>
-                        <div className="" style={{ height: '20vh' }}>
-                            <p className='text-light'>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
-                        </div>
-                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
-                            <button className='btn btn-light btn-sm fw-bold text-dark w-100 border'>Go</button>
-                        </div>
-                    </div>
-                    <div className="col-md-2 col-sm-12 bg-secondary m-2" style={{ height: "40vh" }}>
-                        <div className='bg-light' style={{ height: '15vh' }}>
-                            <img className='w-100 p-2 w-100 border' src={hatherkache} alt="hatherkache"
-                                style={{
-                                    height: "15vh",
-                                }}
-                            />
-                        </div>
-                        <div className="" style={{ height: '20vh' }}>
-                            <p className='text-light'>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
-                        </div>
-                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
-                            <button className='btn btn-light btn-sm fw-bold text-dark w-100 border'>Go</button>
-                        </div>
-                    </div>
-                    <div className="col-md-2 col-sm-12 border bg-light m-2" style={{ height: "40vh" }}>
-                        <div className='bg-info d-flex justify-content-center align-items-center' style={{ height: '15vh' }}>
-                            <img className='w-100 p-2' src={freelancer} alt="mgpLogo" />
-                        </div>
-                        <div className="" style={{ height: '20vh' }}>
-                            <p>Lorem ipsumignissimos tempors, consequuntur esse. Obcaecati  tempore tempore tempore excepturi cupiditate.</p>
-                        </div>
-                        <div className='d-flex align-items-end justify-content-center' style={{ height: '5vh' }}>
-                            <button className='btn btn-info btn-sm fw-bold text-white border w-100'>Go</button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 className='fst-italic'>.</h3>
+                <div className="row g-0 mt-5 p-0 ">
+                    {
+                        cardInfo.map(sCard =>
+                            <div className="col-md-3 col-sm-12">
+                                <Card key={sCard.id} image={sCard.image} content={sCard.name} />
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
+            {/* experience section end*/}
 
-            {/* another section */}
-            <h1>Details Section</h1>
+            {/* technology section start*/}
+            <div className='text-center background-text-2 p-3 mt-5' >
+                <div>
+                    <h3 className='font-style'>Technologies</h3>
+                </div>
+                <div className='row border'>
+                    <Detail />
+                </div>
+            </div>
+            {/* technology section end*/}
+
+
+
 
         </section>
     );

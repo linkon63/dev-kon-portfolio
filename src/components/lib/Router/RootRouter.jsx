@@ -6,9 +6,9 @@ import About from '../About/About';
 const RootRouter = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="home" element={<Home />} />
-            <Route path="about" element={<About />} />
+            <Route path="/" element={<Home key={Math.random() + ""} />} />
+            <Route path="home" element={<Home key={Math.random() + ""} />} />
+            <Route path="about" element={<About key={Math.random() + ""} />} />
         </Routes>
     );
 };

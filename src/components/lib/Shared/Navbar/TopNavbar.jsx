@@ -45,7 +45,7 @@ const TopNavbar = () => {
                 aria-labelledby="offcanvasTopLabel">
 
                 <div className="offcanvas-header">
-                    <p id="offcanvasTopLabel" className='m-0 p-0'>Welcome to Dev<span className='fw-bold'>|KON</span></p>
+                    <p id="offcanvasTopLabel" className='m-0 p-0 text-center w-100'>Welcome to Dev<span className='fw-bold'>|KON</span></p>
                     <button type="button" className="btn-close text-reset m-0 p-0" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
 
