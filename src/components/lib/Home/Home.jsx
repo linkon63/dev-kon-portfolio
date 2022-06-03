@@ -4,7 +4,7 @@ import HomeComponent from './HomeComponent';
 
 const Home = () => {
     return (
-        <Layout key={Math.random()} props={<HomeComponent />} />
+        <Layout key={Math.random() + ""} props={<HomeComponent key={Math.random() + ""} />} />
     );
 };
 

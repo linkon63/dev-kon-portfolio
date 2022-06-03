@@ -29,6 +29,9 @@
 .background-text-2{
     position: relative;
 }
+.background-text-3{
+    position: relative;
+}
 
 .background-text-1:before {
     /* margin: 4rem; */
@@ -44,6 +47,17 @@
 }
 .background-text-2:before {
     content: "Technology";
+    position: absolute;
+    font-size: 100px;
+    font-family: 'Zen Loop', cursive;
+    color: rgb(0, 0, 0);
+    top: -35px;
+    opacity: 0.2;
+    left: 0;
+    z-index: -1;
+}
+.background-text-3:before {
+    content: "Day Cycle";
     position: absolute;
     font-size: 100px;
     font-family: 'Zen Loop', cursive;
