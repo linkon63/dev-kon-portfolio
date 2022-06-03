@@ -4,7 +4,7 @@ import { config, useSpring, animated } from "react-spring";
 const Details = () => {
     const [flip, set] = useState(false)
 
-    const words = ['I', 'am.', 'here', 'to.', 'help', 'you']
+    const words = ['I', 'am', 'here', 'to', 'help', 'you']
 
     const { scroll } = useSpring({
         scroll: (words.length - 1) * 50,

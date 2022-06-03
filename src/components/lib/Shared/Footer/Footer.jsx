@@ -37,7 +37,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div id="copyright-information">
-                        <TableSvg />
+                        {/* <TableSvg /> */}
                         <div id="footer-logo-section ">
                             <div id="footer-logo">
                                 <img src="https://raw.githubusercontent.com/taviskaron/2-3-4-column-footers/main/img/logo.png" alt="" />

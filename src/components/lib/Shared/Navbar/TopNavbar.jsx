@@ -24,7 +24,7 @@ const TopNavbar = () => {
 
     return (
         <>
-            <section className='w-100 d-flex border border-bottom-1'>
+            <section className='w-100 d-flex border'>
                 <div className='d-flex align-items-center w-50 justify-content-end '>
                     <p className='m-0'>Dev <span className='fw-bold'>|KON</span></p>
                 </div>
@@ -49,10 +49,10 @@ const TopNavbar = () => {
                     <button type="button" className="btn-close text-reset m-0 p-0" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
 
-                <div className="offcanvas-body">
-                    <section>
-                        <div className="row w-100">
-                            <div className="col-md-4 col-sm-12 text-center">
+                <div className="offcanvas-body m-0 p-0">
+                    <section className='w-100 row justify-content-center'>
+                        <div className="row w-100 justify-content-center">
+                            <div className="col-md-2 col-sm-12 text-center">
                                 <h4>Routes</h4>
                                 <Link to="/home">
                                     <span
@@ -76,20 +76,15 @@ const TopNavbar = () => {
                                 </Link>
 
                             </div>
-                            <div className="col-md-2 col-sm-12 text-center">
-                                <h4>Social Link</h4>
-                                <p className='m-0'>Facebook</p>
-                                <p className='m-0'>LinkedIn</p>
-                                <p className='m-0'>GitHub</p>
-                            </div>
-                            <div className="col-md-6 d-flex col-sm-12 ">
-                                <div className="w-25 p-5 mt-3">
+                            <div className="col-md-6 d-flex col-sm-12 justify-content-center ">
+                                {/* <Text /> */}
+                                <div className="row">
                                     {/* animation react spring */}
                                     <div
                                         className={styles.container}
                                         onMouseEnter={() => toggle(!open)}
                                     >
-                                        <animated.svg className={styles.svg} style={{ scale, opacity }} viewBox="0 0 1278 446">
+                                        {/* <animated.svg className={styles.svg} style={{ scale, opacity }} viewBox="0 0 1278 446">
                                             <defs>
                                                 <filter id="water">
                                                     <AnimFeTurbulence type="fractalNoise" baseFrequency={freq} numOctaves="2" result="TURB" seed="8" />
@@ -109,28 +104,32 @@ const TopNavbar = () => {
                                                     fill="lightblue"
                                                 />
                                             </g>
-                                        </animated.svg>
+                                        </animated.svg> */}
                                     </div>
-                                    <Text />
                                 </div>
-                                <div className="w-75 m-0 p-0 ">
-                                    <div className='bg-light'>
-                                        <div className="d-flex justify-content-end" >
-                                            <div className="col-md-6 ms-2 d-flex justify-content-center align-items-center rounded">
-                                                <div className="text-center">
-                                                    <h5 className="card-title">MD. ABDUL AHAD LINKON</h5>
-                                                    <Details />
-                                                    {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                                                </div>
+                                <div className="w-50 m-0 p-0 ">
+                                    <div className="d-flex justify-content-center" >
+                                        <div className="col-md-6 ms-2 d-flex justify-content-center align-items-center rounded">
+                                            <div className="text-center">
+                                                <h5 className="card-title">MD. ABDUL AHAD LINKON</h5>
+                                                <Details />
+                                                {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
+                                                <Text />
                                             </div>
-                                            <div className="col-md-4 text-end border rounded-circle bg-warning">
-                                                <img style={{ height: "100%", width: "80%" }}
-                                                    src={personalImage} className="img-fluid rounded-start rounded-pill  " alt="user"
-                                                />
-                                            </div>
+                                        </div>
+                                        <div className="col-md-4 text-end rounded-circle bg-light shadow">
+                                            <img style={{ height: "100%", width: "80%" }}
+                                                src={personalImage} className="img-fluid rounded-start rounded-pill  " alt="user"
+                                            />
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="col-md-2 col-sm-12 text-center">
+                                <h4>Social Link</h4>
+                                <p className='m-0'>Facebook</p>
+                                <p className='m-0'>LinkedIn</p>
+                                <p className='m-0'>GitHub</p>
                             </div>
                         </div>
                     </section>

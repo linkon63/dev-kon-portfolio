@@ -8,12 +8,14 @@ import softzinoTechnologies from '../../assests/softzinoTechnology.png'
 import mgpLogo from '../../assests/mpgLogo.png'
 import hatherkache from '../../assests/hatherKachePng.png'
 import freelancer from '../../assests/freelancerPng.png'
-import './HomeComponent.css'
 import Card from './Cards/Card';
 import Detail from './Details/Detail';
 import Cycle from './Cycle/Cycle';
 import HeaderLeft from './HeaderLeft/HeaderLeft';
 import Footer from '../Shared/Footer/Footer';
+import TableSvg from '../SVG/TableSvg';
+import './HomeComponent.css'
+import './Bubble.css'
 
 const HomeComponent = () => {
     const [flip, set] = useState(false)
@@ -57,15 +59,20 @@ const HomeComponent = () => {
     }, [pathname, hash, key]); // do this on route change
 
     return (
-        <section>
+        <section className='mt-1'>
 
             {/* header section start*/}
-            <header className='row m-0 p-0 border border-3 w-100 h-100'
+            <header className='row m-0 p-0 w-100 h-100'
             // style={{ height: '100vh', width: "100%" }}
             >
                 {/* left site start*/}
                 <div className="col-xl-6 col-md-12 col-sm-12 h-100">
-                    <HeaderLeft />
+                    {/* <HeaderLeft /> */}
+                    <TableSvg />
+                    <div className='text-center m-2 p-2'>
+                        <button className='btn '> <h1>Lets talk</h1></button>
+                    </div>
+
                 </div>
                 {/* left site end*/}
                 {/* right site start*/}
@@ -82,7 +89,7 @@ const HomeComponent = () => {
                                 </h1>
                             </div>
                             <div className="col-md-2 m-0 p-1 text-center bg-primary">
-                                <Text inComing={<h6 className='fw-lighter fst-italic fw-bold'>Express js</h6>} />
+                                <Text inComing={<h6 className='text-white fst-italic fw-bold'>Express js</h6>} />
                             </div>
                         </div>
                         {/* animation */}
