@@ -8,6 +8,8 @@ import styles from '../../../../../src/styles.module.css'
 
 import navbarIcon from '../../../icons/navbarIcon.png'
 import personalImage from '../../../assests/PersonalImage.png'
+import arc from '../../../assests/arc.png'
+import closeArc from '../../../assests/closeArc.png'
 import './TopNavbar.css'
 
 const AnimFeTurbulence = animated('feTurbulence')
@@ -24,17 +26,24 @@ const TopNavbar = () => {
 
     return (
         <>
-            <section className='w-100 d-flex border'>
-                <div className='d-flex align-items-center w-50 justify-content-end '>
-                    <p className='m-0'>Dev <span className='fw-bold'>|KON</span></p>
+            <section className='w-100 d-flex bg-dark text-light'>
+                <div className='d-flex align-items-center justify-content-center ps-5 pt-2' style={{width:"95%"}}>
+                    <div className="d-flex ms-5 ps-5">
+                        <p className=' pt-2'>Dev</p>
+                        <div className="ms-1 me-1">
+                            <img src={arc} alt="arc" style={{ width: "36px", height: "36px" }} />
+                        </div>
+                        <p className=' pt-2'>KON</p>
+                    </div>
                 </div>
-                <div className='d-flex w-50 justify-content-end'>
+                <div className='d-flex justify-content-center' style={{width:"5%"}}>
                     <button className="btn"
                         type="button"
                         data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasTop"
                         aria-controls="offcanvasTop">
-                        <img src={navbarIcon} alt="navbarIcon" style={{ height: "26px", width: "26px" }} />
+                        <img className='' src={arc} alt="navbarIcon" style={{ height: "26px", width: "26px" }} />
+                        {/* <img className='bg-light m-1 ' src={navbarIcon} alt="navbarIcon" style={{ height: "26px", width: "26px" }} /> */}
                     </button>
                 </div>
             </section>
@@ -44,32 +53,34 @@ const TopNavbar = () => {
                 id="offcanvasTop"
                 aria-labelledby="offcanvasTopLabel">
 
-                <div className="offcanvas-header">
-                    <p id="offcanvasTopLabel" className='m-0 p-0 text-center w-100'>Welcome to Dev<span className='fw-bold'>|KON</span></p>
-                    <button type="button" className="btn-close text-reset m-0 p-0" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <div className="offcanvas-header headerBg">
+                    <h4 id="offcanvasTopLabel" className='m-0 p-0 text-center w-100 text-light'>Welcome to Dev<span className='fw-bold'>|KON</span></h4>
+                    {/* <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
+                        <img src={closeArc} style={{ height: "26px", width: "26px" }} alt="close" />
+                    </button> */}
                 </div>
 
-                <div className="offcanvas-body m-0 p-0">
+                <div className="offcanvas-body m-0 p-0 topNavContent">
                     <section className='w-100 row justify-content-center'>
                         <div className="row w-100 justify-content-center">
-                            <div className="col-md-2 col-sm-12 text-center">
+                            <div className="col-md-2 col-sm-12 text-center text-light">
                                 <h4>Routes</h4>
                                 <Link to="/home">
-                                    <span
+                                    <span className='text-light'
                                         data-bs-dismiss="offcanvas">
                                         Home
                                     </span>
                                 </Link>
                                 <br />
                                 <Link to="/about">
-                                    <span
+                                    <span className='text-light'
                                         data-bs-dismiss="offcanvas">
                                         About
                                     </span>
                                 </Link>
                                 <br />
                                 <Link to="/about">
-                                    <span
+                                    <span className='text-light'
                                         data-bs-dismiss="offcanvas">
                                         Resume
                                     </span>
@@ -111,26 +122,26 @@ const TopNavbar = () => {
                                     <div className="d-flex justify-content-center" >
                                         <div className="col-md-6 ms-2 d-flex justify-content-center align-items-center rounded">
                                             <div className="text-center">
-                                                <h5 className="card-title">MD. ABDUL AHAD LINKON</h5>
-                                                <Details />
+                                                {/* <h5 className="card-title">MD. ABDUL AHAD LINKON</h5> */}
+                                                {/* <Details /> */}
                                                 {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                                                <Text />
+                                                {/* <Text /> */}
                                             </div>
                                         </div>
-                                        <div className="col-md-4 text-end rounded-circle bg-light shadow">
+                                        {/* <div className="col-md-4 text-end rounded-circle bg-light shadow">
                                             <img style={{ height: "100%", width: "80%" }}
                                                 src={personalImage} className="img-fluid rounded-start rounded-pill  " alt="user"
                                             />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-2 col-sm-12 text-center">
+                            {/* <div className="col-md-2 col-sm-12 text-center">
                                 <h4>Social Link</h4>
                                 <p className='m-0'>Facebook</p>
                                 <p className='m-0'>LinkedIn</p>
                                 <p className='m-0'>GitHub</p>
-                            </div>
+                            </div> */}
                         </div>
                     </section>
                 </div>

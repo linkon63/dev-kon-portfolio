@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-
 /* router Style */
 section {
     font-family: "Inconsolata", monospace;
@@ -15,5 +14,18 @@ a:hover {
     color: gray;
 }
 
-
+.headerBg{
+    background-image: url('../../../assests/sliceOne.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #010105;
+}
+.topNavContent{
+    background-image: url('../../../assests/jarvice.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: contain, cover;
+    background-position: center;
+    background-color: #010105;
+}
 /* card style */
