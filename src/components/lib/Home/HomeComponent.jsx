@@ -16,6 +16,7 @@ import Footer from '../Shared/Footer/Footer';
 import TableSvg from '../SVG/TableSvg';
 import './HomeComponent.scss'
 import './Bubble.css'
+import Number from '../../animation/Number';
 
 const HomeComponent = () => {
     const [flip, set] = useState(false)
@@ -75,8 +76,27 @@ const HomeComponent = () => {
                 style={{ height: '95vh', width: "100%" }}
             >
                 {/* left site start*/}
-                <div className="col-xl-4 col-md-4 col-sm-12 " style={{ backgroundColor: "#aa0505" }}>
-
+                <div className="col-xl-4 col-md-4 col-sm-12 leftSideSection text-light" style={{ backgroundColor: "#aa0505" }}>
+                    <div className="row h-100 border">
+                        <div className="col-md-4 border h-25 bg-primary bbg-gradient">
+                            h1
+                        </div>
+                        <div className="col-md-4 border h-25">
+                            h2
+                        </div>
+                        <div className="col-md-4 border h-25">
+                            h3
+                        </div>
+                        <div className="col-md-4 border h-25">
+                            h4
+                        </div>
+                        <div className="col-md-4 border h-25">
+                            h5
+                        </div>
+                        <div className="col-md-4 border h-25">
+                            h5
+                        </div>
+                    </div>
                 </div>
                 {/* left site end*/}
                 <div className="col-xl-4 col-md-4 col-sm-12 midSection"
@@ -106,12 +126,17 @@ const HomeComponent = () => {
                         </div>
                         <div className="col h-50 d-flex justify-content-center align-items-center">
                             <p className='mt-3 rounded fw-bold btn border-0' >
-                                <Text inComing={
-                                    <button
-                                        className='fw-bold p-2 btn border-0 text-light'
-                                        style={{ backgroundColor: "#aa0505" }}>
-                                        !
-                                    </button>} />
+                                {
+                                    visible === 'hidden' ?
+                                        <Text inComing={
+                                            <button
+                                                className='fw-bold p-2 btn border-0 text-light'
+                                                style={{ backgroundColor: "#aa0505" }}>
+                                                !
+                                            </button>} />
+
+                                        : <span className=''><Number /></span>
+                                }
                             </p>
                         </div>
                         <div className="col h-25 d-flex align-items-start" style={{ visibility: visible }} >
@@ -181,7 +206,7 @@ const HomeComponent = () => {
                     </div>
                 </div>
                 {/* right site start*/}
-                <div className="col-xl-4 col-md-4 col-sm-12" style={{ backgroundColor: "#fbca03" }}>
+                <div className="col-xl-4 col-md-4 col-sm-12 rightSection" style={{ backgroundColor: "#dab356" }}>
                 </div>
                 {/* right site end*/}
             </header>

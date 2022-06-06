@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSpring, animated } from '@react-spring/web'
+import { useSpring, animated, config, Spring } from '@react-spring/web'
 import Text from '../../../animation/Text'
 import Details from '../../../animation/Details';
 
@@ -27,7 +27,7 @@ const TopNavbar = () => {
     return (
         <>
             <section className='w-100 d-flex bg-dark text-light'>
-                <div className='d-flex align-items-center justify-content-center ps-5 pt-2' style={{width:"95%"}}>
+                <div className='d-flex align-items-center justify-content-center ps-5 pt-2' style={{ width: "95%" }}>
                     <div className="d-flex ms-5 ps-5">
                         <p className=' pt-2'>Dev</p>
                         <div className="ms-1 me-1">
@@ -36,7 +36,7 @@ const TopNavbar = () => {
                         <p className=' pt-2'>KON</p>
                     </div>
                 </div>
-                <div className='d-flex justify-content-center' style={{width:"5%"}}>
+                <div className='d-flex justify-content-center' style={{ width: "5%" }}>
                     <button className="btn"
                         type="button"
                         data-bs-toggle="offcanvas"
@@ -85,7 +85,14 @@ const TopNavbar = () => {
                                         Resume
                                     </span>
                                 </Link>
-
+                                {/* <Spring
+                                    config={config.slow}
+                                    from={{ num: 1 }}
+                                    to={{ num: 100 }}
+                                    delay="1000"
+                                >
+                                    {props => <div>{props.num.toFixed()}</div>}
+                                </Spring> */}
                             </div>
                             <div className="col-md-6 d-flex col-sm-12 justify-content-center ">
                                 {/* <Text /> */}
