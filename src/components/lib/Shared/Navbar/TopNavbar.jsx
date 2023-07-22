@@ -26,7 +26,7 @@ const TopNavbar = () => {
 
   return (
     <>
-      <section className="w-100 d-flex bg-dark text-light">
+      <section className="w-100 d-flex text-light navbar-head">
         <div
           className="d-flex align-items-center justify-content-center ps-5 pt-2"
           style={{ width: "95%" }}
@@ -80,29 +80,23 @@ const TopNavbar = () => {
         <div className="offcanvas-body m-0 p-0 topNavContent">
           <section className="w-100 row justify-content-center">
             <div className="row w-100 justify-content-center">
-              <div className="col-md-8 col-sm-12 text-center text-light">
+              <div className="col-md-8 col-sm-12 text-center">
                 <h6>Let's Go</h6>
                 <Link to="/home">
-                  <span className="text-light" data-bs-dismiss="offcanvas">
-                    / home
-                  </span>
+                  <span data-bs-dismiss="offcanvas">/ home</span>
                 </Link>
                 <br />
                 <Link to="/about">
-                  <span className="text-light" data-bs-dismiss="offcanvas">
-                    / about
-                  </span>
+                  <span data-bs-dismiss="offcanvas">/ about</span>
                 </Link>
                 <br />
                 <Link to="/about">
-                  <span className="text-light" data-bs-dismiss="offcanvas">
-                    / resume
-                  </span>
+                  <span data-bs-dismiss="offcanvas">/ resume</span>
                 </Link>
               </div>
               <div className="col-md-4 col-sm-12 d-flex justify-content-center align-items-center ">
                 <Link to="/contact">
-                  <span className="text-light" data-bs-dismiss="offcanvas">
+                  <span data-bs-dismiss="offcanvas">
                     / contact
                   </span>
                 </Link>

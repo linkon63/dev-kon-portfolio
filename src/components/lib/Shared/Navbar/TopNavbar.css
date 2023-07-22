@@ -5,6 +5,10 @@ body, section {
     font-family: 'Yuji Boku', serif;
 }
 
+.navbar-head {
+    background-color: #000000;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -15,7 +19,7 @@ a:hover {
 }
 
 .headerBg {
-    background-image: url('../../../assests/sliceOne.jpg');
+    /* background-image: url('../../../assests/sliceOne.jpg'); */
     background-repeat: no-repeat, repeat;
     background-size: cover;
     background-position: center;
@@ -23,11 +27,11 @@ a:hover {
 }
 
 .topNavContent {
-    background-image: url('../../../assests/jarvice.jpg');
+    /* background-image: url('../../../assests/jarvice.jpg'); */
     background-repeat: no-repeat, repeat;
     background-size: contain, cover;
     background-position: center;
-    background-color: #010105;
+    background-color: #ffffff;
 }
 
 /* card style */
