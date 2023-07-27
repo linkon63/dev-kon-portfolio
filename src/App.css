@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap');
+
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Yuji Boku', serif;
+    color: white;
+}

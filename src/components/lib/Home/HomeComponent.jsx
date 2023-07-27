@@ -106,17 +106,14 @@ const HomeComponent = () => {
   return (
     <section className="">
       {/* header section start*/}
-      <header
-        className="row m-0 p-0 w-100 headerSection"
-        style={{ height: "95vh", width: "100%" }}
-      >
+      <header className="row m-0 p-0 w-100 h-100 headerSection">
         {/* left site end*/}
-        <div className="col-xl-6 col-md-6 col-sm-12 border">
+        {/* <div className="col-xl-6 col-md-6 col-sm-12 border">
           <h1>Left</h1>
-        </div>
-        <div className="col-xl-6 col-md-6 col-sm-12 border">
+        </div> */}
+        {/* <div className="col-xl-6 col-md-6 col-sm-12 border">
           <h1>Right</h1>
-        </div>
+        </div> */}
         {/* right site start*/}
         {/* <div className="col-xl-4 col-md-4 col-sm-12 rightSection pt-5" style={{ backgroundColor: "#dab356" }}>
                     <div class="background-one">
@@ -136,7 +133,7 @@ const HomeComponent = () => {
       {/* header section end*/}
 
       {/* experience section start*/}
-      <div className="text-center background-text-1 p-3" id="#Experience">
+      {/* <div className="text-center background-text-1 p-3" id="#Experience">
         <div>
           <h3 id="#Experience" className="font-style">
             Experiences
@@ -158,35 +155,35 @@ const HomeComponent = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       {/* experience section end*/}
 
       {/* technology section start*/}
-      <div className="text-center background-text-2 p-3 mt-5">
+      {/* <div className="text-center background-text-2 p-3 mt-5">
         <div>
           <h3 className="font-style">Technologies</h3>
         </div>
         <div className="row">
           <Detail />
         </div>
-      </div>
+      </div> */}
       {/* technology section end*/}
 
       {/* cycle section start*/}
-      <div className="text-center background-text-3 p-3 mt-5">
+      {/* <div className="text-center background-text-3 p-3 mt-5">
         <div>
           <h3 className="font-style">Day Cycle</h3>
         </div>
         <div className="">
           <Cycle />
         </div>
-      </div>
+      </div> */}
       {/* cycle section end*/}
 
       {/* footer section start */}
-      <div>
+      {/* <div>
         <Footer />
-      </div>
+      </div> */}
       {/* footer section end */}
     </section>
   );
