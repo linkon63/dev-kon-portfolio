@@ -1,6 +1,13 @@
 import React from "react";
 import TopNavbar from "../Shared/Navbar/TopNavbar";
 import { Link } from "react-router-dom";
+import {
+  FaFacebook,
+  FaLinkedinIn,
+  FaGit,
+  FaEnvelope,
+  FaCopyright,
+} from "react-icons/fa";
 
 const Layout = ({ props }) => {
   return (
@@ -38,6 +45,26 @@ const Layout = ({ props }) => {
                 <button className="btn ps-4 pe-4 bg-white fw-bold">
                   Resume &#128376;
                 </button>
+                <div className="d-flex pt-3">
+                  <p className="m-2 social-icon">
+                    <FaLinkedinIn />
+                  </p>
+                  <p className="m-2 social-icon">
+                    <FaGit />
+                  </p>
+                  <p className="m-2 social-icon">
+                    <FaEnvelope />
+                  </p>
+                  <p className="m-2 social-icon">
+                    <FaFacebook />
+                  </p>
+                </div>
+                <div className="pt-5">
+                  <span className="social-icon">
+                    Site design / logo <FaCopyright /> -
+                    {new Date().getFullYear()} dev|kon; user contributions
+                  </span>
+                </div>
               </div>
             </div>
           </div>

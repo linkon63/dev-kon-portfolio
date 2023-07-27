@@ -2,7 +2,17 @@
 
 body {
     height: 100%;
-    overflow: hidden;
     font-family: 'Yuji Boku', serif;
     color: white;
+    /* overflow: hidden; */
+}
+
+.social-icon>svg {
+    height: 26px;
+    width: 26px;
+}
+
+.skill-icon>svg {
+    height: 26px;
+    width: 26px;
 }
