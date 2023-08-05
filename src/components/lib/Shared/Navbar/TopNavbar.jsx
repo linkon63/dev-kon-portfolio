@@ -32,31 +32,24 @@ const TopNavbar = () => {
           style={{ width: "95%" }}
         >
           <div className="d-flex ms-5 ps-5">
-            <p className=" pt-2">Dev</p>
-            <div className="ms-1 me-1">
-              <img
-                src={arc}
-                alt="arc"
-                style={{ width: "36px", height: "36px" }}
-              />
-            </div>
-            <p className=" pt-2">KON</p>
+            <p className=" pt-2">Dev</p>|<p className=" pt-2">KON</p>
           </div>
         </div>
         <div className="d-flex justify-content-center" style={{ width: "5%" }}>
           <button
-            className="btn"
+            className="btn text-white "
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasTop"
             aria-controls="offcanvasTop"
           >
-            <img
+            <div className="">|||</div>
+            {/* <img
               className=""
               src={arc}
               alt="navbarIcon"
               style={{ height: "26px", width: "26px" }}
-            />
+            /> */}
             {/* <img className='bg-light m-1 ' src={navbarIcon} alt="navbarIcon" style={{ height: "26px", width: "26px" }} /> */}
           </button>
         </div>
@@ -90,15 +83,17 @@ const TopNavbar = () => {
                   <span data-bs-dismiss="offcanvas">/ about</span>
                 </Link>
                 <br />
-                <Link to="/about">
+                <Link to="/resume">
                   <span data-bs-dismiss="offcanvas">/ resume</span>
+                </Link>
+                <br />
+                <Link to="/projects">
+                  <span data-bs-dismiss="offcanvas">/ projects</span>
                 </Link>
               </div>
               <div className="col-md-4 col-sm-12 d-flex justify-content-center align-items-center ">
                 <Link to="/contact">
-                  <span data-bs-dismiss="offcanvas">
-                    / contact
-                  </span>
+                  <span data-bs-dismiss="offcanvas">/ contact</span>
                 </Link>
               </div>
             </div>

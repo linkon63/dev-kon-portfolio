@@ -22,13 +22,13 @@ const Layout = ({ props }) => {
             <div className="text-white">
               <h1 className="text-white">Hello Welcome to the code world</h1>
               <p>Explore me </p>
-              <Link to="/skills" className="text-white">
+              <Link to="/" className="text-white">
                 <h4>/ skills &#9626;</h4>
               </Link>
               <Link to="/about" className="text-white">
                 <h4>/ know about me &#9728;</h4>
               </Link>
-              <Link to="/project" className="text-white">
+              <Link to="/projects" className="text-white">
                 <h4>/ Interesting projects I have worked &#9928; </h4>
               </Link>
               <Link to="/resume" className="text-white">
@@ -69,7 +69,9 @@ const Layout = ({ props }) => {
             </div>
           </div>
         </div>
-        <div className="col-xl-6 col-md-6 col-sm-12">{props}</div>
+        <div className="col-xl-6 col-md-6 col-sm-12 d-flex align-items-center">
+          {props}
+        </div>
       </div>
     </div>
   );

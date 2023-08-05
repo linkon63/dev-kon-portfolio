@@ -106,9 +106,7 @@ const HomeComponent = () => {
   // }
 
   return (
-    <section className="">
       <Skills />
-    </section>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   FaJira,
   FaTrello,
   FaGithub,
+  FaAngular,
 } from "react-icons/fa";
 import {
   SiExpress,
@@ -117,8 +118,8 @@ export const mySkills = [
   },
   {
     id: 10,
-    title: "git",
-    icon: <FaGithub />,
+    title: "angular",
+    icon: <FaAngular />,
   },
   {
     id: 11,

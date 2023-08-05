@@ -4,7 +4,7 @@ body {
     height: 100%;
     font-family: 'Yuji Boku', serif;
     color: white;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .social-icon>svg {
@@ -16,3 +16,10 @@ body {
     height: 26px;
     width: 26px;
 }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 785px) {
+    body {
+        overflow: scroll;
+    }
+  }
