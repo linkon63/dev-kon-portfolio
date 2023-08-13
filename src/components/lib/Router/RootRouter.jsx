@@ -6,7 +6,8 @@ import Project from "../Project/Project";
 import Layout from "../Layout/Layout";
 import HomeComponent from "../Home/HomeComponent";
 import Dashboard from "../../admin/dashboard/Dashboard";
-
+import AllProject from "../Project/AllProject/AllProject";
+import Resume from "../Resume/Resume";
 const RootRouter = () => {
   return (
     <Routes>
@@ -30,6 +31,11 @@ const RootRouter = () => {
           />
         }
       />
+      <Route
+        path="/allProject"
+        element={<AllProject key={Math.random() + ""} />}
+      />
+      <Route path="/resume" element={<Resume key={Math.random() + ""} />} />
       <Route
         path="/dashboard"
         element={<Dashboard key={Math.random() + ""} />}

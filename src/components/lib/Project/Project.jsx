@@ -3,7 +3,10 @@ import appleDoctor from "../../assests/appledoctor.png";
 import doctorAppointment from "../../assests/doctor appointment.png";
 import emajohn from "../../assests/ema-jhon.png";
 import rideshare from "../../assests/Ride.png";
+import taskmanager from "../../assests/project pania.png";
+
 import "./Product.scss";
+import { Link } from "react-router-dom";
 export default function Project() {
   return (
     <div className="row">
@@ -70,6 +73,34 @@ export default function Project() {
                 class="btn btn-light  m-1"
               >
                 Server
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* vue js project */}
+      <div className="col-md-6">
+        <div class="card bg-dark mt-4">
+          <img src={taskmanager} class="card-img-top" alt="..." />
+          <div class="card-body">
+            <div class="text-section">
+              <h5 class="card-title fw-bold text-white">Mange your task</h5>
+              <p class="card-text text-white">
+                VUE project task manager, state manage by pania js
+              </p>
+            </div>
+            <div class="cta-section">
+              <a
+                href="https://vue-2-pania-state.netlify.app/"
+                class="btn btn-light m-1"
+              >
+                Live
+              </a>
+              <a
+                href="https://github.com/linkon63/Vue-2-Pania-State"
+                class="btn btn-light  m-1"
+              >
+                Client
               </a>
             </div>
           </div>
@@ -159,72 +190,9 @@ export default function Project() {
           </div>
         </div>
       </div>
-      {/* <div className="col-md-6">
-        <div class="card bg-dark mt-4">
-          <img src={appleDoctor} class="card-img-top" alt="..." />
-          <div class="card-body">
-            <div class="text-section">
-              <h5 class="card-title fw-bold text-white">Smart Device Repair</h5>
-              <p class="card-text text-white">
-                Full Stack Smart device repair center
-              </p>
-            </div>
-            <div class="cta-section">
-              <a
-                href="https://appledoctorclient.netlify.app/"
-                class="btn btn-light m-1"
-              >
-                Live
-              </a>
-              <a
-                href="https://github.com/linkon63/Apple-Doctor-Client"
-                class="btn btn-light  m-1"
-              >
-                Client
-              </a>
-              <a
-                href="https://github.com/linkon63/Apple-Doctor-Server"
-                class="btn btn-light  m-1"
-              >
-                Server
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div class="card bg-dark mt-4">
-          <img src={appleDoctor} class="card-img-top" alt="..." />
-          <div class="card-body">
-            <div class="text-section">
-              <h5 class="card-title fw-bold text-white">Smart Device Repair</h5>
-              <p class="card-text text-white">
-                Full Stack Smart device repair center
-              </p>
-            </div>
-            <div class="cta-section">
-              <a
-                href="https://appledoctorclient.netlify.app/"
-                class="btn btn-light m-1"
-              >
-                Live
-              </a>
-              <a
-                href="https://github.com/linkon63/Apple-Doctor-Client"
-                class="btn btn-light  m-1"
-              >
-                Client
-              </a>
-              <a
-                href="https://github.com/linkon63/Apple-Doctor-Server"
-                class="btn btn-light  m-1"
-              >
-                Server
-              </a>
-            </div>
-          </div>
-        </div>
-      </div> */}
+      <Link to="/allProject" className="btn btn-secondary">
+        See more
+      </Link>
     </div>
   );
 }

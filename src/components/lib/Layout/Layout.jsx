@@ -42,9 +42,13 @@ const Layout = ({ props }) => {
               </Link>
               <div>
                 <p>Find me here &#128640;</p>
-                <button className="btn ps-4 pe-4 bg-white fw-bold">
+                <Link to="/resume" className="btn ps-4 pe-4 bg-white fw-bold">
+                  {/* <h4>/ do you have ideas? &#9993; </h4> */}
                   Resume &#128376;
-                </button>
+                </Link>
+                {/* <button className="btn ps-4 pe-4 bg-white fw-bold">
+                  Resume &#128376;
+                </button> */}
                 <div className="d-flex pt-3">
                   <p className="m-2 social-icon">
                     <FaLinkedinIn />
