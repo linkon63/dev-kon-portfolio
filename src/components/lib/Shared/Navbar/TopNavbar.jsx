@@ -83,12 +83,12 @@ const TopNavbar = () => {
                   <span data-bs-dismiss="offcanvas">/ about</span>
                 </Link>
                 <br />
-                <Link to="/resume">
-                  <span data-bs-dismiss="offcanvas">/ resume</span>
-                </Link>
-                <br />
                 <Link to="/projects">
                   <span data-bs-dismiss="offcanvas">/ projects</span>
+                </Link>
+                <br />
+                <Link to="/resume">
+                  <span data-bs-dismiss="offcanvas">/ resume</span>
                 </Link>
               </div>
               <div className="col-md-4 col-sm-12 d-flex justify-content-center align-items-center ">

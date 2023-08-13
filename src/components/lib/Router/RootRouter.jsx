@@ -5,6 +5,7 @@ import About from "../About/About";
 import Project from "../Project/Project";
 import Layout from "../Layout/Layout";
 import HomeComponent from "../Home/HomeComponent";
+import Dashboard from "../../admin/dashboard/Dashboard";
 
 const RootRouter = () => {
   return (
@@ -28,6 +29,10 @@ const RootRouter = () => {
             props={<Project key={Math.random() + ""} />}
           />
         }
+      />
+      <Route
+        path="/dashboard"
+        element={<Dashboard key={Math.random() + ""} />}
       />
     </Routes>
   );

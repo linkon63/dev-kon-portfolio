@@ -23,6 +23,10 @@ const AboutComponent = () => {
         >
           GitHub: https://github.com/linkon63
         </a>
+        <br />
+        <button className="btn ps-4 pe-4 bg-white fw-bold mt-5">
+          Email Me &#128397;
+        </button>
       </div>
       <div className="col-md-4">
         <img src={profileImage} alt="profile" width={"100%"} />
