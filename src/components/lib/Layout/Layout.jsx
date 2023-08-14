@@ -49,19 +49,39 @@ const Layout = ({ props }) => {
                 {/* <button className="btn ps-4 pe-4 bg-white fw-bold">
                   Resume &#128376;
                 </button> */}
-                <div className="d-flex pt-3">
-                  <p className="m-2 social-icon">
+                <div className="d-flex">
+                  <a
+                    className="m-2 social-icon text-white"
+                    href="https://www.linkedin.com/in/md-abdul-ahad-linkon/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <FaLinkedinIn />
-                  </p>
-                  <p className="m-2 social-icon">
+                  </a>
+                  <a
+                    className="m-2 social-icon text-white"
+                    href="https://github.com/linkon63"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <FaGit />
-                  </p>
-                  <p className="m-2 social-icon">
+                  </a>
+                  <a
+                    className="m-2 social-icon text-white"
+                    href="mailto: m.alinkon10@gamil.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <FaEnvelope />
-                  </p>
-                  <p className="m-2 social-icon">
+                  </a>
+                  {/* <a
+                    className="m-2 social-icon text-white"
+                    href="https://github.com/linkon63"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <FaFacebook />
-                  </p>
+                  </a> */}
                 </div>
                 <div className="pt-5">
                   <span className="social-icon">
