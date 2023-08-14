@@ -1,5 +1,6 @@
 import React from "react";
 import profileImage from "../../assests/profileimage.jpg";
+import { Link } from "react-router-dom";
 const AboutComponent = () => {
   return (
     <div className="row">
@@ -24,9 +25,9 @@ const AboutComponent = () => {
           GitHub: https://github.com/linkon63
         </a>
         <br />
-        <button className="btn ps-4 pe-4 bg-white fw-bold mt-5">
+        <Link to="/contact" className="btn ps-4 pe-4 bg-white fw-bold mt-5">
           Email Me &#128397;
-        </button>
+        </Link>
       </div>
       <div className="col-md-4">
         <img src={profileImage} alt="profile" width={"100%"} />
