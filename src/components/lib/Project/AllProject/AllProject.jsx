@@ -6,11 +6,12 @@ import emajohn from "../../../assests/ema-jhon.png";
 import rideshare from "../../../assests/Ride.png";
 import taskmanager from "../../../assests/project pania.png";
 import blog from "../../../assests/blog.png";
+import '../AllProject/AllProject.scss'
 export default function AllProject() {
   return (
     <div>
-      <div className="row">
-        <div className="col-md-3 bg-dark" style={{ height: "100vh" }}>
+      <div className="row all-projects-style" >
+        <div className="col-md-3 bg-dark all-project-nav">
           <div className="ps-5 d-flex justify-content-right align-items-center h-100">
             <div className="text-white">
               <p>Explore me </p>
@@ -61,8 +62,8 @@ export default function AllProject() {
             </div>
           </div>
         </div>
-        <div className="col-md-9 bg-secondary" style={{ height: "100vh" }}>
-          <div className="row">
+        <div className="col-md-9 bg-secondary" id='scoollerAllProject'>
+          <div className="row" >
             {/* apple doctor */}
             <div className="col-md-6">
               <div class="card bg-dark mt-4">

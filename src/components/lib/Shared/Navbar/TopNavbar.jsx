@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSpring, animated, config, Spring } from "@react-spring/web";
-import Text from "../../../animation/Text";
-import Details from "../../../animation/Details";
+import { useSpring, animated } from "@react-spring/web";
+// import Text from "../../../animation/Text";
+// import Details from "../../../animation/Details";
 
-import styles from "../../../../../src/styles.module.css";
+// import styles from "../../../../../src/styles.module.css";
 
-import navbarIcon from "../../../icons/navbarIcon.png";
-import personalImage from "../../../assests/PersonalImage.png";
-import arc from "../../../assests/arc.png";
-import closeArc from "../../../assests/closeArc.png";
+// import navbarIcon from "../../../icons/navbarIcon.png";
+// import personalImage from "../../../assests/PersonalImage.png";
+// import arc from "../../../assests/arc.png";
+// import closeArc from "../../../assests/closeArc.png";
 import "./TopNavbar.css";
 
 const AnimFeTurbulence = animated("feTurbulence");
@@ -73,25 +73,20 @@ const TopNavbar = () => {
         <div className="offcanvas-body m-0 p-0 topNavContent">
           <section className="w-100 row justify-content-center">
             <div className="row w-100 justify-content-center">
-              <div className="col-md-8 col-sm-12 text-center">
-                <h6>Let's Go</h6>
+              <div className="col-md-12 col-sm-12 text-center">
+                <h6 className="text-dark">Let's Go</h6>
                 <Link to="/home">
                   <span data-bs-dismiss="offcanvas">/ home</span>
                 </Link>
-                <br />
                 <Link to="/about">
                   <span data-bs-dismiss="offcanvas">/ about</span>
                 </Link>
-                <br />
                 <Link to="/projects">
                   <span data-bs-dismiss="offcanvas">/ projects</span>
                 </Link>
-                <br />
                 <Link to="/resume">
                   <span data-bs-dismiss="offcanvas">/ resume</span>
                 </Link>
-              </div>
-              <div className="col-md-4 col-sm-12 d-flex justify-content-center align-items-center ">
                 <Link to="/contact">
                   <span data-bs-dismiss="offcanvas">/ contact</span>
                 </Link>

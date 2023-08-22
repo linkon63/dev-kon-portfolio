@@ -5,11 +5,16 @@ import emajohn from "../../assests/ema-jhon.png";
 import rideshare from "../../assests/Ride.png";
 import taskmanager from "../../assests/project pania.png";
 
-import "./Product.scss";
+import "./Project.scss";
 import { Link } from "react-router-dom";
 export default function Project() {
   return (
-    <div className="row">
+    <div className="row project-section" id="scroller">
+      <div className="container">
+        <Link to="/allProject" className="btn btn-secondary w-100">
+          See more
+        </Link>
+      </div>
       {/* apple doctor */}
       <div className="col-md-6">
         <div class="card bg-dark mt-4">
@@ -190,9 +195,6 @@ export default function Project() {
           </div>
         </div>
       </div>
-      <Link to="/allProject" className="btn btn-secondary">
-        See more
-      </Link>
     </div>
   );
 }

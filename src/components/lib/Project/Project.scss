@@ -1,3 +1,19 @@
+.project-section{
+  // border: 2px solid tomato;
+  // height: 2000px;
+  // overflow: scroll;
+  // width: 100%;
+  // z-index: 9999;
+}
+
+#scroller {
+  overflow: auto;
+  height: 600px;
+  // height: 100px;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
 .card {
   max-width: 30em;
   flex-direction: row;
