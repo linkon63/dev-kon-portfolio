@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+https://dev-kon-portfolio.web.app/
+MD ABDUL AHAD LINKON Software Engineer, Dhaka BANGLADESH +8801712508063 Email : m.alinkon10@gmail.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+GitHub : https://github.com/linkon63
 
-## Available Scripts
+LinkedIn : https://www.linkedin.com/in/md-abdul-ahad-linkon/
 
-In the project directory, you can run:
+Portfolio : https://dev-kon-portfolio.web.app/
 
-### `npm start`
+# SKILLS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Core: JavaScript, Typescript, PHP, C++, HTML5, CSS3, Sass
+Frameworks & Library: Mongoose, Express.js, React, Node.js, VUE, Laravel, AWS, React Native,
+Tailwind CSS, React-Bootstrap, Material UI, Redux
+Databases: MongoDB, MySQL ,Pgsql , Dynamodb
+Tools: Git, GitHub, Homestead, GitLab, HEROKU, Firebase, Chrome Elements Inspector, Firebug,
+React- Toolkit, Slack, Postman, Jira, Trello, VS Code, Docker
+Others: Problem solving, attention to detail, Problem analysis, Project handle, teamwork,
+communication
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# WORK EXPERIENCES
 
-### `npm test`
+SOFTZINO TECHNOLOGIES Software engineer Jun 2021 – up to present
+Here, I have successfully completed more than 3 Projects, worked with Japanese 2 projects.
+Develop the Backend, Frontend code optimization. fixing bugs, experience with AWS work as a
+Team-Leader, I have taken the project responsibility and help others teammate.
+🧑‍💻Technologies: Node JS, AWS, React JS, devExtreme, Redux, MySQL, Vue, Prime Vue,
+🏢Site: https://softzino.com/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# MYPATHGUIDER React Developer May 2021 – Dec-2021
 
-### `npm run build`
+Here, Develop the pathguider.com Site with Team and Added Features of Site also work with
+docusaurus library for website content.
+🧑‍💻 Technologies: React JS, MongoDB, Docusaurus library, Sass, tailwind
+🏢 Site: https://mypathguider.com/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# PROJECTS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Smart Device Repair Dec 2020 – Jan 2021 FULL STACK PROJECT
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Smart Device Repair is a service provider website project user can order services and need to
+payment and then user payment will successful user Can Delete their order and also, they can
+give a review and see their order status.
 
-### `npm run eject`
+1. User (Add Service Order, Manage Order, Order Status, Add Review)
+2. Master Admin Panel (Remove User, Add Admin, Manage Order Status, Add Services, Delete
+   Reviews, Add Reviews, Delete Order) - Private Route without user login can’t access Dashboard.
+   🧑‍💻 Technology: React JS, Stripe Payment Gateway, Node JS, MongoDB, Express JS, Firebase
+   Hosting and Authentication, Private Route, ImageBB, Axios, Heroku (Server Hosting)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Live : https://appledoctorclient.netlify.app/
+- Client : https://github.com/linkon63/Apple-Doctor-Client
+- Server : https://github.com/linkon63/Apple-Doctor-Server
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Doctor-Appointment Dec 2020 – Jan 2021 FULL STACK PROJECT
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Its service appointment service provider project people will take appointment by
+date of doctors then they can manage their service date and also select doctor to
+get an appointment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. User (Add Appointment by Date & Dashboard- Manage Appointment & Appointment Status)
+   2 Master Admin Panel (Manage all Appointment Details, Add Doctors, Manage Doctors)
 
-## Learn More
+- Live : https://github.com/linkon63/Apple-Doctor-Server
+- Client : https://github.com/linkon63/Doctor-Portal-Client
+- Server : https://github.com/linkon63/Doctor-Portal-Server
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Get Your Food mar 2021 – apr 2021 REACT NATIVE PROJECT
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This is Food Service Android App There are food come from API and use can Order the
+Food and Watch the Food Details
 
-### Code Splitting
+- Code : https://github.com/linkon63/getYourFood
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Task Manager Vue project
 
-### Analyzing the Bundle Size
+Manage your task here state manage by pania js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Live : https://vue-2-pania-state.netlify.app/
+- Client : https://github.com/linkon63/Vue-2-Pania-State
 
-### Making a Progressive Web App
+# ABOUT ME
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Strong background in web development, programming logic, bug fixing, and problem solving.
+Highly skilled in developing and maintaining web applications using various programming
+languages and frameworks.

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap');
+
+/* router Style */
+body, section {
+    /* font-family: 'Yuji Boku', serif; */
+}
+
+.navbar-head {
+    background-color: #000000;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: gray;
+}
+
+.headerBg {
+    /* background-image: url('../../../assests/sliceOne.jpg'); */
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #010105;
+}
+
+.topNavContent {
+    /* background-image: url('../../../assests/jarvice.jpg'); */
+    background-repeat: no-repeat, repeat;
+    background-size: contain, cover;
+    background-position: center;
+    background-color: #ffffff;
+}
+
+/* card style */

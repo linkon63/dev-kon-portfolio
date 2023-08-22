@@ -1,38 +1,30 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&display=swap');
+
+body {
+    height: 100%;
+    /* font-family: 'Yuji Boku', serif; */
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Barriecito', cursive;
+    color: white;
+    overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.social-icon>svg {
+    height: 26px;
+    width: 26px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.skill-icon>svg {
+    height: 26px;
+    width: 26px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 785px) {
+    body {
+        overflow: scroll;
+    }
 }
