@@ -1,92 +1,70 @@
-# https://dev-kon-portfolio.web.app/
-MD ABDUL AHAD LINKON
-FULL STACK DEVELOPER
-HABGIGANJ SADAR
-SYLHET, BANGLADESH
-+8801712508063
-Email :	m.alinkon10@gmail.com
+# Getting Started with Create React App
 
-GitHub :	https://github.com/linkon63
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-LinkedIn :	https://www.linkedin.com/in/md-abdul-ahad-linkon-5988161b8/
+## Available Scripts
 
-Portfolio : https://dev-kon-portfolio.web.app/
+In the project directory, you can run:
 
-•	SKILLS
+### `npm start`
 
-CORE SKILLS: JavaScript / Node JS, MongoDB, Express JS, Typescript, React JS
-TECHNOLOGY SKILLS: HTML5, SASS, CSS3, Material UI, React-Bootstrap, GIT , GitHub, GITLAB, HEROKU, Firebase, Chrome Elements Inspector, Firebug
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-•	PROJECTS 
-o	Smart Device Repair — full stack project
-March 2021 – April 2021
-Core Functionalities:
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-1.	User & Dashboard (Add Service Order, Manage Order, Order Status, Add Review)
-2.	 Master Admin Panel (Remove User,  Add Admin, Manage Order Status, Add Services, Delete Reviews, Add Reviews, Delete Order)
-3.	Uses Private Route without user login can’t access Dashboard Data save to MongoDB for connecting with client permanently. 
+### `npm test`
 
-Technology: 
-React JS, Stripe Payment Gateway, Node JS, MongoDB, Express JS, Firebase Hosting and Authentication, Private Route, ImageBB, Axios, Heroku(Server Hosting)
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-LIVE SITE	 CLIENT CODE 	SERVER CODE
+### `npm run build`
 
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-o	Doctor-Appointment — full stack project
-Feb 2021 – Feb 2021
-Core Functionalities:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-1.	User (Add Appointment by Date & Dashboard- Manage Appointment & Appointment Status);
-2	Master Admin Panel (Manage all Appointment  Details, Add Doctors, Manage Doctors)
-3	Uses Private Route without user login can’t access Dashboard / Without Master Admin Can’t see Master Admin Features 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Technology: 
+### `npm run eject`
 
-React JS, Stripe Payment Gateway, Node JS, MongoDB, Express JS, Firebase Hosting and Authentication, Private Route, ImageBB, Axios, Heroku(Server Hosting)
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-LIVE SITE 		CLIENT CODE	 SERVER CODE
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-o	Easy Bazaar — full stack project
-Feb 2021 – Feb 2021
-Core Functionalities:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-1.	User (Cancel Order and Give Order)
-2.	Admin panel (All Product, Delete Product, Add Product, Edit Product )
-3.	Uses Private Route without user login can’t access Dashboard 
+## Learn More
 
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Technology: 
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-React JS, Stripe Payment Gateway, Node JS, MongoDB, Express JS, Firebase Hosting and Authentication, Private Route, ImageBB, Axios, Heroku(Server Hosting)
+### Code Splitting
 
-LIVE SITE	BACK-END 	CLIENT-CODE	SERVER-CODE
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
+### Analyzing the Bundle Size
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-•	EDUCATION
+### Making a Progressive Web App
 
-HABIGANJ POLYTECHNIC INSTITUTE — Diploma in Computer Technology
-Jun 2016 - Dec 2020
-Completed with 3.82 out of 4
-•	COURSES:
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-COMPLETED WEB DEVELOPMENT COURSE WITH JHANKAR MAHBUB ---Full Stack Web Development Course  
-Dec 2020 - April 2021
-Complete with an average of 58 out of 60
+### Advanced Configuration
 
-RESPONSIVE WEB DESIGN FREECODECAMP
-Dec 2020 - Dec 2020
-Certificate
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-•	ACTIVITIES
-Diploma in Engineering (Group Project) 
--STUDENT RESULT MANAGEMENT SYSTEM BY PHP (Skill Competition 2018)1st Place
+### Deployment
 
--RENEWABLE ENERGY (Skill Competition 2016)3rd Place
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-•	ABOUT ME
+### `npm run build` fails to minify
 
--QUICK LEARNER, PROACTIVE, AND HAS STRONG WORK ETHICS
--GROUP MANAGEMENT 
--PROBLEM SOLVER
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

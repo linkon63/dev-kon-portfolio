@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+<<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HeaderNav from './components/Shared/HeaderNav/HeaderNav';
 import {
@@ -42,6 +43,15 @@ function App() {
           </Route>
         </Switch>
       </Router>
+=======
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+          Learn React
+      </header>
+>>>>>>> f26634ba75bf09efe8fc229843536a77419cad8d
     </div>
   );
 }
