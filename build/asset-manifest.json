@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ea6745fc.css",
+    "main.js": "/static/js/main.83fbb6c4.js",
+    "static/js/787.af3987f1.chunk.js": "/static/js/787.af3987f1.chunk.js",
+    "static/media/ironManFlying.png": "/static/media/ironManFlying.9ab5767613293de92c74.png",
+    "static/media/doctor appointment.png": "/static/media/doctor appointment.92f81b4beceb0d465d4c.png",
+    "static/media/appledoctor.png": "/static/media/appledoctor.62cdf48656d857621c5b.png",
+    "static/media/jarvicev2.jpg": "/static/media/jarvicev2.0367fb01640000d2a95d.jpg",
+    "static/media/closeArc.png": "/static/media/closeArc.cae37b6c707bb8c3aa21.png",
+    "static/media/ema-jhon.png": "/static/media/ema-jhon.d311e702c7ba527faac8.png",
+    "static/media/Resume V12.pdf": "/static/media/Resume V12.6172f201fbfe0038a2d4.pdf",
+    "static/media/profileimage.jpg": "/static/media/profileimage.663ec1cc1b323cd3caa1.jpg",
+    "static/media/blog.png": "/static/media/blog.bdc0434d89893ff67ba0.png",
+    "static/media/Ride.png": "/static/media/Ride.bba7adbd92e6f86a018e.png",
+    "static/media/hatherKachePng.png": "/static/media/hatherKachePng.476a7fcd33f8fd2c183b.png",
+    "static/media/project pania.png": "/static/media/project pania.1f95f22aeeb6a093b8c2.png",
+    "static/media/freelancerPng.png": "/static/media/freelancerPng.63e32485fc02960de04d.png",
+    "static/media/mpgLogo.png": "/static/media/mpgLogo.69bf79072058911d5e9a.png",
+    "index.html": "/index.html",
+    "main.ea6745fc.css.map": "/static/css/main.ea6745fc.css.map",
+    "main.83fbb6c4.js.map": "/static/js/main.83fbb6c4.js.map",
+    "787.af3987f1.chunk.js.map": "/static/js/787.af3987f1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ea6745fc.css",
+    "static/js/main.83fbb6c4.js"
+  ]
+}
