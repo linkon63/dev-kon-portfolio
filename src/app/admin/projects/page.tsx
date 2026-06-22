@@ -2,9 +2,17 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { Plus, Pencil, Trash2, Save, X, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, Save, Upload } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
-import { Button, Card, Field, TextInput, TextArea } from "@/components/admin/ui";
+import {
+  Button,
+  Card,
+  ConfirmDialog,
+  Field,
+  Modal,
+  TextInput,
+  TextArea,
+} from "@/components/admin/ui";
 import {
   listCollection,
   createItem,
@@ -28,6 +36,8 @@ export default function AdminProjectsPage() {
   const [items, setItems] = useState<Project[]>([]);
   const [draft, setDraft] = useState<Project | null>(null);
   const [busy, setBusy] = useState(false);
+  const [toDelete, setToDelete] = useState<Project | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const reload = useCallback(
     () => listCollection<Project>(COLLECTIONS.projects).then(setItems),
@@ -52,9 +62,16 @@ export default function AdminProjectsPage() {
     }
   };
 
-  const remove = async (id: string) => {
-    await removeItem(COLLECTIONS.projects, id);
-    await reload();
+  const confirmDelete = async () => {
+    if (!toDelete?.id) return;
+    setDeleting(true);
+    try {
+      await removeItem(COLLECTIONS.projects, toDelete.id);
+      await reload();
+      setToDelete(null);
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const onImage = async (file: File) => {
@@ -90,13 +107,48 @@ export default function AdminProjectsPage() {
         )}
       </div>
 
-      {draft && (
-        <Card className="mb-6">
-          <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
+        {items.map((p) => (
+          <Card key={p.id} className="flex items-center gap-4">
+            {p.image && (
+              <Image
+                src={p.image}
+                alt=""
+                width={64}
+                height={64}
+                className="h-16 w-16 shrink-0 rounded object-cover"
+                unoptimized
+              />
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-semibold">{p.title}</p>
+              <p className="truncate text-sm text-neutral-500">{p.text}</p>
+            </div>
+            <Button variant="ghost" onClick={() => setDraft(p)}>
+              <Pencil size={15} />
+            </Button>
+            <Button variant="danger" onClick={() => setToDelete(p)}>
+              <Trash2 size={15} />
+            </Button>
+          </Card>
+        ))}
+        {items.length === 0 && (
+          <p className="text-sm text-neutral-500">No projects yet.</p>
+        )}
+      </div>
+
+      <Modal
+        open={!!draft}
+        onClose={() => !busy && setDraft(null)}
+        title={draft?.id ? "Edit project" : "New project"}
+      >
+        {draft && (
+          <div className="grid gap-4">
             <Field label="Title">
               <TextInput
                 value={draft.title}
                 onChange={(e) => setDraft({ ...draft, title: e.target.value })}
+                placeholder="Project name"
               />
             </Field>
             <Field label="Image">
@@ -123,82 +175,72 @@ export default function AdminProjectsPage() {
                   />
                 )}
               </div>
+              <div className="mt-3">
+                <TextInput
+                  value={draft.image ?? ""}
+                  placeholder="…or paste an image URL"
+                  onChange={(e) =>
+                    setDraft({ ...draft, image: e.target.value })
+                  }
+                />
+              </div>
             </Field>
-            <div className="md:col-span-2">
-              <Field label="Description">
-                <TextArea
-                  rows={2}
-                  value={draft.text}
-                  onChange={(e) => setDraft({ ...draft, text: e.target.value })}
+            <Field label="Description">
+              <TextArea
+                rows={2}
+                value={draft.text}
+                onChange={(e) => setDraft({ ...draft, text: e.target.value })}
+              />
+            </Field>
+            <div className="grid gap-4 md:grid-cols-3">
+              <Field label="Live URL">
+                <TextInput
+                  value={draft.liveUrl ?? ""}
+                  onChange={(e) =>
+                    setDraft({ ...draft, liveUrl: e.target.value })
+                  }
+                />
+              </Field>
+              <Field label="Client / Code URL">
+                <TextInput
+                  value={draft.clientUrl ?? ""}
+                  onChange={(e) =>
+                    setDraft({ ...draft, clientUrl: e.target.value })
+                  }
+                />
+              </Field>
+              <Field label="Server URL">
+                <TextInput
+                  value={draft.serverUrl ?? ""}
+                  onChange={(e) =>
+                    setDraft({ ...draft, serverUrl: e.target.value })
+                  }
                 />
               </Field>
             </div>
-            <Field label="Live URL">
-              <TextInput
-                value={draft.liveUrl ?? ""}
-                onChange={(e) => setDraft({ ...draft, liveUrl: e.target.value })}
-              />
-            </Field>
-            <Field label="Client / Code URL">
-              <TextInput
-                value={draft.clientUrl ?? ""}
-                onChange={(e) =>
-                  setDraft({ ...draft, clientUrl: e.target.value })
-                }
-              />
-            </Field>
-            <Field label="Server URL">
-              <TextInput
-                value={draft.serverUrl ?? ""}
-                onChange={(e) =>
-                  setDraft({ ...draft, serverUrl: e.target.value })
-                }
-              />
-            </Field>
-          </div>
-          <div className="mt-4 flex gap-2">
-            <Button onClick={save} disabled={busy}>
-              <Save size={16} /> Save
-            </Button>
-            <Button variant="ghost" onClick={() => setDraft(null)}>
-              <X size={16} /> Cancel
-            </Button>
-          </div>
-        </Card>
-      )}
-
-      <div className="grid gap-3 md:grid-cols-2">
-        {items.map((p) => (
-          <Card key={p.id} className="flex items-center gap-4">
-            {p.image && (
-              <Image
-                src={p.image}
-                alt=""
-                width={64}
-                height={64}
-                className="h-16 w-16 shrink-0 rounded object-cover"
-                unoptimized
-              />
-            )}
-            <div className="min-w-0 flex-1">
-              <p className="truncate font-semibold">{p.title}</p>
-              <p className="truncate text-sm text-neutral-500">{p.text}</p>
+            <div className="flex gap-2">
+              <Button onClick={save} disabled={busy}>
+                <Save size={16} /> {busy ? "Saving…" : "Save"}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => !busy && setDraft(null)}
+                disabled={busy}
+              >
+                Cancel
+              </Button>
             </div>
-            <Button variant="ghost" onClick={() => setDraft(p)}>
-              <Pencil size={15} />
-            </Button>
-            <Button
-              variant="danger"
-              onClick={() => p.id && remove(p.id)}
-            >
-              <Trash2 size={15} />
-            </Button>
-          </Card>
-        ))}
-        {items.length === 0 && !draft && (
-          <p className="text-sm text-neutral-500">No projects yet.</p>
+          </div>
         )}
-      </div>
+      </Modal>
+
+      <ConfirmDialog
+        open={!!toDelete}
+        message={`Delete the project “${toDelete?.title ?? ""}”? This can't be undone.`}
+        busy={deleting}
+        onConfirm={confirmDelete}
+        onCancel={() => !deleting && setToDelete(null)}
+      />
     </AdminShell>
   );
 }

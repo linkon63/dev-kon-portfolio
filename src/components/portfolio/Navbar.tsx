@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { MoreHorizontal, X } from "lucide-react";
 import { useResumeUrl } from "@/lib/useResume";
 
 const links = [
-  { href: "#hero", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#work", label: "Work" },
-  { href: "#thoughts", label: "Thoughts" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/#about", label: "About" },
+  { href: "/#services", label: "Services" },
+  { href: "/#work", label: "Work" },
+  { href: "/blogs", label: "Thoughts" },
+  { href: "/#contact", label: "Contact" },
   { href: "/files/Resume-V12.pdf", label: "Resume", external: true },
 ];
 
@@ -22,9 +23,9 @@ export default function Navbar() {
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
       <nav className="relative flex items-center gap-2 rounded-full bg-[var(--ink)] p-1.5 pl-5 text-[var(--cream)] shadow-lg">
-        <a href="#hero" className="text-base font-semibold tracking-tight">
+        <Link href="/" className="text-base font-semibold tracking-tight">
           Md. Abdul Ahad Linkon
-        </a>
+        </Link>
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}

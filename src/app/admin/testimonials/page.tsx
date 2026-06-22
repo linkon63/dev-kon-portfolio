@@ -1,9 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Plus, Pencil, Trash2, Save, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Save } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
-import { Button, Card, Field, TextInput, TextArea } from "@/components/admin/ui";
+import {
+  Button,
+  Card,
+  ConfirmDialog,
+  Field,
+  Modal,
+  TextInput,
+  TextArea,
+} from "@/components/admin/ui";
 import {
   listCollection,
   createItem,
@@ -19,6 +27,8 @@ export default function AdminTestimonialsPage() {
   const [items, setItems] = useState<Testimonial[]>([]);
   const [draft, setDraft] = useState<Testimonial | null>(null);
   const [busy, setBusy] = useState(false);
+  const [toDelete, setToDelete] = useState<Testimonial | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const reload = useCallback(
     () => listCollection<Testimonial>(COLLECTIONS.testimonials).then(setItems),
@@ -43,9 +53,16 @@ export default function AdminTestimonialsPage() {
     }
   };
 
-  const remove = async (id: string) => {
-    await removeItem(COLLECTIONS.testimonials, id);
-    await reload();
+  const confirmDelete = async () => {
+    if (!toDelete?.id) return;
+    setDeleting(true);
+    try {
+      await removeItem(COLLECTIONS.testimonials, toDelete.id);
+      await reload();
+      setToDelete(null);
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const seed = async () => {
@@ -72,14 +89,44 @@ export default function AdminTestimonialsPage() {
         )}
       </div>
 
-      {draft && (
-        <Card className="mb-6">
+      <div className="grid gap-3 md:grid-cols-2">
+        {items.map((t) => (
+          <Card key={t.id} className="flex flex-col gap-3">
+            <p className="text-sm text-neutral-700">“{t.quote}”</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold">{t.name}</p>
+                <p className="text-xs text-neutral-500">{t.role}</p>
+              </div>
+              <div className="flex gap-1">
+                <Button variant="ghost" onClick={() => setDraft(t)}>
+                  <Pencil size={15} />
+                </Button>
+                <Button variant="danger" onClick={() => setToDelete(t)}>
+                  <Trash2 size={15} />
+                </Button>
+              </div>
+            </div>
+          </Card>
+        ))}
+        {items.length === 0 && (
+          <p className="text-sm text-neutral-500">No testimonials yet.</p>
+        )}
+      </div>
+
+      <Modal
+        open={!!draft}
+        onClose={() => !busy && setDraft(null)}
+        title={draft?.id ? "Edit testimonial" : "New testimonial"}
+      >
+        {draft && (
           <div className="grid gap-4">
             <Field label="Quote">
               <TextArea
                 rows={3}
                 value={draft.quote}
                 onChange={(e) => setDraft({ ...draft, quote: e.target.value })}
+                placeholder="What they said…"
               />
             </Field>
             <div className="grid gap-4 md:grid-cols-2">
@@ -96,45 +143,29 @@ export default function AdminTestimonialsPage() {
                 />
               </Field>
             </div>
-          </div>
-          <div className="mt-4 flex gap-2">
-            <Button onClick={save} disabled={busy}>
-              <Save size={16} /> Save
-            </Button>
-            <Button variant="ghost" onClick={() => setDraft(null)}>
-              <X size={16} /> Cancel
-            </Button>
-          </div>
-        </Card>
-      )}
-
-      <div className="grid gap-3 md:grid-cols-2">
-        {items.map((t) => (
-          <Card key={t.id} className="flex flex-col gap-3">
-            <p className="text-sm text-neutral-700">“{t.quote}”</p>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold">{t.name}</p>
-                <p className="text-xs text-neutral-500">{t.role}</p>
-              </div>
-              <div className="flex gap-1">
-                <Button variant="ghost" onClick={() => setDraft(t)}>
-                  <Pencil size={15} />
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => t.id && remove(t.id)}
-                >
-                  <Trash2 size={15} />
-                </Button>
-              </div>
+            <div className="flex gap-2">
+              <Button onClick={save} disabled={busy}>
+                <Save size={16} /> {busy ? "Saving…" : "Save"}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => !busy && setDraft(null)}
+                disabled={busy}
+              >
+                Cancel
+              </Button>
             </div>
-          </Card>
-        ))}
-        {items.length === 0 && !draft && (
-          <p className="text-sm text-neutral-500">No testimonials yet.</p>
+          </div>
         )}
-      </div>
+      </Modal>
+
+      <ConfirmDialog
+        open={!!toDelete}
+        message={`Delete the testimonial from “${toDelete?.name ?? ""}”? This can't be undone.`}
+        busy={deleting}
+        onConfirm={confirmDelete}
+        onCancel={() => !deleting && setToDelete(null)}
+      />
     </AdminShell>
   );
 }

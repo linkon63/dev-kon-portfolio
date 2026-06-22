@@ -142,6 +142,11 @@
   --muted-ink: #8e8d84;
 }
 
+/* Linear (constant-speed) timing for the continuous testimonial Swiper. */
+.testimonials-swiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
 /* Lenis smooth-scroll (top-to-bottom buttery scrolling) */
 html.lenis,
 html.lenis body {

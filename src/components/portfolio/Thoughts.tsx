@@ -29,7 +29,7 @@ export default function Thoughts() {
             transition={{ duration: 0.5, delay: i * 0.08 }}
           >
             <Link
-              href={post.href ?? "/blogs"}
+              href={post.id ? `/blogs/${post.id}` : "/blogs"}
               className="group relative block aspect-[3/4] overflow-hidden rounded-3xl"
             >
               <Image

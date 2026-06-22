@@ -14,6 +14,7 @@ model Blog {
   id        String   @id @default(cuid())
   title     String
   excerpt   String
+  content   String?  @db.Text
   image     String
   date      String
   href      String?
@@ -49,6 +50,18 @@ model Service {
   id        String   @id @default(cuid())
   title     String
   tags      String[]
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// "Let's talk" contact form submissions.
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  project   String   @db.Text
+  read      Boolean  @default(false)
   createdAt DateTime @default(now())
 
   @@index([createdAt])

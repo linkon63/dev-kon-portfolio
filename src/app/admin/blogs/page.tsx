@@ -7,6 +7,7 @@ import AdminShell from "@/components/admin/AdminShell";
 import {
   Button,
   Card,
+  ConfirmDialog,
   Field,
   Modal,
   TextInput,
@@ -27,9 +28,9 @@ type Draft = Blog & { file?: File | null; preview?: string };
 const EMPTY: Draft = {
   title: "",
   excerpt: "",
+  content: "",
   image: "",
   date: "",
-  href: "/blogs",
   file: null,
   preview: "",
 };
@@ -40,6 +41,8 @@ export default function AdminBlogsPage() {
   const [draft, setDraft] = useState<Draft>(EMPTY);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [toDelete, setToDelete] = useState<Blog | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const reload = useCallback(
     () => listCollection<Blog>(COLLECTIONS.blogs).then(setItems),
@@ -90,8 +93,8 @@ export default function AdminBlogsPage() {
       const data: Blog = {
         title: draft.title,
         excerpt: draft.excerpt,
+        content: draft.content ?? "",
         date: draft.date,
-        href: draft.href || "/blogs",
         image,
       };
 
@@ -109,6 +112,18 @@ export default function AdminBlogsPage() {
       );
     } finally {
       setBusy(false);
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!toDelete?.id) return;
+    setDeleting(true);
+    try {
+      await removeItem(COLLECTIONS.blogs, toDelete.id);
+      await reload();
+      setToDelete(null);
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -172,14 +187,7 @@ export default function AdminBlogsPage() {
             <Button variant="ghost" onClick={() => openEdit(b)}>
               <Pencil size={15} />
             </Button>
-            <Button
-              variant="danger"
-              onClick={async () => {
-                if (!b.id) return;
-                await removeItem(COLLECTIONS.blogs, b.id);
-                await reload();
-              }}
-            >
+            <Button variant="danger" onClick={() => setToDelete(b)}>
               <Trash2 size={15} />
             </Button>
           </Card>
@@ -258,20 +266,21 @@ export default function AdminBlogsPage() {
             </Field>
           </div>
 
-          <Field label="Link (href)">
-            <TextInput
-              value={draft.href ?? ""}
-              onChange={(e) => setDraft({ ...draft, href: e.target.value })}
-              placeholder="/blogs or https://…"
+          <Field label="Excerpt (short summary shown on cards)">
+            <TextArea
+              rows={2}
+              value={draft.excerpt}
+              onChange={(e) => setDraft({ ...draft, excerpt: e.target.value })}
+              placeholder="One or two lines describing the post…"
             />
           </Field>
 
-          <Field label="Excerpt / content">
+          <Field label="Content (full article — blank lines separate paragraphs)">
             <TextArea
-              rows={4}
-              value={draft.excerpt}
-              onChange={(e) => setDraft({ ...draft, excerpt: e.target.value })}
-              placeholder="What the post is about…"
+              rows={10}
+              value={draft.content ?? ""}
+              onChange={(e) => setDraft({ ...draft, content: e.target.value })}
+              placeholder={"Write your article here.\n\nUse a blank line between paragraphs."}
             />
           </Field>
 
@@ -291,6 +300,14 @@ export default function AdminBlogsPage() {
           </div>
         </div>
       </Modal>
+
+      <ConfirmDialog
+        open={!!toDelete}
+        message={`Delete the blog “${toDelete?.title ?? ""}”? This can't be undone.`}
+        busy={deleting}
+        onConfirm={confirmDelete}
+        onCancel={() => !deleting && setToDelete(null)}
+      />
     </AdminShell>
   );
 }

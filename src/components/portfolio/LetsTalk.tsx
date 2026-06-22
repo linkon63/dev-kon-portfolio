@@ -14,20 +14,40 @@ const socials = [
   { icon: FaEnvelope, href: "mailto:m.alinkon10@gmail.com", label: "Email" },
 ];
 
-export default function LetsTalk() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "sending" | "sent" | "error";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function LetsTalk() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const name = String(data.get("name") || "");
-    const email = String(data.get("email") || "");
-    const project = String(data.get("project") || "");
-    const body = `Name: ${name}%0AEmail: ${email}%0A%0A${project}`;
-    window.location.href = `mailto:m.alinkon10@gmail.com?subject=${encodeURIComponent(
-      `New project enquiry from ${name}`,
-    )}&body=${body}`;
-    setSent(true);
+    const formEl = e.currentTarget;
+    const data = new FormData(formEl);
+    const payload = {
+      name: String(data.get("name") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      project: String(data.get("project") || "").trim(),
+    };
+
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const b = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(b.error || "Something went wrong. Please try again.");
+      }
+      formEl.reset();
+      setStatus("sent");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -95,10 +115,23 @@ export default function LetsTalk() {
           </Field>
           <button
             type="submit"
-            className="rounded-xl bg-[var(--cream)] py-3.5 text-sm font-semibold text-[var(--ink)] transition-transform hover:scale-[1.01]"
+            disabled={status === "sending"}
+            className="rounded-xl bg-[var(--cream)] py-3.5 text-sm font-semibold text-[var(--ink)] transition-transform hover:scale-[1.01] disabled:opacity-60"
           >
-            {sent ? "Opening your mail app…" : "Submit"}
+            {status === "sending"
+              ? "Sending…"
+              : status === "sent"
+                ? "Message sent ✓"
+                : "Submit"}
           </button>
+          {status === "sent" && (
+            <p className="text-sm text-[var(--cream)]/80">
+              Thanks — your message is on its way. I&apos;ll get back to you soon.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="text-sm text-red-300">{error}</p>
+          )}
         </form>
       </div>
     </section>

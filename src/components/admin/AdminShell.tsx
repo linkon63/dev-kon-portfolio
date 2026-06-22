@@ -10,6 +10,7 @@ import {
   FolderGit2,
   Wrench,
   FileUser,
+  Mail,
   LogOut,
   ExternalLink,
 } from "lucide-react";
@@ -17,6 +18,7 @@ import { useAdminAuth } from "./AdminAuth";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/messages", label: "Messages", icon: Mail },
   { href: "/admin/blogs", label: "Thoughts / Blogs", icon: FileText },
   { href: "/admin/projects", label: "Projects", icon: FolderGit2 },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
