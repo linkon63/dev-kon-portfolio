@@ -16,9 +16,10 @@ export default function AdminLoginPage() {
     if (ready && authed) router.replace("/admin");
   }, [ready, authed, router]);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (login(email, password)) {
+    setError("");
+    if (await login(email, password)) {
       router.replace("/admin");
     } else {
       setError("Invalid email or password.");

@@ -10,22 +10,21 @@ import {
 } from "react";
 
 /**
- * Demo static admin login. Credentials come from env (with safe demo defaults)
- * and the session is persisted in localStorage.
+ * Admin auth backed by a server session cookie. Login/logout hit the
+ * /api/admin/* routes, which set an HTTP-only signed cookie that actually gates
+ * the write API routes (unlike the previous client-only demo gate).
  *
- * NOTE: this is a client-only demo gate — it cannot protect Firestore writes on
- * its own. For production, switch to Firebase Auth and lock down security rules.
+ * The demo credentials shown on the login screen come from NEXT_PUBLIC_* env
+ * vars (display only); the real check happens server-side against ADMIN_EMAIL /
+ * ADMIN_PASSWORD.
  */
-const ADMIN_EMAIL =
-  process.env.NEXT_PUBLIC_ADMIN_EMAIL || "admin@devkon.com";
-const ADMIN_PASSWORD =
-  process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "devkon2026";
-const STORAGE_KEY = "dk_admin_session";
+const DEMO_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "admin@devkon.com";
+const DEMO_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "devkon2026";
 
 type AuthState = {
   ready: boolean;
   authed: boolean;
-  login: (email: string, password: string) => boolean;
+  login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
 };
 
@@ -36,27 +35,37 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
-    const hydrate = () => {
-      setAuthed(localStorage.getItem(STORAGE_KEY) === "1");
-      setReady(true);
+    let active = true;
+    fetch("/api/admin/session")
+      .then((r) => r.json())
+      .then((d: { authed: boolean }) => {
+        if (active) setAuthed(!!d.authed);
+      })
+      .catch(() => {
+        /* treat as logged out */
+      })
+      .finally(() => {
+        if (active) setReady(true);
+      });
+    return () => {
+      active = false;
     };
-    hydrate();
   }, []);
 
-  const login = useCallback((email: string, password: string) => {
-    const ok =
-      email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() &&
-      password === ADMIN_PASSWORD;
-    if (ok) {
-      localStorage.setItem(STORAGE_KEY, "1");
-      setAuthed(true);
-    }
+  const login = useCallback(async (email: string, password: string) => {
+    const res = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const ok = res.ok;
+    if (ok) setAuthed(true);
     return ok;
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY);
     setAuthed(false);
+    fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
   }, []);
 
   return (
@@ -72,4 +81,4 @@ export function useAdminAuth() {
   return ctx;
 }
 
-export const DEMO_CREDENTIALS = { email: ADMIN_EMAIL, password: ADMIN_PASSWORD };
+export const DEMO_CREDENTIALS = { email: DEMO_EMAIL, password: DEMO_PASSWORD };

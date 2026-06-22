@@ -1,4 +1,4 @@
-// Shared content types for the dynamic (Firestore-backed) portfolio data.
+// Shared content types for the dynamic (Prisma Postgres-backed) portfolio data.
 
 export type Blog = {
   id?: string;
@@ -36,11 +36,10 @@ export type Service = {
   createdAt?: number;
 };
 
-// Firestore collection names — single source of truth.
+// Content collection names (map to /api/content/:name) — single source of truth.
 export const COLLECTIONS = {
   blogs: "blogs",
   testimonials: "testimonials",
   projects: "projects",
   services: "services",
-  analytics: "analytics_events",
 } as const;

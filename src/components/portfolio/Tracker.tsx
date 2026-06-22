@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { trackPageView } from "@/lib/analytics";
 
-/** Logs a page view (Firestore + GA4) on each route. */
+/** Logs a page view to the site's analytics API on each route. */
 export default function Tracker() {
   const pathname = usePathname();
   useEffect(() => {

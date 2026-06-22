@@ -26,7 +26,7 @@ export default function AdminResumePage() {
       await saveSettings({ resumeUrl: url, resumeName: file.name });
       setStatus("Resume updated — it's now live across the site.");
     } catch {
-      setStatus("Upload failed. Check Firebase Storage rules.");
+      setStatus("Upload failed. Make sure you're signed in and try again.");
     } finally {
       setBusy(false);
     }

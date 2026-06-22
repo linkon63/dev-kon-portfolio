@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { subscribeCollection } from "./collections";
 
 /**
- * Live Firestore collection data with a static fallback. Renders the fallback
- * on first paint (no hydration mismatch) and during offline/empty/error, then
- * swaps in live data once it arrives.
+ * Collection data (fetched from the content API) with a static fallback.
+ * Renders the fallback on first paint (no hydration mismatch) and during
+ * empty/error, then swaps in fetched data once it arrives.
  */
 export function useCollectionData<T>(name: string, fallback: T[]): T[] {
   const [items, setItems] = useState<T[]>(fallback);

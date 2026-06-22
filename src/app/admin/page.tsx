@@ -150,8 +150,8 @@ export default function AdminDashboardPage() {
       </div>
 
       <p className="mt-6 text-xs text-neutral-400">
-        First-party analytics from Firestore. Events also stream to Firebase
-        Analytics (GA4) for richer reporting in the Google Analytics console.
+        First-party analytics stored in Postgres (via Prisma) and served from
+        the site&apos;s own API — no third-party trackers.
       </p>
     </AdminShell>
   );

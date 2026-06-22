@@ -1,27 +1,34 @@
-# Copy this file to `.env.local` and fill in your values.
-# All vars must be prefixed with NEXT_PUBLIC_ to be available in the browser
-# (this is a static export — values are baked in at build time).
+# Environment variables
 
+Copy [`.env.example`](../.env.example) to `.env` (or `.env.local`) and fill in
+the values. `.env*` is git-ignored. This is a server-rendered app, so secrets
+(database URL, admin credentials) are **not** exposed to the browser — only
+`NEXT_PUBLIC_*` vars are.
 
-# Firebase web SDK config (used by src/lib/firebase.ts)
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
+```bash
+# --- Database (Prisma Postgres) ---
+# Set automatically by `prisma postgres link`; or paste your own connection string.
+DATABASE_URL=
 
-# EmailJS (optional — only needed if you enable the contact form)
+# --- Admin panel (server-side check; keep secret) ---
+ADMIN_EMAIL=admin@devkon.com
+ADMIN_PASSWORD=devkon2026
+ADMIN_SESSION_SECRET=change-me-to-a-long-random-string
+
+# --- Login screen hint (public, display only) ---
+NEXT_PUBLIC_ADMIN_EMAIL=admin@devkon.com
+NEXT_PUBLIC_ADMIN_PASSWORD=devkon2026
+
+# --- EmailJS contact form (optional) ---
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+```
 
+## Notes
 
-# NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyAAX_9alyMbxiUSaLuGY3DeImFSTBsXOFc
-# NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=m-ftht-practiceday.firebaseapp.com
-# NEXT_PUBLIC_FIREBASE_PROJECT_ID=m-ftht-practiceday
-# NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=m-ftht-practiceday.appspot.com
-# NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=996034074146
-# NEXT_PUBLIC_FIREBASE_APP_ID=1:996034074146:web:c7dd989e7d070d067d1c7b
-
-
+- **`DATABASE_URL`** powers Prisma (API routes, migrations, seed). Don't commit it.
+- **`ADMIN_*`** are checked server-side by `/api/admin/login`. The defaults match
+  the demo; set strong values in production and a long random `ADMIN_SESSION_SECRET`.
+- **`NEXT_PUBLIC_ADMIN_*`** only populate the demo-credentials hint on the login
+  screen — they don't grant access on their own.

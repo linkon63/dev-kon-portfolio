@@ -1,6 +1,6 @@
-// Static fallback content + seed data for Firestore. The public site shows
-// these when a collection is empty/offline; the admin "Seed" button imports
-// them into Firestore.
+// Static fallback content + seed data. The public site shows these when a
+// collection is empty/offline; the admin "Seed" button imports them into the
+// database via the content API.
 
 import type { Blog, Testimonial, Project, Service } from "./types";
 import { projects as staticProjects } from "@/data/projects";

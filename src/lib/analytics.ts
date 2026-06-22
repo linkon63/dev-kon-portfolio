@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
-import { app, db } from "./firebase";
-import { COLLECTIONS } from "./types";
+// First-party analytics. Events are posted to /api/analytics (Prisma Postgres)
+// and read back for the admin dashboard. Replaces the former Firestore + GA4
+// implementation.
 
 const VISITOR_KEY = "dk_visitor_id";
 
@@ -50,46 +43,35 @@ function detectBrowser(): string {
   return "Other";
 }
 
-/** Fire-and-forget: log a page view to Firestore AND to Firebase Analytics (gtag/GA4). */
+/** Fire-and-forget: log a page view to the server. */
 export async function trackPageView(path: string) {
-  // First-party Firestore event (powers the in-app dashboard).
   try {
-    await addDoc(collection(db, COLLECTIONS.analytics), {
-      type: "pageview",
-      path,
-      ts: Date.now(),
-      visitor: visitorId(),
-      device: detectDevice(),
-      browser: detectBrowser(),
-      referrer: document.referrer || "direct",
-      lang: navigator.language || "unknown",
-    } satisfies AnalyticsEvent);
+    await fetch("/api/analytics", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "pageview",
+        path,
+        visitor: visitorId(),
+        device: detectDevice(),
+        browser: detectBrowser(),
+        referrer: document.referrer || "direct",
+        lang: navigator.language || "unknown",
+      }),
+      keepalive: true,
+    });
   } catch {
-    // Offline / rules — ignore so the public site never breaks on analytics.
-  }
-
-  // Firebase Analytics (GA4) — only where supported.
-  try {
-    if (await isSupported()) {
-      logEvent(getAnalytics(app), "page_view", { page_path: path });
-    }
-  } catch {
-    // measurementId not set or unsupported — fine.
+    // Never let analytics break the public site.
   }
 }
 
 /** Read raw events from the last `days` for the dashboard. Resilient to errors. */
 export async function fetchEvents(days = 30): Promise<AnalyticsEvent[]> {
   try {
-    const since = Date.now() - days * 86_400_000;
-    const q = query(
-      collection(db, COLLECTIONS.analytics),
-      where("ts", ">=", since),
-    );
-    const snap = await getDocs(q);
-    return snap.docs.map((d) => d.data() as AnalyticsEvent);
+    const res = await fetch(`/api/analytics?days=${days}`);
+    if (!res.ok) return [];
+    return (await res.json()) as AnalyticsEvent[];
   } catch {
-    // Permission/offline — return nothing rather than hanging the dashboard.
     return [];
   }
 }
