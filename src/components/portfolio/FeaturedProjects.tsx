@@ -4,12 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { projects } from "@/data/projects";
-
-// Only the entries that ship a screenshot make for a strong visual grid.
-const featured = projects.filter((p) => p.image).slice(0, 6);
+import { useCollectionData } from "@/lib/useCollectionData";
+import { COLLECTIONS, type Project } from "@/lib/types";
+import { seedProjects } from "@/lib/seedData";
 
 export default function FeaturedProjects() {
+  const projects = useCollectionData<Project>(
+    COLLECTIONS.projects,
+    seedProjects,
+  ).slice(0, 6);
+
   return (
     <section id="work" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <div className="mb-14 flex flex-wrap items-start justify-between gap-6 md:mb-20">
@@ -30,12 +34,12 @@ export default function FeaturedProjects() {
       </div>
 
       <div className="grid gap-x-8 gap-y-12 md:grid-cols-2">
-        {featured.map((project, i) => {
-          const live = project.links.find((l) => /live/i.test(l.label));
-          const href = live?.href ?? project.links[0]?.href ?? "#";
+        {projects.map((project, i) => {
+          const href =
+            project.liveUrl || project.clientUrl || project.serverUrl || "#";
           return (
             <motion.a
-              key={project.title}
+              key={project.id ?? project.title}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
@@ -46,13 +50,16 @@ export default function FeaturedProjects() {
               className="group block"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[var(--ink)]/5 ring-1 ring-black/5">
-                <Image
-                  src={project.image as string}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
+                {project.image && (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    unoptimized
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                )}
               </div>
               <h3 className="mt-5 text-2xl font-bold tracking-tight md:text-3xl">
                 {project.title}

@@ -1,9 +1,15 @@
 "use client";
 
 import { motion } from "motion/react";
-import { services } from "@/data/services";
+import { services as fallbackServices } from "@/data/services";
+import { useCollectionData } from "@/lib/useCollectionData";
+import { COLLECTIONS, type Service } from "@/lib/types";
 
 export default function Services() {
+  const services = useCollectionData<Service>(
+    COLLECTIONS.services,
+    fallbackServices,
+  );
   return (
     <section id="services" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <h2 className="mb-16 text-6xl font-extrabold tracking-tighter md:mb-20 md:text-8xl">

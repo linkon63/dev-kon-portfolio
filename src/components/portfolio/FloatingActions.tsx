@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FaEnvelope,
   FaGithub,
@@ -7,6 +9,7 @@ import {
 } from "react-icons/fa6";
 import { FileText, type LucideIcon } from "lucide-react";
 import type { IconType } from "react-icons";
+import { useResumeUrl } from "@/lib/useResume";
 
 type Action = {
   label: string;
@@ -49,12 +52,13 @@ const actions: Action[] = [
  * Each square button reveals its label by sliding out to the left on hover.
  */
 export default function FloatingActions() {
+  const resumeUrl = useResumeUrl();
   return (
     <div className="fixed top-1/2 right-0 z-40 hidden -translate-y-1/2 flex-col items-end gap-1.5 md:flex">
       {actions.map(({ label, href, icon: Icon, external }) => (
         <a
           key={label}
-          href={href}
+          href={label === "See Resume" ? resumeUrl : href}
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
           aria-label={label}

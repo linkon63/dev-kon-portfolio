@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { MoreHorizontal, X } from "lucide-react";
+import { useResumeUrl } from "@/lib/useResume";
 
 const links = [
   { href: "#hero", label: "Home" },
@@ -16,6 +17,7 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const resumeUrl = useResumeUrl();
 
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
@@ -45,7 +47,7 @@ export default function Navbar() {
               {links.map((link, i) => (
                 <motion.a
                   key={link.label}
-                  href={link.href}
+                  href={link.label === "Resume" ? resumeUrl : link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
                   onClick={() => setOpen(false)}

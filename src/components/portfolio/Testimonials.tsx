@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { testimonials } from "@/data/testimonials";
+import { testimonials as fallbackTestimonials } from "@/data/testimonials";
+import { useCollectionData } from "@/lib/useCollectionData";
+import { COLLECTIONS, type Testimonial } from "@/lib/types";
 
 function initials(name: string) {
   return name
@@ -12,6 +14,10 @@ function initials(name: string) {
 }
 
 export default function Testimonials() {
+  const testimonials = useCollectionData<Testimonial>(
+    COLLECTIONS.testimonials,
+    fallbackTestimonials,
+  );
   return (
     <section id="testimonials" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <h2 className="mb-14 text-6xl font-extrabold tracking-tighter md:mb-20 md:text-8xl">

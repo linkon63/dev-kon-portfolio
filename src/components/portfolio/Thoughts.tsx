@@ -4,9 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { posts } from "@/data/posts";
+import { posts as fallbackPosts } from "@/data/posts";
+import { useCollectionData } from "@/lib/useCollectionData";
+import { COLLECTIONS, type Blog } from "@/lib/types";
 
 export default function Thoughts() {
+  const posts = useCollectionData<Blog>(COLLECTIONS.blogs, fallbackPosts).slice(
+    0,
+    2,
+  );
   return (
     <section id="thoughts" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <h2 className="mb-14 text-6xl font-extrabold tracking-tighter md:mb-20 md:text-8xl">
@@ -16,14 +22,14 @@ export default function Thoughts() {
       <div className="grid gap-6 md:grid-cols-3">
         {posts.map((post, i) => (
           <motion.div
-            key={post.title}
+            key={post.id ?? post.title}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
           >
             <Link
-              href={post.href}
+              href={post.href ?? "/blogs"}
               className="group relative block aspect-[3/4] overflow-hidden rounded-3xl"
             >
               <Image
@@ -31,6 +37,7 @@ export default function Thoughts() {
                 alt={post.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
+                unoptimized
                 className="object-cover grayscale transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />

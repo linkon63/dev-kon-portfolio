@@ -1,4 +1,5 @@
 import SmoothScroll from "@/components/portfolio/SmoothScroll";
+import Tracker from "@/components/portfolio/Tracker";
 import Navbar from "@/components/portfolio/Navbar";
 import Hero from "@/components/portfolio/Hero";
 import About from "@/components/portfolio/About";
@@ -15,6 +16,7 @@ export default function HomePage() {
   return (
     <main className="bg-[var(--cream)] text-[var(--ink)]">
       <SmoothScroll />
+      <Tracker />
       <Navbar />
       <FloatingActions />
       <Hero />
