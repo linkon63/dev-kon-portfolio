@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Pin the workspace root to this project (a stray lockfile lives higher up).
+  turbopack: {
+    root: import.meta.dirname,
+  },
 };
 
 export default nextConfig;
