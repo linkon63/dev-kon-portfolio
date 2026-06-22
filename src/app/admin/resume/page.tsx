@@ -23,7 +23,8 @@ export default function AdminResumePage() {
     setStatus("");
     try {
       const url = await uploadFile("resume", file);
-      await saveSettings({ resumeUrl: url, resumeName: file.name });
+      const saved = await saveSettings({ resumeUrl: url, resumeName: file.name });
+      setSettings(saved);
       setStatus("Resume updated — it's now live across the site.");
     } catch {
       setStatus("Upload failed. Make sure you're signed in and try again.");

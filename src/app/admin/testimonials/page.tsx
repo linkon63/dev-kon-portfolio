@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Plus, Pencil, Trash2, Save, X } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
 import { Button, Card, Field, TextInput, TextArea } from "@/components/admin/ui";
 import {
-  subscribeCollection,
+  listCollection,
   createItem,
   updateItem,
   removeItem,
@@ -20,10 +20,14 @@ export default function AdminTestimonialsPage() {
   const [draft, setDraft] = useState<Testimonial | null>(null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(
-    () => subscribeCollection<Testimonial>(COLLECTIONS.testimonials, setItems),
+  const reload = useCallback(
+    () => listCollection<Testimonial>(COLLECTIONS.testimonials).then(setItems),
     [],
   );
+
+  useEffect(() => {
+    reload().catch(() => {});
+  }, [reload]);
 
   const save = async () => {
     if (!draft) return;
@@ -32,10 +36,16 @@ export default function AdminTestimonialsPage() {
       const { id, ...data } = draft;
       if (id) await updateItem(COLLECTIONS.testimonials, id, data);
       else await createItem(COLLECTIONS.testimonials, data);
+      await reload();
       setDraft(null);
     } finally {
       setBusy(false);
     }
+  };
+
+  const remove = async (id: string) => {
+    await removeItem(COLLECTIONS.testimonials, id);
+    await reload();
   };
 
   const seed = async () => {
@@ -43,6 +53,7 @@ export default function AdminTestimonialsPage() {
     try {
       for (const t of seedTestimonials)
         await createItem(COLLECTIONS.testimonials, t);
+      await reload();
     } finally {
       setBusy(false);
     }
@@ -112,9 +123,7 @@ export default function AdminTestimonialsPage() {
                 </Button>
                 <Button
                   variant="danger"
-                  onClick={() =>
-                    t.id && removeItem(COLLECTIONS.testimonials, t.id)
-                  }
+                  onClick={() => t.id && remove(t.id)}
                 >
                   <Trash2 size={15} />
                 </Button>

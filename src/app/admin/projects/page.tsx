@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Plus, Pencil, Trash2, Save, X, Upload } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
 import { Button, Card, Field, TextInput, TextArea } from "@/components/admin/ui";
 import {
-  subscribeCollection,
+  listCollection,
   createItem,
   updateItem,
   removeItem,
@@ -29,10 +29,14 @@ export default function AdminProjectsPage() {
   const [draft, setDraft] = useState<Project | null>(null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(
-    () => subscribeCollection<Project>(COLLECTIONS.projects, setItems),
+  const reload = useCallback(
+    () => listCollection<Project>(COLLECTIONS.projects).then(setItems),
     [],
   );
+
+  useEffect(() => {
+    reload().catch(() => {});
+  }, [reload]);
 
   const save = async () => {
     if (!draft) return;
@@ -41,10 +45,16 @@ export default function AdminProjectsPage() {
       const { id, ...data } = draft;
       if (id) await updateItem(COLLECTIONS.projects, id, data);
       else await createItem(COLLECTIONS.projects, data);
+      await reload();
       setDraft(null);
     } finally {
       setBusy(false);
     }
+  };
+
+  const remove = async (id: string) => {
+    await removeItem(COLLECTIONS.projects, id);
+    await reload();
   };
 
   const onImage = async (file: File) => {
@@ -61,6 +71,7 @@ export default function AdminProjectsPage() {
     setBusy(true);
     try {
       for (const p of seedProjects) await createItem(COLLECTIONS.projects, p);
+      await reload();
     } finally {
       setBusy(false);
     }
@@ -178,7 +189,7 @@ export default function AdminProjectsPage() {
             </Button>
             <Button
               variant="danger"
-              onClick={() => p.id && removeItem(COLLECTIONS.projects, p.id)}
+              onClick={() => p.id && remove(p.id)}
             >
               <Trash2 size={15} />
             </Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Plus, Pencil, Trash2, Save, Upload, ImageIcon } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
@@ -13,7 +13,7 @@ import {
   TextArea,
 } from "@/components/admin/ui";
 import {
-  subscribeCollection,
+  listCollection,
   createItem,
   updateItem,
   removeItem,
@@ -41,15 +41,16 @@ export default function AdminBlogsPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(
-    () =>
-      subscribeCollection<Blog>(
-        COLLECTIONS.blogs,
-        setItems,
-        (e) => setError(e.message),
-      ),
+  const reload = useCallback(
+    () => listCollection<Blog>(COLLECTIONS.blogs).then(setItems),
     [],
   );
+
+  useEffect(() => {
+    reload().catch((e) =>
+      setError(e instanceof Error ? e.message : "Failed to load blogs."),
+    );
+  }, [reload]);
 
   const openNew = () => {
     setDraft({ ...EMPTY });
@@ -97,6 +98,7 @@ export default function AdminBlogsPage() {
       if (draft.id) await updateItem(COLLECTIONS.blogs, draft.id, data);
       else await createItem(COLLECTIONS.blogs, data);
 
+      await reload();
       setOpen(false);
       setDraft(EMPTY);
     } catch (e) {
@@ -115,6 +117,7 @@ export default function AdminBlogsPage() {
     setError("");
     try {
       for (const b of seedBlogs) await createItem(COLLECTIONS.blogs, b);
+      await reload();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Seed failed.");
     } finally {
@@ -171,7 +174,11 @@ export default function AdminBlogsPage() {
             </Button>
             <Button
               variant="danger"
-              onClick={() => b.id && removeItem(COLLECTIONS.blogs, b.id)}
+              onClick={async () => {
+                if (!b.id) return;
+                await removeItem(COLLECTIONS.blogs, b.id);
+                await reload();
+              }}
             >
               <Trash2 size={15} />
             </Button>

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Plus, Pencil, Trash2, Save, X } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
 import { Button, Card, Field, TextInput } from "@/components/admin/ui";
 import {
-  subscribeCollection,
+  listCollection,
   createItem,
   updateItem,
   removeItem,
@@ -20,10 +20,14 @@ export default function AdminServicesPage() {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(
-    () => subscribeCollection<Service>(COLLECTIONS.services, setItems),
+  const reload = useCallback(
+    () => listCollection<Service>(COLLECTIONS.services).then(setItems),
     [],
   );
+
+  useEffect(() => {
+    reload().catch(() => {});
+  }, [reload]);
 
   const save = async () => {
     if (!draft) return;
@@ -38,16 +42,23 @@ export default function AdminServicesPage() {
       };
       if (draft.id) await updateItem(COLLECTIONS.services, draft.id, data);
       else await createItem(COLLECTIONS.services, data);
+      await reload();
       setDraft(null);
     } finally {
       setBusy(false);
     }
   };
 
+  const remove = async (id: string) => {
+    await removeItem(COLLECTIONS.services, id);
+    await reload();
+  };
+
   const seed = async () => {
     setBusy(true);
     try {
       for (const s of seedServices) await createItem(COLLECTIONS.services, s);
+      await reload();
     } finally {
       setBusy(false);
     }
@@ -118,7 +129,7 @@ export default function AdminServicesPage() {
               </Button>
               <Button
                 variant="danger"
-                onClick={() => s.id && removeItem(COLLECTIONS.services, s.id)}
+                onClick={() => s.id && remove(s.id)}
               >
                 <Trash2 size={15} />
               </Button>
