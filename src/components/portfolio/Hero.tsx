@@ -55,10 +55,10 @@ export default function Hero() {
         setActive(false);
         restPosition();
       }}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-16 md:cursor-none"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-16 cursor-none"
     >
       {/* Decorative accents */}
-      <Sparkle className="absolute top-[30%] left-[6%] h-12 w-12 rotate-12 md:top-[34%] md:left-[14%] md:h-20 md:w-20" />
+      <Sparkle className="absolute top-[30%] left-[6%] h-12 w-12 rotate-12 md:top-[34%] md:left-[2%] md:h-20 md:w-20" />
       <Bolt className="absolute top-[52%] right-[6%] h-12 w-12 -rotate-6 md:top-[56%] md:right-[12%] md:h-20 md:w-20" />
 
       {/* Display headline */}
@@ -80,16 +80,16 @@ export default function Hero() {
         aria-hidden="true"
       >
         <motion.div
-          animate={{ scale: active ? 0.92 : 1, rotate: active ? -3 : 0 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="h-40 w-32 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/10 md:h-52 md:w-40"
+          animate={{ scale: active ? 1.4 : 1 }}
+          transition={{ type: "spring", stiffness: 250, damping: 20 }}
+          className="relative h-10 w-10 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full ring-1 ring-black/20"
         >
           <Image
             src="/assets/profileimage.jpg"
-            alt="Md Abdul Ahad Linkon"
+            alt=""
             fill
             priority
-            sizes="(max-width: 768px) 8rem, 10rem"
+            sizes="40px"
             className="object-cover grayscale contrast-110"
           />
         </motion.div>

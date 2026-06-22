@@ -129,16 +129,16 @@
     min-height: 100%;
     /* Black-and-white editorial palette from the new portfolio design */
     color: #0d0d0c;
-    background-color: #f1eee5;
+    background-color: #ffffff;
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 }
 
-/* Portfolio design tokens (the cream/ink editorial look) */
+/* Portfolio design tokens (the white/ink editorial look) */
 :root {
   --ink: #0d0d0c;
-  --cream: #f1eee5;
+  --cream: #ffffff;
   --muted-ink: #8e8d84;
 }
 

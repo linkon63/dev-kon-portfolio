@@ -20,7 +20,7 @@ export default function Navbar() {
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
       <nav className="relative flex items-center gap-2 rounded-full bg-[var(--ink)] p-1.5 pl-5 text-[var(--cream)] shadow-lg">
         <a href="#hero" className="text-base font-semibold tracking-tight">
-          Linkon
+          Md. Abdul Ahad Linkon
         </a>
         <button
           type="button"
