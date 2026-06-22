@@ -123,20 +123,23 @@
   }
   html {
     height: 100%;
+    scroll-behavior: smooth;
   }
   body {
-    height: 100%;
-    color: #ffffff;
-    background-color: #ffffff;
-    font-family: var(--font-barriecito), cursive;
-    overflow: hidden;
+    min-height: 100%;
+    /* Black-and-white editorial palette from the new portfolio design */
+    color: #0d0d0c;
+    background-color: #f1eee5;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  /* Match original behaviour: allow scrolling on small screens */
-  @media only screen and (max-width: 785px) {
-    body {
-      overflow: auto;
-    }
-  }
+}
+
+/* Portfolio design tokens (the cream/ink editorial look) */
+:root {
+  --ink: #0d0d0c;
+  --cream: #f1eee5;
+  --muted-ink: #8e8d84;
 }
 
 /* Sizing helpers ported from the original design */

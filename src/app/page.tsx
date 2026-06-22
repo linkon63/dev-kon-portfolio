@@ -1,10 +1,21 @@
-import SiteLayout from "@/components/site/SiteLayout";
-import Skills from "@/components/site/Skills";
+import Navbar from "@/components/portfolio/Navbar";
+import Hero from "@/components/portfolio/Hero";
+import About from "@/components/portfolio/About";
+import IdeaToLaunch from "@/components/portfolio/IdeaToLaunch";
+import Services from "@/components/portfolio/Services";
+import Footer from "@/components/portfolio/Footer";
+import FloatingActions from "@/components/portfolio/FloatingActions";
 
 export default function HomePage() {
   return (
-    <SiteLayout>
-      <Skills />
-    </SiteLayout>
+    <main className="bg-[var(--cream)] text-[var(--ink)]">
+      <Navbar />
+      <FloatingActions />
+      <Hero />
+      <About />
+      <IdeaToLaunch />
+      <Services />
+      <Footer />
+    </main>
   );
 }

@@ -1,0 +1,53 @@
+"use client";
+
+import { useState } from "react";
+import { MoreHorizontal, X } from "lucide-react";
+
+const links = [
+  { href: "#hero", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#process", label: "Process" },
+  { href: "#services", label: "Services" },
+  { href: "/files/Resume-V12.pdf", label: "Resume", external: true },
+  { href: "mailto:m.alinkon10@gmail.com", label: "Contact", external: true },
+];
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
+      <nav className="relative flex items-center gap-2 rounded-full bg-[var(--ink)] p-1.5 pl-5 text-[var(--cream)] shadow-lg">
+        <a href="#hero" className="text-base font-semibold tracking-tight">
+          Linkon
+        </a>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          className="grid h-9 w-9 place-items-center rounded-full bg-[var(--cream)] text-[var(--ink)] transition-transform hover:scale-105"
+        >
+          {open ? <X size={18} /> : <MoreHorizontal size={18} />}
+        </button>
+
+        {open && (
+          <div className="absolute top-[calc(100%+0.5rem)] right-0 w-52 overflow-hidden rounded-2xl bg-[var(--ink)] p-2 shadow-xl">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                onClick={() => setOpen(false)}
+                className="block rounded-xl px-4 py-2.5 text-sm font-medium text-[var(--cream)]/80 transition-colors hover:bg-white/10 hover:text-[var(--cream)]"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </nav>
+    </header>
+  );
+}

@@ -1,21 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Barriecito } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const barriecito = Barriecito({
-  weight: "400",
-  variable: "--font-barriecito",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "DevKon",
-  description: "Md Abdul Ahad Linkon — Software Engineer portfolio.",
+  title: "Md Abdul Ahad Linkon — Software Engineer",
+  description:
+    "Md Abdul Ahad Linkon — Software Engineer building modern, scalable, conversion-driven web experiences.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#f1eee5",
 };
 
 export default function RootLayout({
@@ -24,7 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${barriecito.variable} h-full`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} h-full`}
+    >
       <body className="min-h-full">{children}</body>
     </html>
   );
