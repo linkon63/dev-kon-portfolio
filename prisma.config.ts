@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -8,6 +8,10 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    url: env("DATABASE_URL"),
+    // Read directly from the environment (falling back to an empty string) so
+    // `prisma generate` during install/build never hard-fails when DATABASE_URL
+    // isn't present — generate doesn't need a live connection. Migrate/runtime
+    // still require the real value to be set in the environment.
+    url: process.env.DATABASE_URL ?? "",
   },
 });
