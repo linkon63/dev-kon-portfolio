@@ -1,107 +1,61 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { motion, useMotionValue, useSpring } from "motion/react";
-import { Sparkle, Bolt } from "./Shapes";
+import { useState } from "react";
+import { motion } from "motion/react";
+import DecorAccents from "./DecorAccents";
+
+// Software-engineering experience clock — counted from joining Softzino (Jun 2021).
+const START = { year: 2021, month: 5 }; // month is 0-indexed (5 = June)
+
+function computeExperience() {
+  const now = new Date();
+  let months =
+    (now.getFullYear() - START.year) * 12 + (now.getMonth() - START.month);
+  if (months < 0) months = 0;
+  return { years: Math.floor(months / 12), months: months % 12 };
+}
+
+function HeadlineWord({ text }: { text: string }) {
+  return (
+    <span className="block text-[18vw] md:text-[15vw] lg:text-[13.5vw]">
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          whileHover={{ y: -10 }}
+          transition={{ type: "spring", stiffness: 400, damping: 12 }}
+        >
+          {ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export default function Hero() {
-  const heroRef = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(false);
-  // The portrait is fixed-position, so fade it out once the hero scrolls away.
-  const [heroVisible, setHeroVisible] = useState(true);
-
-  // Raw pointer target -> smoothed spring so the portrait trails the cursor.
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 130, damping: 18, mass: 0.6 });
-  const sy = useSpring(y, { stiffness: 130, damping: 18, mass: 0.6 });
-
-  // Park the portrait at the hero's natural resting spot when idle.
-  const restPosition = () => {
-    const el = heroRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    x.set(r.left + r.width / 2);
-    y.set(r.top + r.height * 0.66);
-  };
-
-  useEffect(() => {
-    restPosition();
-    window.addEventListener("resize", restPosition);
-    const el = heroRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHeroVisible(entry.intersectionRatio > 0.25),
-      { threshold: [0, 0.25, 0.5] },
-    );
-    if (el) observer.observe(el);
-    return () => {
-      window.removeEventListener("resize", restPosition);
-      observer.disconnect();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [exp] = useState(computeExperience);
 
   return (
     <section
       id="hero"
-      ref={heroRef}
-      onMouseMove={(e) => {
-        setActive(true);
-        x.set(e.clientX);
-        y.set(e.clientY);
-      }}
-      onMouseLeave={() => {
-        setActive(false);
-        restPosition();
-      }}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-16 cursor-none"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-16"
     >
-      {/* Decorative accents */}
-      <Sparkle className="absolute top-[30%] left-[6%] h-12 w-12 rotate-12 md:top-[34%] md:left-[2%] md:h-20 md:w-20" />
-      <Bolt className="absolute top-[52%] right-[6%] h-12 w-12 -rotate-6 md:top-[56%] md:right-[12%] md:h-20 md:w-20" />
+      {/* Animated, colour-shifting decorative accents */}
+      <DecorAccents />
 
-      {/* Display headline */}
-      <h1 className="text-center font-extrabold leading-[0.84] tracking-tighter text-[var(--ink)]">
-        <span className="block text-[18vw] md:text-[15vw] lg:text-[13.5vw]">
-          SOFTWARE
-        </span>
-        <span className="block text-[18vw] md:text-[15vw] lg:text-[13.5vw]">
-          ENGINEER
-        </span>
+      {/* Display headline — hover any letter to lift it */}
+      <h1 className="relative z-10 text-center font-extrabold leading-[0.84] tracking-tighter text-[var(--ink)]">
+        <HeadlineWord text="SOFTWARE" />
+        <HeadlineWord text="ENGINEER" />
       </h1>
 
-      {/* Cursor portrait — follows the mouse across the hero */}
-      <motion.div
-        style={{ x: sx, y: sy }}
-        animate={{ opacity: heroVisible ? 1 : 0 }}
-        transition={{ duration: 0.25 }}
-        className="pointer-events-none fixed top-0 left-0 z-30"
-        aria-hidden="true"
-      >
-        <motion.div
-          animate={{ scale: active ? 1.4 : 1 }}
-          transition={{ type: "spring", stiffness: 250, damping: 20 }}
-          className="relative h-10 w-10 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full ring-1 ring-black/20"
-        >
-          <Image
-            src="/assets/profileimage.jpg"
-            alt=""
-            fill
-            priority
-            sizes="40px"
-            className="object-cover grayscale contrast-110"
-          />
-        </motion.div>
-      </motion.div>
-
       {/* Footer meta line */}
-      <div className="pointer-events-none absolute inset-x-6 bottom-8 flex items-end justify-between">
+      <div className="pointer-events-none absolute inset-x-6 bottom-8 z-10 flex items-end justify-between">
         <span className="text-3xl font-bold tracking-tight md:text-4xl">
           ©2026
         </span>
-        <span className="text-xs font-medium tracking-wide text-[var(--ink)]/70 md:text-sm">
-          / ENGINEERING SINCE 2021
+        <span className="text-right text-xs font-medium tracking-wide text-[var(--ink)]/70 md:text-sm">
+          / ENGINEERING SINCE JUN 2021 · {exp.years}Y {exp.months}M EXPERIENCE
         </span>
       </div>
     </section>

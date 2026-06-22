@@ -43,7 +43,7 @@ export default function About() {
             owning delivery end to end.
           </p>
           <a
-            href="mailto:m.alinkon10@gmail.com"
+            href="#contact"
             className="group inline-flex w-fit items-center gap-3 text-base font-medium"
           >
             Get in touch
