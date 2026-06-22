@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  runtime  = "nodejs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Portfolio content — replaces the former Firestore collections.
+
+model Blog {
+  id        String   @id @default(cuid())
+  title     String
+  excerpt   String
+  content   String?  @db.Text
+  image     String
+  date      String
+  href      String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  title     String
+  text      String
+  image     String
+  liveUrl   String?
+  clientUrl String?
+  serverUrl String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  quote     String
+  name      String
+  role      String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Service {
+  id        String   @id @default(cuid())
+  title     String
+  tags      String[]
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// "Let's talk" contact form submissions.
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  project   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Single-row site settings (id is always "site").
+model SiteSettings {
+  id         String  @id @default("site")
+  resumeUrl  String?
+  resumeName String?
+}
+
+// First-party analytics events (powers the admin dashboard).
+model AnalyticsEvent {
+  id       String   @id @default(cuid())
+  type     String
+  path     String
+  visitor  String
+  device   String
+  browser  String
+  referrer String
+  lang     String
+  ts       DateTime @default(now())
+
+  @@index([ts])
+}
+
+// Uploaded files (project/blog images, resume PDF) stored in Postgres and
+// served via /api/uploads/[id]. Replaces Firebase Storage.
+model Upload {
+  id          String   @id @default(cuid())
+  folder      String
+  filename    String
+  contentType String
+  data        Bytes
+  createdAt   DateTime @default(now())
+}

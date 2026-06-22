@@ -1,86 +1,82 @@
-https://dev-kon-portfolio.web.app/
-MD ABDUL AHAD LINKON Software Engineer, Dhaka BANGLADESH +8801712508063 Email : m.alinkon10@gmail.com
+# dev|kon — Portfolio
 
-GitHub : https://github.com/linkon63
+Personal portfolio of **Md Abdul Ahad Linkon**, converted from Create React App to
+**Next.js (App Router)** with **Tailwind CSS v4** and **shadcn/ui**. The original
+Bootstrap-based design is reproduced 1:1 in Tailwind.
 
-LinkedIn : https://www.linkedin.com/in/md-abdul-ahad-linkon/
+## Tech stack
 
-Portfolio : https://dev-kon-portfolio.web.app/
+| Concern      | Tool                                       |
+| ------------ | ------------------------------------------ |
+| Framework    | Next.js 16 (App Router, server-rendered)   |
+| UI library   | React 19                                   |
+| Styling      | Tailwind CSS v4                            |
+| Components   | shadcn/ui (radix-nova)                     |
+| Icons        | react-icons, lucide-react                  |
+| Database     | Prisma ORM 7 + Prisma Postgres             |
+| Contact form | @emailjs/browser                           |
+| Hosting      | Any Node host (Vercel/Render/VPS)          |
 
-# SKILLS
+## Scripts
 
-Core: JavaScript, Typescript, PHP, C++, HTML5, CSS3, Sass
-Frameworks & Library: Mongoose, Express.js, React, Node.js, VUE, Laravel, AWS, React Native,
-Tailwind CSS, React-Bootstrap, Material UI, Redux
-Databases: MongoDB, MySQL ,Pgsql , Dynamodb
-Tools: Git, GitHub, Homestead, GitLab, HEROKU, Firebase, Chrome Elements Inspector, Firebug,
-React- Toolkit, Slack, Postman, Jira, Trello, VS Code, Docker
-Others: Problem solving, attention to detail, Problem analysis, Project handle, teamwork,
-communication
+```bash
+npm run dev        # start the dev server (http://localhost:3000)
+npm run build      # prisma generate + next build
+npm run lint       # run ESLint
+npm run db:migrate # apply Prisma migrations (dev)
+npm run db:seed    # seed portfolio content from src/data
+npm run db:studio  # open Prisma Studio
+npm run db:verify  # quick DB connectivity check
+```
 
-# WORK EXPERIENCES
+## Routes
 
-SOFTZINO TECHNOLOGIES Software engineer Jun 2021 – up to present
-Here, I have successfully completed more than 3 Projects, worked with Japanese 2 projects.
-Develop the Backend, Frontend code optimization. fixing bugs, experience with AWS work as a
-Team-Leader, I have taken the project responsibility and help others teammate.
-🧑‍💻Technologies: Node JS, AWS, React JS, devExtreme, Redux, MySQL, Vue, Prime Vue,
-🏢Site: https://softzino.com/
+| Path          | Page                           |
+| ------------- | ------------------------------ |
+| `/`, `/home`  | Landing + skills grid          |
+| `/about`      | About / bio                    |
+| `/projects`   | Featured projects (scrollable) |
+| `/allProject` | Full project list              |
+| `/resume`     | Embedded resume PDF            |
+| `/contact`    | Contact form                   |
+| `/blogs`      | Blog (coming soon)             |
+| `/dashboard`  | Admin placeholder              |
 
-# MYPATHGUIDER React Developer May 2021 – Dec-2021
+## Project structure
 
-Here, Develop the pathguider.com Site with Team and Added Features of Site also work with
-docusaurus library for website content.
-🧑‍💻 Technologies: React JS, MongoDB, Docusaurus library, Sass, tailwind
-🏢 Site: https://mypathguider.com/
+```
+src/
+  app/                 # routes (one folder per page)
+  components/
+    site/              # page sections (SiteLayout, TopNavbar, ProjectCard, …)
+    ui/                # shadcn/ui primitives
+  data/                # skills + projects data
+  lib/                 # utils
+public/
+  assets/              # images
+  files/               # resume PDF
+```
 
-# PROJECTS
+## Data & admin
 
-# Smart Device Repair Dec 2020 – Jan 2021 FULL STACK PROJECT
+Dynamic content (projects, blogs, services, testimonials, resume, analytics)
+lives in **Prisma Postgres** and is served through Next.js API routes under
+`/api`. The `/admin` panel manages it behind a server session-cookie login
+(`/api/admin/login`); uploaded images and the resume PDF are stored in Postgres
+and served from `/api/uploads/:id`. See [`DEPLOYMENT.md`](DEPLOYMENT.md) for
+environment variables and setup.
 
-Smart Device Repair is a service provider website project user can order services and need to
-payment and then user payment will successful user Can Delete their order and also, they can
-give a review and see their order status.
+## Deployment
 
-1. User (Add Service Order, Manage Order, Order Status, Add Review)
-2. Master Admin Panel (Remove User, Add Admin, Manage Order Status, Add Services, Delete
-   Reviews, Add Reviews, Delete Order) - Private Route without user login can’t access Dashboard.
-   🧑‍💻 Technology: React JS, Stripe Payment Gateway, Node JS, MongoDB, Express JS, Firebase
-   Hosting and Authentication, Private Route, ImageBB, Axios, Heroku (Server Hosting)
+This is a server-rendered Next.js app (it needs a Node runtime for the API
+routes and Prisma — it is no longer a static export). Deploy to any Node-capable
+host, e.g. Vercel:
 
-- Live : https://appledoctorclient.netlify.app/
-- Client : https://github.com/linkon63/Apple-Doctor-Client
-- Server : https://github.com/linkon63/Apple-Doctor-Server
+```bash
+# set DATABASE_URL (+ ADMIN_* secrets) in the host's env, then:
+npm run build   # runs `prisma generate` then `next build`
+npm start       # or let the platform run the build/start for you
+```
 
-# Doctor-Appointment Dec 2020 – Jan 2021 FULL STACK PROJECT
-
-Its service appointment service provider project people will take appointment by
-date of doctors then they can manage their service date and also select doctor to
-get an appointment
-
-1. User (Add Appointment by Date & Dashboard- Manage Appointment & Appointment Status)
-   2 Master Admin Panel (Manage all Appointment Details, Add Doctors, Manage Doctors)
-
-- Live : https://github.com/linkon63/Apple-Doctor-Server
-- Client : https://github.com/linkon63/Doctor-Portal-Client
-- Server : https://github.com/linkon63/Doctor-Portal-Server
-
-# Get Your Food mar 2021 – apr 2021 REACT NATIVE PROJECT
-
-This is Food Service Android App There are food come from API and use can Order the
-Food and Watch the Food Details
-
-- Code : https://github.com/linkon63/getYourFood
-
-# Task Manager Vue project
-
-Manage your task here state manage by pania js
-
-- Live : https://vue-2-pania-state.netlify.app/
-- Client : https://github.com/linkon63/Vue-2-Pania-State
-
-# ABOUT ME
-
-Strong background in web development, programming logic, bug fixing, and problem solving.
-Highly skilled in developing and maintaining web applications using various programming
-languages and frameworks.
+Run `npx prisma migrate deploy` against the production database as part of your
+release step.
