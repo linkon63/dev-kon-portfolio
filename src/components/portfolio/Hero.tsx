@@ -8,6 +8,8 @@ import { Sparkle, Bolt } from "./Shapes";
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(false);
+  // The portrait is fixed-position, so fade it out once the hero scrolls away.
+  const [heroVisible, setHeroVisible] = useState(true);
 
   // Raw pointer target -> smoothed spring so the portrait trails the cursor.
   const x = useMotionValue(0);
@@ -27,7 +29,16 @@ export default function Hero() {
   useEffect(() => {
     restPosition();
     window.addEventListener("resize", restPosition);
-    return () => window.removeEventListener("resize", restPosition);
+    const el = heroRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.intersectionRatio > 0.25),
+      { threshold: [0, 0.25, 0.5] },
+    );
+    if (el) observer.observe(el);
+    return () => {
+      window.removeEventListener("resize", restPosition);
+      observer.disconnect();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -63,6 +74,8 @@ export default function Hero() {
       {/* Cursor portrait — follows the mouse across the hero */}
       <motion.div
         style={{ x: sx, y: sy }}
+        animate={{ opacity: heroVisible ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
         className="pointer-events-none fixed top-0 left-0 z-30"
         aria-hidden="true"
       >

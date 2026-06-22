@@ -3,6 +3,10 @@ import Hero from "@/components/portfolio/Hero";
 import About from "@/components/portfolio/About";
 import IdeaToLaunch from "@/components/portfolio/IdeaToLaunch";
 import Services from "@/components/portfolio/Services";
+import FeaturedProjects from "@/components/portfolio/FeaturedProjects";
+import Testimonials from "@/components/portfolio/Testimonials";
+import Thoughts from "@/components/portfolio/Thoughts";
+import LetsTalk from "@/components/portfolio/LetsTalk";
 import Footer from "@/components/portfolio/Footer";
 import FloatingActions from "@/components/portfolio/FloatingActions";
 
@@ -15,6 +19,10 @@ export default function HomePage() {
       <About />
       <IdeaToLaunch />
       <Services />
+      <FeaturedProjects />
+      <Testimonials />
+      <Thoughts />
+      <LetsTalk />
       <Footer />
     </main>
   );

@@ -6,10 +6,11 @@ import { MoreHorizontal, X } from "lucide-react";
 const links = [
   { href: "#hero", label: "Home" },
   { href: "#about", label: "About" },
-  { href: "#process", label: "Process" },
   { href: "#services", label: "Services" },
+  { href: "#work", label: "Work" },
+  { href: "#thoughts", label: "Thoughts" },
+  { href: "#contact", label: "Contact" },
   { href: "/files/Resume-V12.pdf", label: "Resume", external: true },
-  { href: "mailto:m.alinkon10@gmail.com", label: "Contact", external: true },
 ];
 
 export default function Navbar() {
