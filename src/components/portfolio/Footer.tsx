@@ -367,11 +367,18 @@ export default function Footer() {
             {/* Speech bubble */}
             <Link
               href="/#contact"
-              className="group pointer-events-auto relative mb-3.5 rounded-2xl bg-[var(--ink)] px-4 py-2 text-[11px] sm:text-xs font-semibold text-[var(--cream)] shadow-2xl border border-[var(--cream)]/10 whitespace-nowrap cursor-pointer transition-all duration-300 hover:scale-105 hover:bg-neutral-950 dark:hover:bg-neutral-900 active:scale-95"
+              onClick={(e) => {
+                const el = document.getElementById("contact");
+                if (el) {
+                  e.preventDefault();
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="group pointer-events-auto relative mb-3.5 rounded-2xl bg-[var(--ink)] px-4 py-2 text-[11px] sm:text-xs font-semibold text-[var(--cream)] shadow-2xl border border-[var(--cream)]/10 whitespace-nowrap cursor-pointer transition-all duration-300 hover:scale-105 hover:opacity-90 active:scale-95"
             >
               Goodbye! Let&apos;s connect! 👋
               {/* Triangle pointer */}
-              <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-[var(--ink)] border-r border-b border-[var(--cream)]/10 group-hover:border-[var(--cream)]/30 group-hover:bg-neutral-950 dark:group-hover:bg-neutral-900 transition-all duration-300" />
+              <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-[var(--ink)] border-r border-b border-[var(--cream)]/10 group-hover:border-[var(--cream)]/30 transition-all duration-300" />
             </Link>
 
             {/* Panda Sticker */}
