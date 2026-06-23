@@ -1,11 +1,15 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import { useResumeUrl } from "@/lib/useResume";
 import { FaWhatsapp, FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
+import { AnimatePresence, motion, useInView } from "motion/react";
 
 export default function Footer() {
   const resumeUrl = useResumeUrl();
+  const footerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(footerRef, { once: false, amount: 0.05 });
 
   const quickLinks = [
     { href: "/", label: "Home" },
@@ -19,7 +23,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-[var(--ink)] text-[var(--cream)]">
+    <footer ref={footerRef} className="relative overflow-hidden bg-[var(--ink)] text-[var(--cream)]">
       <div className="relative z-10 mx-auto grid gap-12 px-6 pt-20 pb-40 md:grid-cols-4 md:pb-48">
         <h2 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
           Building Software
@@ -124,6 +128,37 @@ export default function Footer() {
           © {new Date().getFullYear()} Md Abdul Ahad Linkon — Software Engineer.
         </p>
       </div>
+
+      <AnimatePresence>
+        {isInView && (
+          <motion.div
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: "0%", opacity: 1 }}
+            exit={{ y: "100%", opacity: 0 }}
+            transition={{ type: "spring", stiffness: 220, damping: 20 }}
+            className="fixed bottom-0 left-6 z-40 flex flex-col items-center pointer-events-none"
+          >
+            {/* Speech bubble */}
+            <Link
+              href="/#contact"
+              className="group pointer-events-auto relative mb-3.5 rounded-2xl bg-[var(--ink)] px-4 py-2 text-[11px] sm:text-xs font-semibold text-[var(--cream)] shadow-2xl border border-[var(--cream)]/10 whitespace-nowrap cursor-pointer transition-all duration-300 hover:scale-105 hover:bg-neutral-950 dark:hover:bg-neutral-900 active:scale-95"
+            >
+              Goodbye! Let&apos;s connect! 👋
+              {/* Triangle pointer */}
+              <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-[var(--ink)] border-r border-b border-[var(--cream)]/10 group-hover:border-[var(--cream)]/30 group-hover:bg-neutral-950 dark:group-hover:bg-neutral-900 transition-all duration-300" />
+            </Link>
+
+            {/* Panda Sticker */}
+            <div className="w-24 h-24 sm:w-28 sm:h-28">
+              <img
+                src="https://media.giphy.com/media/cXarpuLXIP9TJV4p9I/giphy.gif"
+                alt="Panda Sticker"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </footer>
   );
 }
