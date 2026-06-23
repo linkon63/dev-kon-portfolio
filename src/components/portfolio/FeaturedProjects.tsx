@@ -1,32 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, X } from "lucide-react";
+import { motion } from "motion/react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useCollectionData } from "@/lib/useCollectionData";
 import { COLLECTIONS, type Project } from "@/lib/types";
 import { seedProjects } from "@/lib/seedData";
+import ProjectModal from "./ProjectModal";
+
+const INITIAL_COUNT = 3;
 
 export default function FeaturedProjects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const projects = useCollectionData<Project>(
+  const [isExpanded, setIsExpanded] = useState(false);
+  const allProjects = useCollectionData<Project>(
     COLLECTIONS.projects,
     seedProjects,
-  ).slice(0, 6);
-
-  // Disable page scroll when modal is open
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedProject]);
+  );
+  const projects = isExpanded ? allProjects : allProjects.slice(0, INITIAL_COUNT);
 
   return (
     <section id="work" className="mx-auto max-w-6xl px-6 py-6 md:py-32">
@@ -82,104 +75,40 @@ export default function FeaturedProjects() {
         })}
       </div>
 
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop */}
+      {/* Load more / less */}
+      {allProjects.length > INITIAL_COUNT && (
+        <div className="mt-12 flex flex-col items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setIsExpanded((v) => !v)}
+            title={isExpanded ? "Show Less" : "Load More Projects"}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--ink)]/15 text-[var(--ink)] hover:bg-[var(--ink)]/5 transition-colors cursor-pointer"
+          >
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-
-            {/* Modal Box */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-2xl bg-[var(--cream)] text-[var(--ink)] overflow-hidden rounded-3xl shadow-2xl border border-[var(--ink)]/10 z-10 max-h-[90vh] flex flex-col"
+              animate={isExpanded ? { rotate: 180 } : { y: [0, 4, 0] }}
+              transition={
+                isExpanded
+                  ? { duration: 0.3 }
+                  : { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
+              }
             >
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-20 grid h-10 w-10 place-items-center rounded-full bg-black/50 hover:bg-black/70 text-white backdrop-blur-sm transition-colors border border-white/10 cursor-pointer"
-                title="Close"
-              >
-                <X size={18} />
-              </button>
-
-              <div className="overflow-y-auto w-full">
-                {/* Project Image */}
-                {selectedProject.image && (
-                  <div className="relative w-full h-60 sm:h-80 bg-neutral-100">
-                    <Image
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      fill
-                      unoptimized
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-
-                {/* Project Details */}
-                <div className="p-6 sm:p-8 flex flex-col gap-5">
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                      {selectedProject.title}
-                    </h3>
-                  </div>
-
-                  <div className="text-sm sm:text-base leading-relaxed text-[var(--ink)]/80 font-medium">
-                    <p className="whitespace-pre-line">{selectedProject.text}</p>
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex flex-wrap gap-3 pt-2">
-                    {selectedProject.liveUrl && (
-                      <a
-                        href={selectedProject.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[var(--ink)] text-[var(--cream)] px-5 py-2.5 rounded-full text-sm font-bold shadow-md hover:opacity-90 transition-all duration-300"
-                      >
-                        Live Website
-                        <ArrowUpRight size={16} />
-                      </a>
-                    )}
-                    {selectedProject.clientUrl && (
-                      <a
-                        href={selectedProject.clientUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-[var(--ink)]/20 hover:border-[var(--ink)] text-[var(--ink)] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-neutral-50 transition-all duration-300"
-                      >
-                        Client Repository
-                        <ArrowUpRight size={16} />
-                      </a>
-                    )}
-                    {selectedProject.serverUrl && (
-                      <a
-                        href={selectedProject.serverUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-[var(--ink)]/20 hover:border-[var(--ink)] text-[var(--ink)] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-neutral-50 transition-all duration-300"
-                      >
-                        Server Repository
-                        <ArrowUpRight size={16} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <ChevronDown size={20} />
             </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+          </button>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--ink)]/45">
+            {isExpanded
+              ? "Show less"
+              : `${allProjects.length - INITIAL_COUNT} more project${
+                  allProjects.length - INITIAL_COUNT > 1 ? "s" : ""
+                }`}
+          </span>
+        </div>
+      )}
+
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }

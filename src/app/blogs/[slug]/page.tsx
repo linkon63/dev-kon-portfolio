@@ -1,10 +1,10 @@
-import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
 import Breadcrumb from "@/components/site/Breadcrumb";
 import CommentsAndLikes from "@/components/site/CommentsAndLikes";
+import ShareButtons from "@/components/site/ShareButtons";
 
 export const dynamic = "force-dynamic";
 
@@ -14,9 +14,25 @@ export async function generateMetadata({ params }: Ctx) {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({ where: { slug } });
   if (!blog || !blog.active) return { title: "Post not found" };
+  const url = `/blogs/${blog.slug}`;
+  const images = blog.image ? [{ url: blog.image }] : undefined;
   return {
     title: `${blog.title} — Md Abdul Ahad Linkon`,
     description: blog.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: blog.title,
+      description: blog.excerpt,
+      url,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.excerpt,
+      images: blog.image ? [blog.image] : undefined,
+    },
   };
 }
 
@@ -65,6 +81,10 @@ export default async function BlogDetailPage({ params }: Ctx) {
   const words = totalText.split(/\s+/).filter(Boolean).length;
   const readMins = Math.max(1, Math.round(words / 200));
 
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://dev-kon-portfolio.web.app";
+  const shareUrl = `${siteUrl}/blogs/${blog.slug}`;
+
   return (
     <PublicPage>
       <article className="mx-auto max-w-2xl px-6 pt-32 pb-24 md:pt-40 md:pb-32">
@@ -84,6 +104,10 @@ export default async function BlogDetailPage({ params }: Ctx) {
             {blog.excerpt}
           </p>
         )}
+
+        <div className="mt-8 border-y border-[var(--ink)]/10 py-4">
+          <ShareButtons url={shareUrl} title={blog.title} />
+        </div>
 
         {/* Cover Image */}
         {blog.image && (
@@ -135,6 +159,13 @@ export default async function BlogDetailPage({ params }: Ctx) {
               This post doesn&apos;t have any content yet.
             </p>
           )}
+        </div>
+
+        <div className="mt-12 flex flex-col gap-4 border-t border-[var(--ink)]/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-lg font-bold tracking-tight">
+            Found this useful? Share it.
+          </p>
+          <ShareButtons url={shareUrl} title={blog.title} />
         </div>
 
         <CommentsAndLikes

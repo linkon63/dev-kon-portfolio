@@ -12,6 +12,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://dev-kon-portfolio.web.app",
+  ),
   title: "Md Abdul Ahad Linkon — Software Engineer",
   description:
     "Md Abdul Ahad Linkon — Software Engineer building modern, scalable, conversion-driven web experiences.",

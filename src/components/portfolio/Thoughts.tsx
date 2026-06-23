@@ -9,7 +9,7 @@ import { useCollectionData } from "@/lib/useCollectionData";
 import { COLLECTIONS, type Blog } from "@/lib/types";
 
 export default function Thoughts() {
-  const posts = useCollectionData<Blog>(COLLECTIONS.blogs, fallbackPosts).slice(
+  const posts = useCollectionData<Blog>(COLLECTIONS.blogs, fallbackPosts as unknown as Blog[]).slice(
     0,
     4,
   );
