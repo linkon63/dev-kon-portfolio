@@ -8,16 +8,16 @@ the values. `.env*` is git-ignored. This is a server-rendered app, so secrets
 ```bash
 # --- Database (Prisma Postgres) ---
 # Set automatically by `prisma postgres link`; or paste your own connection string.
-DATABASE_URL=
+DATABASE_URL=prisma.m.alinkon10@gmail.com-with-github
 
 # --- Admin panel (server-side check; keep secret) ---
 ADMIN_EMAIL=admin@devkon.com
-ADMIN_PASSWORD=devkon2026
+ADMIN_PASSWORD=devkon-year
 ADMIN_SESSION_SECRET=change-me-to-a-long-random-string
 
 # --- Login screen hint (public, display only) ---
 NEXT_PUBLIC_ADMIN_EMAIL=admin@devkon.com
-NEXT_PUBLIC_ADMIN_PASSWORD=devkon2026
+NEXT_PUBLIC_ADMIN_PASSWORD=devkon-year
 
 # --- EmailJS contact form (optional) ---
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=
