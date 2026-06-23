@@ -1,8 +1,45 @@
 "use client";
 
 import { motion } from "motion/react";
-import { FileText, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useResumeUrl } from "@/lib/useResume";
+
+/** A résumé sheet whose text lines "write" themselves on a loop. */
+function AnimatedResumeIcon() {
+  const line = (delay: number) => ({
+    initial: { pathLength: 0, opacity: 0.35 },
+    animate: { pathLength: [0, 1, 1, 0], opacity: [0.35, 1, 1, 0.35] },
+    transition: {
+      duration: 2.6,
+      repeat: Infinity,
+      ease: "easeInOut" as const,
+      delay,
+    },
+  });
+
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="relative"
+      aria-hidden="true"
+    >
+      {/* Sheet + folded corner */}
+      <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+      <path d="M14 3v4a1 1 0 0 0 1 1h3.5" />
+      {/* Text lines that "write" themselves */}
+      <motion.line x1="8.5" y1="12" x2="15.5" y2="12" {...line(0)} />
+      <motion.line x1="8.5" y1="15" x2="15.5" y2="15" {...line(0.35)} />
+      <motion.line x1="8.5" y1="18" x2="13" y2="18" {...line(0.7)} />
+    </svg>
+  );
+}
 
 /**
  * Eye-catching resume CTA pinned to the bottom-right corner, just above the
@@ -49,18 +86,18 @@ export default function ResumeButton() {
         }}
       />
 
-      {/* Wiggling document icon */}
+      {/* Animated résumé icon */}
       <motion.span
         className="relative grid place-items-center"
-        animate={{ rotate: [0, -10, 10, 0] }}
+        animate={{ rotate: [0, -8, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
       >
-        <FileText size={16} />
+        <AnimatedResumeIcon />
       </motion.span>
 
       <span className="relative">Resume</span>
 
-      <Sparkles size={13} className="relative animate-pulse text-yellow-300" />
+      {/* <Sparkles size={13} className="relative animate-pulse text-yellow-300" /> */}
     </motion.a>
   );
 }
