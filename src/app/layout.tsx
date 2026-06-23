@@ -1,9 +1,11 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import JsonLd from "@/components/portfolio/JsonLd";
 import ScrollToTop from "@/components/portfolio/ScrollToTop";
 import HangingLamp from "@/components/portfolio/HangingLamp";
 import { ThemeProvider } from "@/components/portfolio/ThemeProvider";
+import { siteMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-0N792Q9769";
@@ -14,14 +16,7 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://dev-kon-portfolio.web.app",
-  ),
-  title: "Md Abdul Ahad Linkon — Software Engineer",
-  description:
-    "Md Abdul Ahad Linkon — Software Engineer building modern, scalable, conversion-driven web experiences.",
-};
+export const metadata = siteMetadata;
 
 export const viewport: Viewport = {
   themeColor: "#ffffff",
@@ -40,6 +35,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <JsonLd />
         {/* Google Analytics 4 */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
