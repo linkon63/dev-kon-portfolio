@@ -6,19 +6,31 @@ import { prisma } from "./prisma";
 export const CONTENT = {
   blogs: {
     model: "blog",
-    fields: ["title", "excerpt", "content", "image", "date", "href"],
+    fields: [
+      "title",
+      "slug",
+      "excerpt",
+      "content",
+      "image",
+      "date",
+      "href",
+      "active",
+      "likes",
+      "allowLikes",
+      "allowComments",
+    ],
   },
   projects: {
     model: "project",
-    fields: ["title", "text", "image", "liveUrl", "clientUrl", "serverUrl"],
+    fields: ["title", "text", "image", "liveUrl", "clientUrl", "serverUrl", "active"],
   },
   testimonials: {
     model: "testimonial",
-    fields: ["quote", "name", "role"],
+    fields: ["quote", "name", "role", "active"],
   },
   services: {
     model: "service",
-    fields: ["title", "tags"],
+    fields: ["title", "tags", "active"],
   },
 } as const;
 

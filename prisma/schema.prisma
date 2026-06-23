@@ -11,14 +11,20 @@ datasource db {
 // Portfolio content — replaces the former Firestore collections.
 
 model Blog {
-  id        String   @id @default(cuid())
-  title     String
-  excerpt   String
-  content   String?  @db.Text
-  image     String
-  date      String
-  href      String?
-  createdAt DateTime @default(now())
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  excerpt       String
+  content       String?   @db.Text
+  image         String
+  date          String
+  href          String?
+  active        Boolean   @default(true)
+  likes         Int       @default(0)
+  allowLikes    Boolean   @default(true)
+  allowComments Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  comments      Comment[]
 
   @@index([createdAt])
 }
@@ -31,6 +37,7 @@ model Project {
   liveUrl   String?
   clientUrl String?
   serverUrl String?
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
 
   @@index([createdAt])
@@ -41,6 +48,7 @@ model Testimonial {
   quote     String
   name      String
   role      String
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
 
   @@index([createdAt])
@@ -50,6 +58,7 @@ model Service {
   id        String   @id @default(cuid())
   title     String
   tags      String[]
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
 
   @@index([createdAt])
@@ -98,4 +107,21 @@ model Upload {
   contentType String
   data        Bytes
   createdAt   DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  blogId    String
+  name      String
+  email     String
+  content   String   @db.Text
+  parentId  String?
+  createdAt DateTime @default(now())
+
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+
+  @@index([blogId])
+  @@index([parentId])
 }

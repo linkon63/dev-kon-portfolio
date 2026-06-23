@@ -65,6 +65,7 @@ export const seedServices: Service[] = staticServices.map((s) => ({
 
 export const seedBlogs: Blog[] = staticPosts.map((p) => ({
   title: p.title,
+  slug: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
   excerpt: p.excerpt,
   image: p.image,
   date: p.date,

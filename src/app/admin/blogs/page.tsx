@@ -2,47 +2,19 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { Plus, Pencil, Trash2, Save, Upload, ImageIcon } from "lucide-react";
+import Link from "next/link";
+import { Plus, Pencil, Trash2, ImageIcon, RotateCcw, Heart } from "lucide-react";
 import AdminShell from "@/components/admin/AdminShell";
-import {
-  Button,
-  Card,
-  ConfirmDialog,
-  Field,
-  Modal,
-  TextInput,
-  TextArea,
-} from "@/components/admin/ui";
-import {
-  listCollection,
-  createItem,
-  updateItem,
-  removeItem,
-} from "@/lib/collections";
-import { uploadFile } from "@/lib/storage";
+import { Button, Card, ConfirmDialog } from "@/components/admin/ui";
+import { listCollection, updateItem, removeItem } from "@/lib/collections";
 import { COLLECTIONS, type Blog } from "@/lib/types";
-import { seedBlogs } from "@/lib/seedData";
-
-type Draft = Blog & { file?: File | null; preview?: string };
-
-const EMPTY: Draft = {
-  title: "",
-  excerpt: "",
-  content: "",
-  image: "",
-  date: "",
-  file: null,
-  preview: "",
-};
 
 export default function AdminBlogsPage() {
   const [items, setItems] = useState<Blog[]>([]);
-  const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState<Draft>(EMPTY);
-  const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [toDelete, setToDelete] = useState<Blog | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [busy, setBusy] = useState(false);
 
   const reload = useCallback(
     () => listCollection<Blog>(COLLECTIONS.blogs).then(setItems),
@@ -54,66 +26,6 @@ export default function AdminBlogsPage() {
       setError(e instanceof Error ? e.message : "Failed to load blogs."),
     );
   }, [reload]);
-
-  const openNew = () => {
-    setDraft({ ...EMPTY });
-    setError("");
-    setOpen(true);
-  };
-
-  const openEdit = (b: Blog) => {
-    setDraft({ ...b, file: null, preview: b.image });
-    setError("");
-    setOpen(true);
-  };
-
-  const pickImage = (file: File) => {
-    setDraft((d) => ({ ...d, file, preview: URL.createObjectURL(file) }));
-  };
-
-  const save = async () => {
-    if (!draft.title.trim()) {
-      setError("Title is required.");
-      return;
-    }
-    setBusy(true);
-    setError("");
-    try {
-      let image = draft.image;
-      if (draft.file) {
-        try {
-          image = await uploadFile("blogs", draft.file);
-        } catch {
-          throw new Error(
-            "Image upload failed. Make sure you're signed in, or paste an image URL instead.",
-          );
-        }
-      }
-
-      const data: Blog = {
-        title: draft.title,
-        excerpt: draft.excerpt,
-        content: draft.content ?? "",
-        date: draft.date,
-        image,
-      };
-
-      if (draft.id) await updateItem(COLLECTIONS.blogs, draft.id, data);
-      else await createItem(COLLECTIONS.blogs, data);
-
-      await reload();
-      setOpen(false);
-      setDraft(EMPTY);
-    } catch (e) {
-      setError(
-        e instanceof Error
-          ? `Save failed: ${e.message}`
-          : "Save failed. Make sure you're signed in and try again.",
-      );
-    } finally {
-      setBusy(false);
-    }
-  };
 
   const confirmDelete = async () => {
     if (!toDelete?.id) return;
@@ -127,14 +39,14 @@ export default function AdminBlogsPage() {
     }
   };
 
-  const seed = async () => {
+  const reactivate = async (b: Blog) => {
+    if (!b.id || busy) return;
     setBusy(true);
-    setError("");
     try {
-      for (const b of seedBlogs) await createItem(COLLECTIONS.blogs, b);
+      await updateItem(COLLECTIONS.blogs, b.id, { active: true });
       await reload();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Seed failed.");
+      setError(e instanceof Error ? e.message : "Failed to reactivate blog.");
     } finally {
       setBusy(false);
     }
@@ -142,24 +54,21 @@ export default function AdminBlogsPage() {
 
   return (
     <AdminShell title="Thoughts / Blogs">
-      <div className="mb-5 flex flex-wrap gap-3">
-        <Button onClick={openNew}>
-          <Plus size={16} /> Create blog
-        </Button>
-        {items.length === 0 && (
-          <Button variant="ghost" onClick={seed} disabled={busy}>
-            Seed from existing
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <Link href="/admin/blogs/create">
+          <Button>
+            <Plus size={16} /> Create blog
           </Button>
-        )}
+        </Link>
       </div>
 
-      {error && !open && (
+      {error && (
         <p className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
           {error}
         </p>
       )}
 
-      {/* Existing blogs */}
+      {/* Existing blogs list */}
       <div className="grid gap-3">
         {items.map((b) => (
           <Card key={b.id} className="flex items-center gap-4">
@@ -173,137 +82,76 @@ export default function AdminBlogsPage() {
                 className="h-18 w-18 shrink-0 rounded-lg object-cover"
               />
             ) : (
-              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-lg bg-neutral-100 text-neutral-400">
+              <div className="grid h-18 w-18 shrink-0 place-items-center rounded-lg bg-neutral-100 text-neutral-400">
                 <ImageIcon size={20} />
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <p className="truncate font-semibold">{b.title}</p>
-              <p className="text-xs text-neutral-400">{b.date}</p>
-              <p className="mt-0.5 truncate text-sm text-neutral-500">
-                {b.excerpt}
-              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="font-semibold text-neutral-900 truncate">{b.title}</p>
+                <span className="rounded bg-neutral-100 px-1.5 py-0.5 text-[10px] text-neutral-500 font-mono">
+                  /{b.slug}
+                </span>
+                {b.active === false ? (
+                  <span className="rounded bg-red-50 border border-red-200 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-red-600">
+                    Inactive (Soft-Deleted)
+                  </span>
+                ) : (
+                  <span className="rounded bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-600">
+                    Active
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-neutral-400 mt-0.5">{b.date}</p>
+              
+              <div className="flex items-center gap-4 mt-2">
+                <span className="inline-flex items-center gap-1 text-xs text-neutral-500">
+                  <Heart size={12} className="text-red-500 fill-red-500" />
+                  {b.likes || 0} likes
+                </span>
+                <span className="text-xs text-neutral-400">
+                  {b.allowComments ? "Comments on" : "Comments off"} · {b.allowLikes ? "Likes on" : "Likes off"}
+                </span>
+              </div>
             </div>
-            <Button variant="ghost" onClick={() => openEdit(b)}>
-              <Pencil size={15} />
-            </Button>
-            <Button variant="danger" onClick={() => setToDelete(b)}>
-              <Trash2 size={15} />
-            </Button>
+            
+            <Link href={`/admin/blogs/edit/${b.id}`}>
+              <Button variant="ghost">
+                <Pencil size={15} />
+              </Button>
+            </Link>
+
+            {b.active === false ? (
+              <Button
+                variant="ghost"
+                onClick={() => reactivate(b)}
+                disabled={busy}
+                className="text-emerald-600 hover:bg-emerald-50 border border-emerald-300"
+                title="Reactivate Blog"
+              >
+                <RotateCcw size={15} />
+              </Button>
+            ) : (
+              <Button
+                variant="danger"
+                onClick={() => setToDelete(b)}
+                title="Soft Delete Blog"
+              >
+                <Trash2 size={15} />
+              </Button>
+            )}
           </Card>
         ))}
         {items.length === 0 && (
           <p className="text-sm text-neutral-500">
-            No blogs yet — create one or seed the existing posts.
+            No blogs yet — click Create Blog to create one.
           </p>
         )}
       </div>
 
-      {/* Create / edit modal */}
-      <Modal
-        open={open}
-        onClose={() => !busy && setOpen(false)}
-        title={draft.id ? "Edit blog" : "Create blog"}
-      >
-        <div className="grid gap-4">
-          {/* Image upload + preview */}
-          <Field label="Cover image">
-            <div className="flex items-center gap-4">
-              <div className="grid h-24 w-32 shrink-0 place-items-center overflow-hidden rounded-lg border border-dashed border-neutral-300 bg-neutral-50">
-                {draft.preview ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={draft.preview}
-                    alt="preview"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <ImageIcon size={22} className="text-neutral-300" />
-                )}
-              </div>
-              <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-100">
-                <Upload size={15} /> Choose image
-                <input
-                  type="file"
-                  accept="image/*"
-                  hidden
-                  onChange={(e) =>
-                    e.target.files?.[0] && pickImage(e.target.files[0])
-                  }
-                />
-              </label>
-            </div>
-            <div className="mt-3">
-              <TextInput
-                value={draft.file ? "" : (draft.image ?? "")}
-                disabled={!!draft.file}
-                placeholder="…or paste an image URL"
-                onChange={(e) =>
-                  setDraft({
-                    ...draft,
-                    image: e.target.value,
-                    preview: e.target.value,
-                  })
-                }
-              />
-            </div>
-          </Field>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <Field label="Title">
-              <TextInput
-                value={draft.title}
-                onChange={(e) => setDraft({ ...draft, title: e.target.value })}
-                placeholder="Scaling a MERN app…"
-              />
-            </Field>
-            <Field label="Date">
-              <TextInput
-                value={draft.date}
-                onChange={(e) => setDraft({ ...draft, date: e.target.value })}
-                placeholder="May 5, 2025"
-              />
-            </Field>
-          </div>
-
-          <Field label="Excerpt (short summary shown on cards)">
-            <TextArea
-              rows={2}
-              value={draft.excerpt}
-              onChange={(e) => setDraft({ ...draft, excerpt: e.target.value })}
-              placeholder="One or two lines describing the post…"
-            />
-          </Field>
-
-          <Field label="Content (full article — blank lines separate paragraphs)">
-            <TextArea
-              rows={10}
-              value={draft.content ?? ""}
-              onChange={(e) => setDraft({ ...draft, content: e.target.value })}
-              placeholder={"Write your article here.\n\nUse a blank line between paragraphs."}
-            />
-          </Field>
-
-          {error && <p className="text-sm text-red-600">{error}</p>}
-
-          <div className="flex gap-2">
-            <Button onClick={save} disabled={busy}>
-              <Save size={16} /> {busy ? "Saving…" : "Save blog"}
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={() => !busy && setOpen(false)}
-              disabled={busy}
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      </Modal>
-
       <ConfirmDialog
         open={!!toDelete}
-        message={`Delete the blog “${toDelete?.title ?? ""}”? This can't be undone.`}
+        message={`Soft delete the blog “${toDelete?.title ?? ""}”? Readers won't be able to access it, but you can reactivate it later.`}
         busy={deleting}
         onConfirm={confirmDelete}
         onCancel={() => !deleting && setToDelete(null)}

@@ -31,6 +31,7 @@ async function main() {
     await prisma.blog.createMany({
       data: staticPosts.map((p) => ({
         title: p.title,
+        slug: p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
         excerpt: p.excerpt,
         image: p.image,
         date: p.date,

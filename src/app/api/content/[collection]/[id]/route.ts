@@ -24,12 +24,15 @@ export async function PATCH(req: Request, { params }: Ctx) {
   return Response.json(serializeRow(updated));
 }
 
-// DELETE /api/content/:collection/:id — remove an item. Admin only.
+// DELETE /api/content/:collection/:id — soft remove an item. Admin only.
 export async function DELETE(_req: Request, { params }: Ctx) {
   const { collection, id } = await params;
   if (!isCollection(collection)) return badRequest("Unknown collection");
   if (!(await isAdmin())) return unauthorized();
 
-  await delegateFor(collection).delete({ where: { id } });
+  await delegateFor(collection).update({
+    where: { id },
+    data: { active: false },
+  });
   return Response.json({ ok: true });
 }

@@ -16,7 +16,11 @@ export async function GET(_req: Request, { params }: Ctx) {
   const { collection } = await params;
   if (!isCollection(collection)) return badRequest("Unknown collection");
 
+  const showAll = await isAdmin();
+  const where = showAll ? {} : { active: true };
+
   const rows = await delegateFor(collection).findMany({
+    where,
     orderBy: { createdAt: "desc" },
   });
   return Response.json(rows.map(serializeRow));

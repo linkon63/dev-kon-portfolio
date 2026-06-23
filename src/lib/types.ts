@@ -3,12 +3,28 @@
 export type Blog = {
   id?: string;
   title: string;
+  slug?: string;
   excerpt: string;
   content?: string;
   image: string;
   date: string;
   href?: string;
+  active?: boolean;
+  likes?: number;
+  allowLikes?: boolean;
+  allowComments?: boolean;
   createdAt?: number;
+};
+
+export type Comment = {
+  id?: string;
+  blogId: string;
+  name: string;
+  email: string;
+  content: string;
+  parentId?: string | null;
+  createdAt?: number;
+  replies?: Comment[];
 };
 
 export type Testimonial = {
