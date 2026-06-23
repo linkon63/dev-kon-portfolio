@@ -12,6 +12,7 @@ import Thoughts from "@/components/portfolio/Thoughts";
 import LetsTalk from "@/components/portfolio/LetsTalk";
 import Footer from "@/components/portfolio/Footer";
 import FloatingActions from "@/components/portfolio/FloatingActions";
+import ResumeButton from "@/components/portfolio/ResumeButton";
 import InPageNav from "@/components/portfolio/InPageNav";
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
     <main className="bg-[var(--cream)] text-[var(--ink)]">
       <Tracker />
       <Navbar />
+      <ResumeButton />
       <FloatingActions />
       <InPageNav />
       <Hero />
