@@ -63,8 +63,8 @@ export default function FloatingActions() {
             aria-label={label}
             className={`group flex items-center justify-end overflow-hidden rounded-l-xl shadow-lg border-y border-l transition-all duration-300 ${
               isResume
-                ? "bg-[var(--cream)] text-[var(--ink)] border-[var(--ink)]/20 hover:bg-neutral-100 scale-105"
-                : "bg-[var(--ink)] text-[var(--cream)] border-transparent"
+                ? "bg-white text-neutral-900 border-black/15 hover:bg-neutral-100 scale-105"
+                : "bg-[var(--ink)] text-[var(--cream)] border-[var(--cream)]/15"
             }`}
           >
             <span className="max-w-0 overflow-hidden text-sm font-medium whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-[180px] group-hover:pl-4 group-hover:opacity-100">

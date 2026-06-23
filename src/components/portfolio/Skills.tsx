@@ -1,7 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { motion, AnimatePresence } from "motion/react";
+
+// Force the modal to a light palette (white bg / black text) in both themes.
+const LIGHT_TOKENS = {
+  "--ink": "#0d0d0c",
+  "--cream": "#ffffff",
+} as CSSProperties;
 import { X, ExternalLink, ChevronDown } from "lucide-react";
 import { mySkills, type Skill } from "@/data/skills";
 
@@ -81,6 +87,7 @@ export default function Skills() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.4 }}
+              style={LIGHT_TOKENS}
               className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl bg-[var(--cream)] p-8 text-[var(--ink)] shadow-2xl border border-[var(--ink)]/15"
             >
               {/* Close Icon Button */}
