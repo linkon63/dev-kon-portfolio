@@ -34,14 +34,14 @@ export default function Thoughts() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {posts.map((post, i) => (
           <motion.div
-            key={post.id ?? post.title}
+            key={post.slug ?? post.id ?? post.title}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
           >
             <Link
-              href={post.id ? `/blogs/${post.id}` : "/blogs"}
+              href={post.slug ? `/blogs/${post.slug}` : (post.id ? `/blogs/${post.id}` : "/blogs")}
               className="group relative block aspect-[3/4] overflow-hidden rounded-3xl"
             >
               <Image

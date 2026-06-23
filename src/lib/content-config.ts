@@ -6,7 +6,7 @@ import { prisma } from "./prisma";
 export const CONTENT = {
   blogs: {
     model: "blog",
-    fields: ["title", "excerpt", "content", "image", "date", "href"],
+    fields: ["title", "slug", "excerpt", "content", "image", "date", "href"],
   },
   projects: {
     model: "project",

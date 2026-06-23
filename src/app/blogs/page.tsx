@@ -53,8 +53,8 @@ export default async function BlogsPage({
           <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {blogs.map((post) => (
               <Link
-                key={post.id}
-                href={`/blogs/${post.id}`}
+                key={post.id || post.slug}
+                href={`/blogs/${post.slug}`}
                 className="group block"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-[var(--ink)]/5 ring-1 ring-black/5">
