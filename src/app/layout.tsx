@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import ScrollToTop from "@/components/portfolio/ScrollToTop";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,7 +30,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${inter.variable} h-full`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <ScrollToTop />
+      </body>
     </html>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useResumeUrl } from "@/lib/useResume";
+import { FaWhatsapp, FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
 
 export default function Footer() {
   const resumeUrl = useResumeUrl();
@@ -19,7 +20,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[var(--ink)] text-[var(--cream)]">
-      <div className="relative z-10 mx-auto grid gap-12 px-6 pt-20 pb-40 md:grid-cols-3 md:pb-48">
+      <div className="relative z-10 mx-auto grid gap-12 px-6 pt-20 pb-40 md:grid-cols-4 md:pb-48">
         <h2 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
           Building Software
           <br />
@@ -65,6 +66,48 @@ export default function Footer() {
             m.alinkon10@gmail.com
           </a>
           <p className="mt-2 text-[var(--cream)]/60">Dhaka, Bangladesh</p>
+        </div>
+
+        <div>
+          <p className="mb-5 text-xl text-[var(--cream)]/80">/Connected with me</p>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://wa.me/8801712508063?text=Hi%20Linkon%2C%20I%20saw%20your%20portfolio%20website%20and%20would%20like%20to%20connect%20regarding%20a%20project/job%20opportunity%21"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-[var(--cream)] transition-colors hover:bg-white hover:text-[var(--ink)]"
+            >
+              <FaWhatsapp size={18} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/md-abdul-ahad-linkon/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-[var(--cream)] transition-colors hover:bg-white hover:text-[var(--ink)]"
+            >
+              <FaLinkedinIn size={18} />
+            </a>
+            <a
+              href="https://github.com/linkon63"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-[var(--cream)] transition-colors hover:bg-white hover:text-[var(--ink)]"
+            >
+              <FaGithub size={18} />
+            </a>
+            <a
+              href="mailto:m.alinkon10@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-[var(--cream)] transition-colors hover:bg-white hover:text-[var(--ink)]"
+            >
+              <FaEnvelope size={18} />
+            </a>
+          </div>
         </div>
       </div>
 

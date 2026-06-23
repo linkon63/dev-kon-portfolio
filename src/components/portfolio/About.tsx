@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function About() {
   return (
@@ -37,15 +40,17 @@ export default function About() {
           <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
             I specialize in React, Next.js, Node.js, and cloud/VPS deployments, with extensive experience collaborating remotely across Japan, Ireland, and India.
           </p>
-          <a
+          <motion.a
             href="#contact"
-            className="group inline-flex w-fit items-center gap-3 text-base font-medium"
+            animate={{ scale: [1, 1.04, 1] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="inline-flex w-fit items-center gap-3 bg-[var(--ink)] text-[var(--cream)] px-6 py-3 rounded-full text-base font-bold shadow-lg hover:opacity-90 transition-all duration-300"
           >
             Get in touch
-            <span className="grid h-9 w-9 place-items-center rounded-lg border border-[var(--ink)]/30 transition-colors group-hover:bg-[var(--ink)] group-hover:text-[var(--cream)]">
-              <ArrowUpRight size={18} />
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-[var(--cream)] text-[var(--ink)] font-bold">
+              <ArrowUpRight size={16} />
             </span>
-          </a>
+          </motion.a>
         </div>
       </div>
     </section>
