@@ -38,7 +38,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-12 md:pt-28 md:pb-16"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-20 pb-6 md:pt-28 md:pb-16"
     >
       {/* Animated, colour-shifting decorative accents */}
       <DecorAccents />

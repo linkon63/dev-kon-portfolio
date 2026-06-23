@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowLeft, ExternalLink, Code } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
+import Breadcrumb from "@/components/site/Breadcrumb";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,8 @@ export default async function AllProjectPage() {
         >
           <ArrowLeft size={16} /> Back home
         </Link>
+
+        <Breadcrumb items={[{ label: "All Projects" }]} />
 
         <header className="mb-14 md:mb-20">
           <p className="mb-4 text-sm font-medium tracking-widest text-[var(--ink)]/40 uppercase">

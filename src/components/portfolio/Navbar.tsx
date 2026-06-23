@@ -47,19 +47,23 @@ export default function Navbar() {
               className="absolute top-[calc(100%+0.5rem)] right-0 w-52 origin-top-right overflow-hidden rounded-2xl bg-[var(--ink)] p-2 shadow-xl"
             >
               {links.map((link, i) => (
-                <motion.a
+                <Link
                   key={link.label}
                   href={link.label === "Resume" ? resumeUrl : link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
                   onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i, duration: 0.18 }}
                   className="block rounded-xl px-4 py-2.5 text-sm font-medium text-[var(--cream)]/80 transition-colors hover:bg-white/10 hover:text-[var(--cream)]"
                 >
-                  {link.label}
-                </motion.a>
+                  <motion.span
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 * i, duration: 0.18 }}
+                    className="block"
+                  >
+                    {link.label}
+                  </motion.span>
+                </Link>
               ))}
             </motion.div>
           )}

@@ -3,6 +3,7 @@ import Tracker from "@/components/portfolio/Tracker";
 import Navbar from "@/components/portfolio/Navbar";
 import Hero from "@/components/portfolio/Hero";
 import About from "@/components/portfolio/About";
+import Skills from "@/components/portfolio/Skills";
 import IdeaToLaunch from "@/components/portfolio/IdeaToLaunch";
 import Services from "@/components/portfolio/Services";
 import FeaturedProjects from "@/components/portfolio/FeaturedProjects";
@@ -21,6 +22,7 @@ export default function HomePage() {
       <FloatingActions />
       <Hero />
       <About />
+      <Skills />
       <IdeaToLaunch />
       <Services />
       <FeaturedProjects />

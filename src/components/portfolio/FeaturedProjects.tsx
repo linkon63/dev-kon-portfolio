@@ -15,12 +15,10 @@ export default function FeaturedProjects() {
   ).slice(0, 6);
 
   return (
-    <section id="work" className="mx-auto max-w-6xl px-6 py-12 md:py-32">
+    <section id="work" className="mx-auto max-w-6xl px-6 py-6 md:py-32">
       <div className="mb-8 flex flex-wrap items-start justify-between gap-6 md:mb-20">
-        <h2 className="text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter">
-          Featured
-          <br />
-          Projects
+        <h2 className="text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter whitespace-nowrap">
+          Featured Projects
         </h2>
         <Link
           href="/allProject"

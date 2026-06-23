@@ -19,7 +19,7 @@ import {
   removeItem,
 } from "@/lib/collections";
 import { COLLECTIONS, type Testimonial } from "@/lib/types";
-import { seedTestimonials } from "@/lib/seedData";
+import { seedTestimonials, officialTestimonials } from "@/lib/seedData";
 
 const EMPTY: Testimonial = { quote: "", name: "", role: "" };
 
@@ -76,11 +76,25 @@ export default function AdminTestimonialsPage() {
     }
   };
 
+  const seedOfficial = async () => {
+    setBusy(true);
+    try {
+      for (const t of officialTestimonials)
+        await createItem(COLLECTIONS.testimonials, t);
+      await reload();
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
     <AdminShell title="Testimonials">
-      <div className="mb-5 flex gap-3">
+      <div className="mb-5 flex gap-3 flex-wrap">
         <Button onClick={() => setDraft({ ...EMPTY })}>
           <Plus size={16} /> New testimonial
+        </Button>
+        <Button variant="ghost" onClick={seedOfficial} disabled={busy}>
+          Seed 6 Testimonials
         </Button>
         {items.length === 0 && (
           <Button variant="ghost" onClick={seed} disabled={busy}>

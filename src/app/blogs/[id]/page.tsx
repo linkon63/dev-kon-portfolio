@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
+import Breadcrumb from "@/components/site/Breadcrumb";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,8 @@ export default async function BlogDetailPage({ params }: Ctx) {
         >
           <ArrowLeft size={16} /> All posts
         </Link>
+
+        <Breadcrumb items={[{ label: "Blog", href: "/blogs" }, { label: blog.title }]} />
 
         <p className="text-sm font-medium tracking-widest text-[var(--ink)]/40 uppercase">
           {blog.date}

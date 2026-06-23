@@ -53,7 +53,7 @@ export default function LetsTalk() {
   return (
     <section
       id="contact"
-      className="mx-auto max-w-6xl px-6 py-12 md:py-32"
+      className="mx-auto max-w-6xl px-6 py-6 md:py-32"
     >
       <div className="grid items-start gap-12 md:grid-cols-2">
         {/* Left: heading + socials */}

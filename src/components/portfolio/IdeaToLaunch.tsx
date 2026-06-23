@@ -20,7 +20,7 @@ export default function IdeaToLaunch() {
   return (
     <section
       id="process"
-      className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-12 md:py-24"
+      className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-6 md:py-24"
     >
       <span className="mb-10 inline-block text-sm font-medium tracking-[0.2em] text-[var(--ink)]/50 uppercase">
         / Idea to launch
