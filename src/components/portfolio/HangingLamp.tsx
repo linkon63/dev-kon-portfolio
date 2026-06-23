@@ -1,65 +1,99 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useMotionValue, useTransform } from "motion/react";
 
 export default function HangingLamp() {
-  const [theme, setTheme] = useState("light");
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const pullY = useMotionValue(0);
+  const pathname = usePathname();
 
+  // Stretches the wire from a resting height of 60px dynamically based on drag offset
+  const wireHeight = useTransform(pullY, (y) => `${60 + y}px`);
+
+  // Prevent hydration mismatch
   useEffect(() => {
-    // Check initial theme from document class (which is set by the head script to prevent hydration flash)
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-
-    // Listen to document class mutations to stay in sync
-    const observer = new MutationObserver(() => {
-      const darkActive = document.documentElement.classList.contains("dark");
-      setTheme(darkActive ? "dark" : "light");
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
+    setMounted(true);
   }, []);
 
+  const isAdmin = pathname?.startsWith("/admin") || pathname?.startsWith("/dashboard");
+
+  if (isAdmin) {
+    return null;
+  }
+
+  if (!mounted) {
+    // Render an invisible placeholder during SSR to prevent layout shifts
+    return (
+      <div className="fixed top-0 right-6 sm:right-16 z-50 flex flex-col items-center pointer-events-none w-10 sm:w-12 select-none opacity-0">
+        <div className="w-full h-[120px]" />
+      </div>
+    );
+  }
+
+  const isDark = resolvedTheme === "dark";
+
   const toggleTheme = () => {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    localStorage.setItem("theme", next);
-    if (next === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    setTheme(isDark ? "light" : "dark");
   };
 
   return (
-    <div className="fixed top-0 right-6 sm:right-16 z-50 flex flex-col items-center pointer-events-none">
-      {/* Light glow behind the bulb (Only active in dark mode) */}
-      {theme === "dark" && (
-        <div className="absolute bottom-2 w-14 h-14 rounded-full bg-yellow-300/35 blur-md animate-pulse pointer-events-none" />
-      )}
+    <div className="fixed top-0 right-6 sm:right-16 z-50 flex flex-col items-center pointer-events-none w-10 sm:w-12 h-[300px]">
+      {/* Stretching Wire: pinned to the top of screen */}
+      <motion.div
+        style={{ height: wireHeight }}
+        className={`absolute top-0 left-1/2 -translate-x-1/2 w-[2px] transition-colors duration-300 ${
+          isDark ? "bg-yellow-300" : "bg-[var(--ink)]"
+        }`}
+      />
 
-      {/* Draggable Lamp Container */}
+      {/* Draggable Lamp Body (Socket, shade, bulb) */}
       <motion.div
         drag="y"
         dragConstraints={{ top: 0, bottom: 65 }}
         dragElastic={0.15}
         dragSnapToOrigin
+        style={{ y: pullY }}
+        onDragStart={() => setShowTooltip(false)}
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
         onDragEnd={(_, info) => {
           if (info.offset.y > 35) {
             toggleTheme();
           }
         }}
-        className="pointer-events-auto cursor-grab active:cursor-grabbing w-10 sm:w-12 select-none"
+        className="absolute top-[60px] left-0 pointer-events-auto cursor-grab active:cursor-grabbing w-full select-none relative"
         title="Pull to toggle light/dark mode"
       >
+        {/* Hover Tooltip Instruction */}
+        <AnimatePresence>
+          {showTooltip && (
+            <motion.div
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 8 }}
+              transition={{ duration: 0.2 }}
+              className="absolute right-full top-1/2 -translate-y-1/2 mr-3 bg-[var(--ink)] text-[var(--cream)] px-2.5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider whitespace-nowrap shadow-md pointer-events-none border border-[var(--cream)]/10"
+            >
+              Pull to toggle theme
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Light glow behind the bulb (Only active in dark mode) */}
+        {isDark && (
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-yellow-300/35 blur-md animate-pulse pointer-events-none" />
+        )}
+
+        {/* Cropped SVG showing only the lamp shade, socket, and bulb */}
         <svg
-          viewBox="0 0 640 1280"
+          viewBox="0 950 640 330"
           className={`w-full h-auto transition-all duration-300 ${
-            theme === "dark"
+            isDark
               ? "text-yellow-300 drop-shadow-[0_12px_24px_rgba(253,224,71,0.7)]"
               : "text-[var(--ink)]"
           }`}
