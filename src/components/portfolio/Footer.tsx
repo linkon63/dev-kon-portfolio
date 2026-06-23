@@ -17,6 +17,7 @@ import {
   FaTrophy,
   FaMedal,
   FaArrowUpRightFromSquare,
+  FaYoutube,
 } from "react-icons/fa6";
 import { SiIeee, SiCoursera } from "react-icons/si";
 import type { IconType } from "react-icons";
@@ -132,6 +133,7 @@ export default function Footer() {
               { href: "https://wa.me/8801712508063?text=Hi%20Linkon%2C%20I%20saw%20your%20portfolio%20website%20and%20would%20like%20to%20connect%20regarding%20a%20project/job%20opportunity%21", label: "WhatsApp", icon: FaWhatsapp },
               { href: "https://www.linkedin.com/in/md-abdul-ahad-linkon/", label: "LinkedIn", icon: FaLinkedinIn },
               { href: "https://github.com/linkon63", label: "GitHub", icon: FaGithub },
+              { href: "https://www.youtube.com/@devkon63/playlists", label: "YouTube", icon: FaYoutube },
               { href: "mailto:m.alinkon10@gmail.com", label: "Email", icon: FaEnvelope },
             ].map((s) => {
               const Icon = s.icon;
