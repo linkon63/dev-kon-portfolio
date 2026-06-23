@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { FaXTwitter, FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
+import { FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
 
 const socials = [
-  { icon: FaXTwitter, href: "https://x.com/", label: "X" },
   {
     icon: FaLinkedinIn,
     href: "https://www.linkedin.com/in/md-abdul-ahad-linkon/",
@@ -53,13 +52,13 @@ export default function LetsTalk() {
   return (
     <section
       id="contact"
-      className="mx-auto max-w-6xl px-6 py-24 md:py-32"
+      className="mx-auto max-w-6xl px-6 py-6 md:py-32"
     >
       <div className="grid items-start gap-12 md:grid-cols-2">
         {/* Left: heading + socials */}
         <div className="flex h-full flex-col justify-between gap-12">
           <div>
-            <h2 className="text-6xl font-extrabold tracking-tighter md:text-8xl">
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter">
               Let&apos;s talk.
             </h2>
             <p className="mt-5 max-w-md text-lg text-[var(--ink)]/70">

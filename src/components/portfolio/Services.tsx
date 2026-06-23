@@ -11,8 +11,8 @@ export default function Services() {
     fallbackServices,
   );
   return (
-    <section id="services" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-      <h2 className="mb-16 text-6xl font-extrabold tracking-tighter md:mb-20 md:text-8xl">
+    <section id="services" className="mx-auto max-w-6xl px-6 py-6 md:py-32">
+      <h2 className="mb-8 text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter md:mb-20">
         Services
       </h2>
 

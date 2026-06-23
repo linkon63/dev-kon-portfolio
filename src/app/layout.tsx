@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import ScrollToTop from "@/components/portfolio/ScrollToTop";
+import HangingLamp from "@/components/portfolio/HangingLamp";
+import { ThemeProvider } from "@/components/portfolio/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,8 +31,15 @@ export default function RootLayout({
       lang="en"
       data-scroll-behavior="smooth"
       className={`${inter.variable} h-full`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+          <ScrollToTop />
+          <HangingLamp />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

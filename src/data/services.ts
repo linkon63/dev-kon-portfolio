@@ -4,29 +4,33 @@ export type Service = {
 };
 
 /**
- * Services framed around Linkon's real resume experience: full-stack delivery
- * at Softzino (Node/React/Vue/AWS), frontend work, backend/APIs (Express,
- * Laravel), cloud/DevOps (AWS, Docker) and database design (Mongo, MySQL, DynamoDB).
+ * Services framed directly around Linkon's real resume experience and core skill categories:
+ * SaaS and system architecture, frontend frameworks, backend microservices, DevOps,
+ * database / search optimization, and agile team leadership.
  */
 export const services: Service[] = [
   {
-    title: "Full-Stack Development",
-    tags: ["React", "Node.js", "TypeScript"],
+    title: "SaaS & System Architecture",
+    tags: ["Multi-Tenant SaaS", "Clean Architecture", "System Design", "Repository Pattern"],
   },
   {
     title: "Frontend Engineering",
-    tags: ["UI Dev", "Responsive Layouts", "Web Performance"],
+    tags: ["React.js", "Next.js", "Vue.js / Nuxt.js", "TailwindCSS"],
   },
   {
-    title: "Backend & APIs",
-    tags: ["Express", "Laravel", "REST APIs"],
+    title: "Backend & Microservices",
+    tags: ["Node.js / NestJS", "Express.js", "Laravel", "REST API / GraphQL"],
   },
   {
-    title: "Cloud & DevOps",
-    tags: ["AWS", "Docker", "CI / CD"],
+    title: "DevOps & Cloud Orchestration",
+    tags: ["Docker", "AWS / VPS", "CI / CD", "Vercel / Firebase"],
   },
   {
-    title: "Database Design",
-    tags: ["MongoDB", "MySQL", "DynamoDB"],
+    title: "Database & Search Systems",
+    tags: ["PostgreSQL / MySQL", "MongoDB / Redis", "Prisma ORM", "Typesense"],
+  },
+  {
+    title: "Technical Leadership & Agile",
+    tags: ["Sprint Planning", "PR Reviews", "Technical Mentorship", "AI-Assisted Workflows"],
   },
 ];

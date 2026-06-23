@@ -18,17 +18,17 @@ function initials(name: string) {
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="flex h-full min-h-[18rem] w-[300px] flex-col justify-between rounded-3xl bg-[var(--ink)] p-7 text-[var(--cream)] sm:w-[360px]">
-      <blockquote className="text-[15px] leading-relaxed text-[var(--cream)]/90">
+    <figure className="flex h-full min-h-[18rem] w-[300px] flex-col justify-between rounded-3xl bg-[var(--ink)]/5 p-7 text-[var(--ink)] sm:w-[360px] border border-[var(--ink)]/5">
+      <blockquote className="text-[15px] leading-relaxed text-[var(--ink)]/85 font-medium">
         “{t.quote}”
       </blockquote>
       <figcaption className="mt-8 flex items-center gap-3">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--cream)] text-sm font-semibold text-[var(--ink)]">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--ink)] text-sm font-semibold text-[var(--cream)]">
           {initials(t.name)}
         </span>
         <span>
-          <span className="block text-sm font-medium">{t.name}</span>
-          <span className="block text-sm text-[var(--cream)]/55">{t.role}</span>
+          <span className="block text-sm font-medium text-[var(--ink)]">{t.name}</span>
+          <span className="block text-sm text-[var(--ink)]/60">{t.role}</span>
         </span>
       </figcaption>
     </figure>
@@ -49,38 +49,39 @@ export default function Testimonials() {
   const slides = Array.from({ length: repeats }, () => testimonials).flat();
 
   return (
-    <section id="testimonials" className="py-24 md:py-32">
-      <h2 className="mx-auto mb-14 max-w-6xl px-6 text-6xl font-extrabold tracking-tighter md:mb-20 md:text-8xl">
+    <section id="testimonials" className="mx-auto max-w-6xl px-6 py-12 md:py-32">
+      <h2 className="mb-8 text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter md:mb-20">
         Testimonials
       </h2>
 
-      {/* Continuous left-to-right Swiper slider (pauses on hover) */}
-      <div className="group relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[var(--cream)] to-transparent md:w-32" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[var(--cream)] to-transparent md:w-32" />
-        <Swiper
-          modules={[Autoplay, FreeMode]}
-          slidesPerView="auto"
-          spaceBetween={24}
-          loop
-          freeMode={{ enabled: true, momentum: false }}
-          speed={6000}
-          allowTouchMove
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-            reverseDirection: true,
-          }}
-          className="testimonials-swiper !px-6"
-        >
-          {slides.map((t, i) => (
-            <SwiperSlide key={`${t.id ?? t.name}-${i}`} className="!h-auto !w-auto">
-              <TestimonialCard t={t} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {testimonials.length > 0 ? (
+        <div className="w-full overflow-hidden">
+          <Swiper
+            modules={[Autoplay, FreeMode]}
+            slidesPerView="auto"
+            spaceBetween={24}
+            loop
+            freeMode={{ enabled: true, momentum: false }}
+            speed={6000}
+            allowTouchMove
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+              reverseDirection: true,
+            }}
+            className="testimonials-swiper"
+          >
+            {slides.map((t, i) => (
+              <SwiperSlide key={`${t.id ?? t.name}-${i}`} className="!h-auto !w-auto">
+                <TestimonialCard t={t} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      ) : (
+        <p className="text-sm text-[var(--ink)]/55">No testimonials available yet.</p>
+      )}
     </section>
   );
 }

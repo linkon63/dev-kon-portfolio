@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  FaEnvelope,
   FaGithub,
   FaLinkedinIn,
-  FaXTwitter,
   FaWhatsapp,
 } from "react-icons/fa6";
 import { FileText, type LucideIcon } from "lucide-react";
@@ -19,7 +17,12 @@ type Action = {
 };
 
 const actions: Action[] = [
-  { label: "Hire Me", href: "mailto:m.alinkon10@gmail.com", icon: FaEnvelope },
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/8801712508063?text=Hi%20Linkon%2C%20I%20saw%20your%20portfolio%20website%20and%20would%20like%20to%20connect%20regarding%20a%20project/job%20opportunity%21",
+    icon: FaWhatsapp,
+    external: true,
+  },
   {
     label: "See Resume",
     href: "/files/Resume-V12.pdf",
@@ -38,40 +41,41 @@ const actions: Action[] = [
     icon: FaGithub,
     external: true,
   },
-  { label: "X", href: "https://x.com/", icon: FaXTwitter, external: true },
-  {
-    label: "WhatsApp",
-    href: "https://wa.me/8801712508063",
-    icon: FaWhatsapp,
-    external: true,
-  },
 ];
 
 /**
  * Sticky social/CTA rail pinned to the right edge and vertically centred.
- * Each square button reveals its label by sliding out to the left on hover.
+ * Displays WhatsApp, See Resume, LinkedIn, and GitHub.
+ * The Resume option is highlighted ("selected") with a distinct light theme.
  */
 export default function FloatingActions() {
   const resumeUrl = useResumeUrl();
   return (
-    <div className="fixed top-1/2 right-0 z-40 hidden -translate-y-1/2 flex-col items-end gap-1.5 md:flex">
-      {actions.map(({ label, href, icon: Icon, external }) => (
-        <a
-          key={label}
-          href={label === "See Resume" ? resumeUrl : href}
-          target={external ? "_blank" : undefined}
-          rel={external ? "noopener noreferrer" : undefined}
-          aria-label={label}
-          className="group flex items-center justify-end overflow-hidden rounded-l-xl bg-[var(--ink)] text-[var(--cream)] shadow-lg"
-        >
-          <span className="max-w-0 overflow-hidden text-sm font-medium whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-[180px] group-hover:pl-4 group-hover:opacity-100">
-            {label}
-          </span>
-          <span className="grid h-12 w-12 shrink-0 place-items-center text-lg">
-            <Icon />
-          </span>
-        </a>
-      ))}
+    <div className="fixed top-1/2 right-0 z-40 flex -translate-y-1/2 flex-col items-end gap-1.5">
+      {actions.map(({ label, href, icon: Icon, external }) => {
+        const isResume = label === "See Resume";
+        return (
+          <a
+            key={label}
+            href={isResume ? resumeUrl : href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
+            aria-label={label}
+            className={`group flex items-center justify-end overflow-hidden rounded-l-xl shadow-lg border-y border-l transition-all duration-300 ${
+              isResume
+                ? "bg-[var(--cream)] text-[var(--ink)] border-[var(--ink)]/20 hover:bg-neutral-100 scale-105"
+                : "bg-[var(--ink)] text-[var(--cream)] border-transparent"
+            }`}
+          >
+            <span className="max-w-0 overflow-hidden text-sm font-medium whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-[180px] group-hover:pl-4 group-hover:opacity-100">
+              {label}
+            </span>
+            <span className="grid h-12 w-12 shrink-0 place-items-center text-lg font-bold">
+              <Icon />
+            </span>
+          </a>
+        );
+      })}
     </div>
   );
 }

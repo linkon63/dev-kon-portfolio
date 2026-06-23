@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
+import Breadcrumb from "@/components/site/Breadcrumb";
 
 export const dynamic = "force-dynamic";
 
@@ -32,12 +32,7 @@ export default async function BlogDetailPage({ params }: Ctx) {
   return (
     <PublicPage>
       <article className="mx-auto max-w-2xl px-6 pt-32 pb-24 md:pt-40 md:pb-32">
-        <Link
-          href="/blogs"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)]/55 transition-colors hover:text-[var(--ink)]"
-        >
-          <ArrowLeft size={16} /> All posts
-        </Link>
+        <Breadcrumb items={[{ label: "Blog", href: "/blogs" }, { label: blog.title }]} />
 
         <p className="text-sm font-medium tracking-widest text-[var(--ink)]/40 uppercase">
           {blog.date}
@@ -80,14 +75,7 @@ export default async function BlogDetailPage({ params }: Ctx) {
           )}
         </div>
 
-        <div className="mt-16 border-t border-[var(--ink)]/10 pt-8">
-          <Link
-            href="/blogs"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)]/55 transition-colors hover:text-[var(--ink)]"
-          >
-            <ArrowLeft size={16} /> Back to all posts
-          </Link>
-        </div>
+
       </article>
     </PublicPage>
   );
