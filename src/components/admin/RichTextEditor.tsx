@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import {
   Bold,
   Italic,
@@ -24,22 +24,24 @@ export default function RichTextEditor({
 }: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
 
-  // Synchronize internal HTML with parent value (only if it differs, to prevent cursor reset)
-  useEffect(() => {
-    if (editorRef.current && editorRef.current.innerHTML !== value) {
-      editorRef.current.innerHTML = value || "";
-    }
-  }, [value]);
+  // Capture the initial HTML ONCE (lazy state initializer). After mount the
+  // editor is fully uncontrolled: we never feed `value` back into the DOM, so
+  // React can never overwrite the node mid-typing (which would reset the caret
+  // and make writing impossible). `dangerouslySetInnerHTML.__html` stays
+  // constant across renders, so React's DOM diff skips it and leaves the user's
+  // typed content untouched.
+  const [initialHtml] = useState(() => value || "");
 
-  const handleInput = () => {
+  const emit = () => {
     if (editorRef.current) {
       onChange(editorRef.current.innerHTML);
     }
   };
 
   const execCommand = (command: string, arg: string = "") => {
+    editorRef.current?.focus();
     document.execCommand(command, false, arg);
-    handleInput();
+    emit();
   };
 
   const addLink = () => {
@@ -53,10 +55,17 @@ export default function RichTextEditor({
     }
   };
 
+  // Prevent toolbar clicks from blurring the editor / losing the selection,
+  // so commands like Bold apply to the currently selected text.
+  const keepFocus = (e: React.MouseEvent) => e.preventDefault();
+
   return (
     <div className="w-full rounded-lg border border-neutral-300 bg-white overflow-hidden focus-within:border-neutral-900">
       {/* Editor Toolbar */}
-      <div className="flex flex-wrap gap-0.5 border-b border-neutral-200 bg-neutral-50 p-1.5 select-none">
+      <div
+        className="flex flex-wrap gap-0.5 border-b border-neutral-200 bg-neutral-50 p-1.5 select-none"
+        onMouseDown={keepFocus}
+      >
         <button
           type="button"
           onClick={() => execCommand("bold")}
@@ -81,9 +90,9 @@ export default function RichTextEditor({
         >
           <Underline size={15} />
         </button>
-        
+
         <div className="w-[1px] bg-neutral-300 mx-1 self-stretch my-0.5" />
-        
+
         <button
           type="button"
           onClick={() => execCommand("insertUnorderedList")}
@@ -100,9 +109,9 @@ export default function RichTextEditor({
         >
           <ListOrdered size={15} />
         </button>
-        
+
         <div className="w-[1px] bg-neutral-300 mx-1 self-stretch my-0.5" />
-        
+
         <button
           type="button"
           onClick={addLink}
@@ -125,11 +134,13 @@ export default function RichTextEditor({
       <div
         ref={editorRef}
         contentEditable
-        onInput={handleInput}
-        onBlur={handleInput}
+        suppressContentEditableWarning
+        onInput={emit}
+        onBlur={emit}
         className="min-h-[150px] max-h-[400px] overflow-y-auto p-3 outline-none text-sm text-neutral-800 prose prose-sm max-w-none break-words"
         data-placeholder={placeholder}
         style={{ minHeight: "150px" }}
+        dangerouslySetInnerHTML={{ __html: initialHtml }}
       />
     </div>
   );
