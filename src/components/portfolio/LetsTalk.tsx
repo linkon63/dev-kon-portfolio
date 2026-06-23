@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { FaXTwitter, FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
+import { FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
 
 const socials = [
-  { icon: FaXTwitter, href: "https://x.com/", label: "X" },
   {
     icon: FaLinkedinIn,
     href: "https://www.linkedin.com/in/md-abdul-ahad-linkon/",

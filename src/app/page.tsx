@@ -1,4 +1,3 @@
-import SmoothScroll from "@/components/portfolio/SmoothScroll";
 import Tracker from "@/components/portfolio/Tracker";
 import Navbar from "@/components/portfolio/Navbar";
 import Hero from "@/components/portfolio/Hero";
@@ -12,14 +11,15 @@ import Thoughts from "@/components/portfolio/Thoughts";
 import LetsTalk from "@/components/portfolio/LetsTalk";
 import Footer from "@/components/portfolio/Footer";
 import FloatingActions from "@/components/portfolio/FloatingActions";
+import InPageNav from "@/components/portfolio/InPageNav";
 
 export default function HomePage() {
   return (
     <main className="bg-[var(--cream)] text-[var(--ink)]">
-      <SmoothScroll />
       <Tracker />
       <Navbar />
       <FloatingActions />
+      <InPageNav />
       <Hero />
       <About />
       <Skills />

@@ -51,7 +51,7 @@ const actions: Action[] = [
 export default function FloatingActions() {
   const resumeUrl = useResumeUrl();
   return (
-    <div className="fixed top-1/2 right-0 z-40 hidden -translate-y-1/2 flex-col items-end gap-1.5 md:flex">
+    <div className="fixed top-1/2 right-0 z-40 flex -translate-y-1/2 flex-col items-end gap-1.5">
       {actions.map(({ label, href, icon: Icon, external }) => {
         const isResume = label === "See Resume";
         return (

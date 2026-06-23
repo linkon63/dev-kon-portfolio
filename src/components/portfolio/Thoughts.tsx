@@ -11,15 +11,27 @@ import { COLLECTIONS, type Blog } from "@/lib/types";
 export default function Thoughts() {
   const posts = useCollectionData<Blog>(COLLECTIONS.blogs, fallbackPosts).slice(
     0,
-    2,
+    4,
   );
+
   return (
     <section id="thoughts" className="mx-auto max-w-6xl px-6 py-6 md:py-32">
-      <h2 className="mb-8 text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter md:mb-20">
-        Thoughts
-      </h2>
+      <div className="mb-8 flex flex-wrap items-start justify-between gap-6 md:mb-20">
+        <h2 className="text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter whitespace-nowrap">
+          Thoughts
+        </h2>
+        <Link
+          href="/blogs"
+          className="group mt-4 inline-flex items-center gap-3 text-base font-medium"
+        >
+          View All Blogs / Thoughts
+          <span className="grid h-9 w-9 place-items-center rounded-lg border border-[var(--ink)]/30 transition-colors group-hover:bg-[var(--ink)] group-hover:text-[var(--cream)]">
+            <ArrowUpRight size={18} />
+          </span>
+        </Link>
+      </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {posts.map((post, i) => (
           <motion.div
             key={post.id ?? post.title}
@@ -36,7 +48,7 @@ export default function Thoughts() {
                 src={post.image}
                 alt={post.title}
                 fill
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 25vw"
                 unoptimized
                 className="object-cover grayscale transition-transform duration-500 group-hover:scale-[1.04]"
               />
@@ -46,35 +58,13 @@ export default function Thoughts() {
                 <h3 className="mt-2 text-2xl font-bold tracking-tight">
                   {post.title}
                 </h3>
-                <p className="mt-2 text-sm text-[var(--cream)]/75">
+                <p className="mt-2 text-sm text-[var(--cream)]/75 line-clamp-2">
                   {post.excerpt}
                 </p>
               </div>
             </Link>
           </motion.div>
         ))}
-
-        {/* CTA card */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.16 }}
-          className="flex aspect-[3/4] flex-col justify-between rounded-3xl bg-[var(--ink)] p-8 text-[var(--cream)]"
-        >
-          <p className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
-            See how I build scalable products — explore the blog
-          </p>
-          <Link
-            href="/blogs"
-            className="group inline-flex items-center gap-3 text-base font-medium"
-          >
-            View All Posts
-            <span className="grid h-9 w-9 place-items-center rounded-lg border border-[var(--cream)]/30 transition-colors group-hover:bg-[var(--cream)] group-hover:text-[var(--ink)]">
-              <ArrowUpRight size={18} />
-            </span>
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

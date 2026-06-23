@@ -8,11 +8,7 @@ import { useResumeUrl } from "@/lib/useResume";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/#about", label: "About" },
-  { href: "/#services", label: "Services" },
-  { href: "/#work", label: "Work" },
   { href: "/blogs", label: "Thoughts" },
-  { href: "/#contact", label: "Contact" },
   { href: "/files/Resume-V12.pdf", label: "Resume", external: true },
 ];
 

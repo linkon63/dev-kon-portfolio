@@ -14,7 +14,14 @@ export default function About() {
         {/* Left column: greeting + intro */}
         <div className="flex h-full flex-col justify-between gap-10">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter">
-            Hey!
+            Hey
+            <motion.span
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+              className="inline-block"
+            >
+              !
+            </motion.span>
           </h2>
           <p className="max-w-xs text-lg font-semibold leading-snug tracking-tight md:text-xl">
             I&apos;m Linkon, a Senior Full-Stack Engineer &amp; SaaS Architect based in Dhaka, leading teams and building high-performance systems.
@@ -40,17 +47,19 @@ export default function About() {
           <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
             I specialize in React, Next.js, Node.js, and cloud/VPS deployments, with extensive experience collaborating remotely across Japan, Ireland, and India.
           </p>
-          <motion.a
+          <a
             href="#contact"
-            animate={{ scale: [1, 1.04, 1] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             className="inline-flex w-fit items-center gap-3 bg-[var(--ink)] text-[var(--cream)] px-6 py-3 rounded-full text-base font-bold shadow-lg hover:opacity-90 transition-all duration-300"
           >
             Get in touch
-            <span className="grid h-7 w-7 place-items-center rounded-full bg-[var(--cream)] text-[var(--ink)] font-bold">
+            <motion.span
+              animate={{ scale: [1, 1.18, 1] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="grid h-7 w-7 place-items-center rounded-full bg-[var(--cream)] text-[var(--ink)] font-bold shrink-0"
+            >
               <ArrowUpRight size={16} />
-            </span>
-          </motion.a>
+            </motion.span>
+          </a>
         </div>
       </div>
     </section>

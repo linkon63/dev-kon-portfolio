@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ExternalLink, Code } from "lucide-react";
+import { ExternalLink, Code } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
 import Breadcrumb from "@/components/site/Breadcrumb";
@@ -20,13 +20,6 @@ export default async function AllProjectPage() {
   return (
     <PublicPage>
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-12 md:pt-40 md:pb-32">
-        <Link
-          href="/"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)]/55 transition-colors hover:text-[var(--ink)]"
-        >
-          <ArrowLeft size={16} /> Back home
-        </Link>
-
         <Breadcrumb items={[{ label: "All Projects" }]} />
 
         <header className="mb-14 md:mb-20">

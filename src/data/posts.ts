@@ -23,4 +23,20 @@ export const posts: Post[] = [
     image: "/assets/Ride.png",
     href: "/blogs",
   },
+  {
+    date: "Jul 22, 2025",
+    title: "Clean Architecture in Modern Node.js",
+    excerpt:
+      "A deep dive into repository patterns, domain-driven design, and decoupling your business logic.",
+    image: "/assets/profileimage.jpg",
+    href: "/blogs",
+  },
+  {
+    date: "Aug 10, 2025",
+    title: "Next.js Performance Optimization Secrets",
+    excerpt:
+      "Master static generation, streaming, dynamic caching, and component-level splitting for sub-second loads.",
+    image: "/assets/ema-jhon.png",
+    href: "/blogs",
+  },
 ];
