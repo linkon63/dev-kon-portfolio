@@ -15,9 +15,9 @@ export default function FeaturedProjects() {
   ).slice(0, 6);
 
   return (
-    <section id="work" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-      <div className="mb-14 flex flex-wrap items-start justify-between gap-6 md:mb-20">
-        <h2 className="text-6xl font-extrabold tracking-tighter md:text-8xl">
+    <section id="work" className="mx-auto max-w-6xl px-6 py-12 md:py-32">
+      <div className="mb-8 flex flex-wrap items-start justify-between gap-6 md:mb-20">
+        <h2 className="text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter">
           Featured
           <br />
           Projects

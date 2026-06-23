@@ -1,17 +1,25 @@
-import Link from "next/link";
+"use client";
 
-const quickLinks = [
-  { href: "#hero", label: "Home" },
-  { href: "#about", label: "About Me" },
-  { href: "#services", label: "Services" },
-  { href: "#work", label: "Works" },
-  { href: "#contact", label: "Contact" },
-];
+import Link from "next/link";
+import { useResumeUrl } from "@/lib/useResume";
 
 export default function Footer() {
+  const resumeUrl = useResumeUrl();
+
+  const quickLinks = [
+    { href: "/", label: "Home" },
+    { href: "/#about", label: "About Me" },
+    { href: "/#services", label: "Services" },
+    { href: "/#work", label: "Works" },
+    { href: "/#contact", label: "Contact" },
+    { href: "/allProject", label: "All Projects" },
+    { href: "/blogs", label: "Thoughts" },
+    { href: resumeUrl, label: "Resume", external: true },
+  ];
+
   return (
     <footer className="relative overflow-hidden bg-[var(--ink)] text-[var(--cream)]">
-      <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 pt-20 pb-40 md:grid-cols-3 md:pb-48">
+      <div className="relative z-10 mx-auto grid gap-12 px-6 pt-20 pb-40 md:grid-cols-3 md:pb-48">
         <h2 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
           Building Software
           <br />
@@ -21,15 +29,30 @@ export default function Footer() {
         <div>
           <p className="mb-5 text-xl text-[var(--cream)]/80">/Quick links</p>
           <div className="flex flex-wrap gap-2.5">
-            {quickLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="rounded-lg bg-[var(--cream)] px-4 py-2 text-sm font-medium text-[var(--ink)] transition-opacity hover:opacity-80"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {quickLinks.map((link) => {
+              if (link.external) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg bg-[var(--cream)] px-4 py-2 text-sm font-medium text-[var(--ink)] transition-opacity hover:opacity-80"
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="rounded-lg bg-[var(--cream)] px-4 py-2 text-sm font-medium text-[var(--ink)] transition-opacity hover:opacity-80"
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -55,7 +78,7 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 pb-6">
         <p className="text-xs text-[var(--cream)]/40">
-          © 2026 Md Abdul Ahad Linkon — Software Engineer.
+          © {new Date().getFullYear()} Md Abdul Ahad Linkon — Software Engineer.
         </p>
       </div>
     </footer>

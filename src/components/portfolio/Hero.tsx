@@ -17,7 +17,7 @@ function computeExperience() {
 
 function HeadlineWord({ text }: { text: string }) {
   return (
-    <span className="block text-[18vw] md:text-[15vw] lg:text-[13.5vw]">
+    <span className="block text-[12vw] sm:text-[10vw] md:text-[9vw] lg:text-[8.5vw]">
       {text.split("").map((ch, i) => (
         <motion.span
           key={i}
@@ -38,7 +38,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-16"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-12 md:pt-28 md:pb-16"
     >
       {/* Animated, colour-shifting decorative accents */}
       <DecorAccents />

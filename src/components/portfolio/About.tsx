@@ -5,17 +5,16 @@ export default function About() {
   return (
     <section
       id="about"
-      className="mx-auto max-w-6xl px-6 py-24 md:py-32"
+      className="mx-auto max-w-6xl px-6 py-12 md:py-32"
     >
       <div className="grid items-center gap-10 md:grid-cols-[1fr_auto_1fr] md:gap-12">
         {/* Left column: greeting + intro */}
         <div className="flex h-full flex-col justify-between gap-10">
-          <h2 className="text-6xl font-extrabold tracking-tighter md:text-7xl">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter">
             Hey!
           </h2>
           <p className="max-w-xs text-lg font-semibold leading-snug tracking-tight md:text-xl">
-            I&apos;m Linkon, a software engineer based in Dhaka, currently
-            building scalable products at Templyo &amp; Softzino Technologies.
+            I&apos;m Linkon, a Senior Full-Stack Engineer &amp; SaaS Architect based in Dhaka, leading teams and building high-performance systems.
           </p>
         </div>
 
@@ -33,14 +32,10 @@ export default function About() {
         {/* Right column: bio + CTA */}
         <div className="flex h-full flex-col justify-center gap-6 md:self-end md:pb-2">
           <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
-            I&apos;m a software engineer with a strong focus on building modern,
-            scalable, and conversion-driven web experiences across the full
-            stack.
+            With over 5 years of experience, I architect scalable SaaS, ERP, and multi-tenant ecommerce platforms. I have a proven track record of leading engineering teams, optimizing database queries by 40%, and establishing clean architectures.
           </p>
           <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
-            Over the years I&apos;ve shipped multiple production products —
-            including work for global and Japanese clients — leading teams and
-            owning delivery end to end.
+            I specialize in React, Next.js, Node.js, and cloud/VPS deployments, with extensive experience collaborating remotely across Japan, Ireland, and India.
           </p>
           <a
             href="#contact"

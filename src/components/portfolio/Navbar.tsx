@@ -22,16 +22,17 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
-      <nav className="relative flex items-center gap-2 rounded-full bg-[var(--ink)] p-1.5 pl-5 text-[var(--cream)] shadow-lg">
-        <Link href="/" className="text-base font-semibold tracking-tight">
-          Md. Abdul Ahad Linkon
+      <nav className="relative flex items-center justify-between gap-2 rounded-full bg-[var(--ink)] p-1.5 pl-4 pr-1.5 text-[var(--cream)] shadow-lg w-max max-w-[calc(100vw-2rem)]">
+        <Link href="/" className="text-sm sm:text-base font-semibold tracking-tight whitespace-nowrap pl-1 sm:pl-2">
+          <span className="hidden sm:inline">Md. Abdul Ahad Linkon</span>
+          <span className="sm:hidden inline">Ahad Linkon</span>
         </Link>
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="grid h-9 w-9 place-items-center rounded-full bg-[var(--cream)] text-[var(--ink)] transition-transform hover:scale-105"
+          className="grid h-9 w-9 place-items-center rounded-full bg-[var(--cream)] text-[var(--ink)] transition-transform hover:scale-105 shrink-0"
         >
           {open ? <X size={18} /> : <MoreHorizontal size={18} />}
         </button>

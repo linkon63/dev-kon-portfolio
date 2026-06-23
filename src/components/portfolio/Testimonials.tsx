@@ -49,8 +49,8 @@ export default function Testimonials() {
   const slides = Array.from({ length: repeats }, () => testimonials).flat();
 
   return (
-    <section id="testimonials" className="py-24 md:py-32">
-      <h2 className="mx-auto mb-14 max-w-6xl px-6 text-6xl font-extrabold tracking-tighter md:mb-20 md:text-8xl">
+    <section id="testimonials" className="py-12 md:py-32">
+      <h2 className="mx-auto mb-8 max-w-6xl px-6 text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter md:mb-20">
         Testimonials
       </h2>
 
