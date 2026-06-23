@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
 import Breadcrumb from "@/components/site/Breadcrumb";
+import CommentsAndLikes from "@/components/site/CommentsAndLikes";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +13,7 @@ type Ctx = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Ctx) {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({ where: { slug } });
-  if (!blog) return { title: "Post not found" };
+  if (!blog || !blog.active) return { title: "Post not found" };
   return {
     title: `${blog.title} — Md Abdul Ahad Linkon`,
     description: blog.excerpt,
@@ -29,7 +30,7 @@ interface BlogSection {
 export default async function BlogDetailPage({ params }: Ctx) {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({ where: { slug } });
-  if (!blog) notFound();
+  if (!blog || !blog.active) notFound();
 
   // Parse section-based content
   let sections: BlogSection[] = [];
@@ -135,6 +136,14 @@ export default async function BlogDetailPage({ params }: Ctx) {
             </p>
           )}
         </div>
+
+        <CommentsAndLikes
+          blogId={blog.id}
+          blogSlug={blog.slug}
+          initialLikes={blog.likes}
+          allowLikes={blog.allowLikes}
+          allowComments={blog.allowComments}
+        />
       </article>
     </PublicPage>
   );

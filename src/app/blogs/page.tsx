@@ -23,8 +23,9 @@ export default async function BlogsPage({
   const page = Math.max(1, Number(sp?.page) || 1);
 
   const [total, blogs] = await Promise.all([
-    prisma.blog.count(),
+    prisma.blog.count({ where: { active: true } }),
     prisma.blog.findMany({
+      where: { active: true },
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * PAGE_SIZE,
       take: PAGE_SIZE,

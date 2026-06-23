@@ -14,6 +14,7 @@ export const metadata = {
 
 export default async function AllProjectPage() {
   const projects = await prisma.project.findMany({
+    where: { active: true },
     orderBy: { createdAt: "desc" },
   });
 
