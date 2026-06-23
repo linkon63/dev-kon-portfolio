@@ -115,6 +115,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* Editorial palette inversion for dark mode */
+  --ink: #ffffff;
+  --cream: #000000;
+  --muted-ink: #8e8d84;
 }
 
 @layer base {
@@ -124,14 +128,18 @@
   html {
     height: 100%;
     scroll-behavior: smooth;
+    background-color: var(--cream);
+    color: var(--ink);
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
   body {
     min-height: 100%;
     /* Black-and-white editorial palette from the new portfolio design */
-    color: #0d0d0c;
-    background-color: #ffffff;
+    color: var(--ink);
+    background-color: var(--cream);
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 }
 

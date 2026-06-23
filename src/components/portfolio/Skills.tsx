@@ -33,7 +33,7 @@ export default function Skills() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
               whileHover={{ scale: 1.05 }}
-              className="flex w-full flex-col items-center justify-center rounded-2xl border border-[var(--ink)]/10 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-black cursor-pointer text-left"
+              className="flex w-full flex-col items-center justify-center rounded-2xl border border-[var(--ink)]/10 bg-[var(--cream)] p-6 shadow-sm transition-shadow hover:shadow-md cursor-pointer text-left"
             >
               <div className="skill-icon text-3xl mb-3 text-[var(--ink)]">
                 {skill.icon}
