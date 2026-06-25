@@ -53,10 +53,50 @@ export type Service = {
   createdAt?: number;
 };
 
+// A labelled project / external link shown on an experience entry.
+export type ExperienceLink = {
+  label: string;
+  url: string;
+};
+
+// "About" section — a single editable record.
+export type About = {
+  id?: string;
+  greeting: string;
+  intro: string;
+  bio1: string;
+  bio2: string;
+  image: string;
+  ctaText: string;
+  ctaHref: string;
+  active?: boolean;
+  createdAt?: number;
+};
+
+// "Experience" timeline entry.
+export type Experience = {
+  id?: string;
+  role: string;
+  company: string;
+  companyUrl?: string;
+  location: string;
+  period: string;
+  duration?: string;
+  current?: boolean;
+  highlights: string[];
+  stack: string[];
+  links?: ExperienceLink[];
+  order?: number;
+  active?: boolean;
+  createdAt?: number;
+};
+
 // Content collection names (map to /api/content/:name) — single source of truth.
 export const COLLECTIONS = {
   blogs: "blogs",
   testimonials: "testimonials",
   projects: "projects",
   services: "services",
+  about: "about",
+  experiences: "experiences",
 } as const;

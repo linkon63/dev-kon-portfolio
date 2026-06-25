@@ -1,87 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { ChevronDown } from "lucide-react";
-
-type Job = {
-  role: string;
-  company: string;
-  location: string;
-  period: string;
-  duration?: string;
-  current?: boolean;
-  highlights: string[];
-  stack: string[];
-};
-
-const JOURNEY: Job[] = [
-  {
-    role: "Team Lead — Software Engineer & Lead Instructor",
-    company: "Softzino Technologies",
-    location: "Dhaka, Bangladesh",
-    period: "May 2021 — Present",
-    duration: "5 yrs +",
-    current: true,
-    highlights: [
-      "Lead a team of 5+ engineers with Agile/Scrum — sprint planning, estimation, and delivery management.",
-      "Designed scalable multi-tenant SaaS architecture across ERP, POS, and E-commerce platforms.",
-      "Manage production VPS deployments, Docker environments, and CI/CD pipelines.",
-      "Introduced AI-assisted workflows (+10% productivity) and optimized queries (+40% performance).",
-    ],
-    stack: ["Leadership", "SaaS Architecture", "Docker", "CI/CD", "PR Reviews"],
-  },
-  {
-    role: "Full-Stack Developer (Remote)",
-    company: "Pacific System",
-    location: "Tokyo, Japan",
-    period: "Jan 2022 — Feb 2023",
-    duration: "1 yr +",
-    highlights: [
-      "Built backend APIs with Node.js and responsive frontends in React.js with Redux/Recoil.",
-      "Deployed and maintained the system on AWS, ensuring performance and reliability.",
-    ],
-    stack: ["Node.js", "React.js", "Redux", "AWS"],
-  },
-  {
-    role: "Associate Software Engineer",
-    company: "Softzino Technologies",
-    location: "Dhaka, Bangladesh",
-    period: "May 2021 — Dec 2021",
-    highlights: [
-      "Developed appointment scheduling software with Google Calendar API integration.",
-      "Contributed to backend API design and frontend UI components.",
-    ],
-    stack: ["Node.js", "REST API", "Google Calendar API"],
-  },
-  {
-    role: "Frontend Engineer (Remote)",
-    company: "MyPathGuider",
-    location: "New Delhi, India",
-    period: "Nov 2020 — May 2021",
-    highlights: [
-      "Built a responsive educational platform frontend using modern JavaScript frameworks.",
-      "Improved UI performance and cross-device compatibility.",
-    ],
-    stack: ["JavaScript", "Frontend", "Responsive UI"],
-  },
-];
-
-// Progressive reveal: current role only -> +2 more -> all
-const STEPS = Array.from(
-  new Set([1, 3, JOURNEY.length].filter((n) => n <= JOURNEY.length)),
-);
+import { ChevronDown, ArrowUpRight } from "lucide-react";
+import { useCollectionData } from "@/lib/useCollectionData";
+import { COLLECTIONS, type Experience as Job } from "@/lib/types";
+import { experiences as experiencesFallback } from "@/data/experience";
 
 export default function Experience() {
+  const rows = useCollectionData<Job>(
+    COLLECTIONS.experiences,
+    experiencesFallback,
+  );
+
+  // Display order: `order` ascending (most recent role first); newest-created
+  // wins ties so freshly added rows surface predictably.
+  const journey = useMemo(
+    () =>
+      [...rows].sort(
+        (a, b) =>
+          (a.order ?? 0) - (b.order ?? 0) ||
+          (b.createdAt ?? 0) - (a.createdAt ?? 0),
+      ),
+    [rows],
+  );
+
+  // Progressive reveal: current role only -> +2 more -> all.
+  const steps = useMemo(
+    () =>
+      Array.from(
+        new Set([1, 3, journey.length].filter((n) => n <= journey.length)),
+      ),
+    [journey.length],
+  );
+
   const [stepIndex, setStepIndex] = useState(0);
 
-  const visibleCount = STEPS[stepIndex];
-  const displayedJobs = JOURNEY.slice(0, visibleCount);
-  const isFullyExpanded = stepIndex >= STEPS.length - 1;
-  const hiddenCount = JOURNEY.length - visibleCount;
+  const safeStep = Math.min(stepIndex, steps.length - 1);
+  const visibleCount = steps[safeStep] ?? journey.length;
+  const displayedJobs = journey.slice(0, visibleCount);
+  const isFullyExpanded = safeStep >= steps.length - 1;
+  const hiddenCount = journey.length - visibleCount;
 
   const handleToggle = () => {
-    setStepIndex((prev) => (prev >= STEPS.length - 1 ? 0 : prev + 1));
+    setStepIndex((prev) => (prev >= steps.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -105,7 +67,7 @@ export default function Experience() {
       <div className="relative border-l border-[var(--ink)]/15 pl-8 md:pl-12">
         {displayedJobs.map((job, i) => (
           <motion.div
-            key={`${job.company}-${job.period}`}
+            key={job.id ?? `${job.company}-${job.period}`}
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -152,7 +114,19 @@ export default function Experience() {
               {job.role}
             </h3>
             <p className="mt-1 text-sm font-medium text-[var(--ink)]/70 md:text-base">
-              {job.company} · {job.location}
+              {job.companyUrl ? (
+                <a
+                  href={job.companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-[var(--ink)]/30 underline-offset-2 hover:decoration-[var(--ink)]"
+                >
+                  {job.company}
+                </a>
+              ) : (
+                job.company
+              )}{" "}
+              · {job.location}
             </p>
 
             {/* Highlights */}
@@ -167,6 +141,24 @@ export default function Experience() {
                 </li>
               ))}
             </ul>
+
+            {/* Project links */}
+            {job.links && job.links.length > 0 && (
+              <div className="mt-5 flex flex-wrap gap-2">
+                {job.links.map((link) => (
+                  <a
+                    key={`${link.label}-${link.url}`}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)]/8 px-3 py-1 text-xs font-semibold text-[var(--ink)]/75 transition-colors hover:bg-[var(--ink)] hover:text-[var(--cream)]"
+                  >
+                    {link.label}
+                    <ArrowUpRight size={13} />
+                  </a>
+                ))}
+              </div>
+            )}
 
             {/* Stack */}
             <div className="mt-5 flex flex-wrap gap-2">
@@ -184,7 +176,7 @@ export default function Experience() {
       </div>
 
       {/* See more / less */}
-      {STEPS.length > 1 && (
+      {steps.length > 1 && (
         <div className="mt-4 flex flex-col items-center gap-3">
           <button
             type="button"

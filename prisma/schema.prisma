@@ -64,6 +64,43 @@ model Service {
   @@index([createdAt])
 }
 
+// "About" homepage section. Single editable row (newest active row wins).
+model About {
+  id        String   @id @default(cuid())
+  greeting  String   @default("Hey")
+  intro     String   @db.Text
+  bio1      String   @db.Text
+  bio2      String   @db.Text
+  image     String   @default("")
+  ctaText   String   @default("Get in touch")
+  ctaHref   String   @default("#contact")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// "Experience" timeline entries. `links` holds project links as
+// [{ label, url }]; `order` controls display order (ascending, newest first).
+model Experience {
+  id         String   @id @default(cuid())
+  role       String
+  company    String
+  companyUrl String?
+  location   String
+  period     String
+  duration   String?
+  current    Boolean  @default(false)
+  highlights String[]
+  stack      String[]
+  links      Json?
+  order      Int      @default(0)
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
 // "Let's talk" contact form submissions.
 model ContactMessage {
   id        String   @id @default(cuid())

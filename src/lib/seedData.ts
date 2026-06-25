@@ -2,11 +2,13 @@
 // collection is empty/offline; the admin "Seed" button imports them into the
 // database via the content API.
 
-import type { Blog, Testimonial, Project, Service } from "./types";
+import type { Blog, Testimonial, Project, Service, About, Experience } from "./types";
 import { projects as staticProjects } from "@/data/projects";
 import { testimonials as staticTestimonials } from "@/data/testimonials";
 import { services as staticServices } from "@/data/services";
 import { posts as staticPosts } from "@/data/posts";
+import { about as staticAbout } from "@/data/about";
+import { experiences as staticExperiences } from "@/data/experience";
 
 export const seedProjects: Project[] = staticProjects
   .filter((p) => p.image)
@@ -61,6 +63,12 @@ export const officialTestimonials: Omit<Testimonial, "id">[] = [
 export const seedServices: Service[] = staticServices.map((s) => ({
   title: s.title,
   tags: s.tags,
+}));
+
+export const seedAbout: About = { ...staticAbout };
+
+export const seedExperiences: Experience[] = staticExperiences.map((e) => ({
+  ...e,
 }));
 
 export const seedBlogs: Blog[] = staticPosts.map((p) => ({
