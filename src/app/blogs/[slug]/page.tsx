@@ -16,13 +16,24 @@ export async function generateMetadata({ params }: Ctx) {
   const blog = await prisma.blog.findUnique({ where: { slug } });
   if (!blog || !blog.active) return { title: "Post not found" };
   const url = `${SITE_URL}/blogs/${blog.slug}`;
-  const imageUrl = blog.image
+  // Locally-stored uploads are WebP; LinkedIn and some platforms don't render
+  // WebP link previews, so request a JPEG copy for the share image.
+  const isLocalUpload = blog.image?.startsWith("/api/uploads/");
+  const ogImageUrl = blog.image
     ? blog.image.startsWith("http")
       ? blog.image
-      : `${SITE_URL}${blog.image}`
+      : `${SITE_URL}${blog.image}${isLocalUpload ? "?format=jpeg" : ""}`
     : undefined;
-  const images = imageUrl
-    ? [{ url: imageUrl, width: 1200, height: 630, alt: blog.title }]
+  const images = ogImageUrl
+    ? [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+          ...(isLocalUpload ? { type: "image/jpeg" } : {}),
+        },
+      ]
     : undefined;
   return {
     title: `${blog.title} — Md Abdul Ahad Linkon`,
@@ -39,7 +50,7 @@ export async function generateMetadata({ params }: Ctx) {
       card: "summary_large_image",
       title: blog.title,
       description: blog.excerpt,
-      images: imageUrl ? [imageUrl] : undefined,
+      images: ogImageUrl ? [ogImageUrl] : undefined,
     },
   };
 }
