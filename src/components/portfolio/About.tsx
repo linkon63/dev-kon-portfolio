@@ -3,8 +3,14 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
+import { useCollectionData } from "@/lib/useCollectionData";
+import { COLLECTIONS, type About as AboutType } from "@/lib/types";
+import { about as aboutFallback } from "@/data/about";
 
 export default function About() {
+  const rows = useCollectionData<AboutType>(COLLECTIONS.about, [aboutFallback]);
+  const about = rows[0] ?? aboutFallback;
+
   return (
     <section
       id="about"
@@ -14,7 +20,7 @@ export default function About() {
         {/* Left column: greeting + intro */}
         <div className="flex h-full flex-col justify-between gap-10">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter">
-            Hey
+            {about.greeting}
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
@@ -24,34 +30,41 @@ export default function About() {
             </motion.span>
           </h2>
           <p className="max-w-xs text-lg font-semibold leading-snug tracking-tight md:text-xl">
-            I&apos;m Linkon, a Senior Full-Stack Engineer &amp; SaaS Architect based in Dhaka, leading teams and building high-performance systems.
+            {about.intro}
           </p>
         </div>
 
         {/* Center: portrait */}
         <div className="relative mx-auto h-72 w-64 overflow-hidden rounded-3xl shadow-2xl md:h-[28rem] md:w-96">
-          <Image
-            src="/assets/profileimage.jpg"
-            alt="Md Abdul Ahad Linkon"
-            fill
-            sizes="(max-width: 768px) 16rem, 24rem"
-            className="object-cover grayscale contrast-110"
-          />
+          {about.image && (
+            <Image
+              src={about.image}
+              alt="Md Abdul Ahad Linkon"
+              fill
+              sizes="(max-width: 768px) 16rem, 24rem"
+              className="object-cover grayscale contrast-110"
+              unoptimized
+            />
+          )}
         </div>
 
         {/* Right column: bio + CTA */}
         <div className="flex h-full flex-col justify-center gap-6 md:self-end md:pb-2">
-          <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
-            With over 5 years of experience, I architect scalable SaaS, ERP, and multi-tenant ecommerce platforms. I have a proven track record of leading engineering teams, optimizing database queries by 40%, and establishing clean architectures.
-          </p>
-          <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
-            I specialize in React, Next.js, Node.js, and cloud/VPS deployments, with extensive experience collaborating remotely across Japan, Ireland, and India.
-          </p>
+          {about.bio1 && (
+            <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
+              {about.bio1}
+            </p>
+          )}
+          {about.bio2 && (
+            <p className="text-base leading-relaxed text-[var(--ink)]/85 md:text-lg">
+              {about.bio2}
+            </p>
+          )}
           <a
-            href="#contact"
+            href={about.ctaHref || "#contact"}
             className="inline-flex w-fit items-center gap-3 bg-[var(--ink)] text-[var(--cream)] px-6 py-3 rounded-full text-base font-bold shadow-lg hover:opacity-90 transition-all duration-300"
           >
-            Get in touch
+            {about.ctaText || "Get in touch"}
             <motion.span
               animate={{ scale: [1, 1.18, 1] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}

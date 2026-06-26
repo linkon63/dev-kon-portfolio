@@ -32,6 +32,36 @@ export const CONTENT = {
     model: "service",
     fields: ["title", "tags", "active"],
   },
+  about: {
+    model: "about",
+    fields: [
+      "greeting",
+      "intro",
+      "bio1",
+      "bio2",
+      "image",
+      "ctaText",
+      "ctaHref",
+      "active",
+    ],
+  },
+  experiences: {
+    model: "experience",
+    fields: [
+      "role",
+      "company",
+      "companyUrl",
+      "location",
+      "period",
+      "duration",
+      "current",
+      "highlights",
+      "stack",
+      "links",
+      "order",
+      "active",
+    ],
+  },
 } as const;
 
 export type CollectionName = keyof typeof CONTENT;

@@ -13,6 +13,7 @@ import LetsTalk from "@/components/portfolio/LetsTalk";
 import Footer from "@/components/portfolio/Footer";
 import FloatingActions from "@/components/portfolio/FloatingActions";
 import ResumeButton from "@/components/portfolio/ResumeButton";
+import GameButton from "@/components/portfolio/GameButton";
 import InPageNav from "@/components/portfolio/InPageNav";
 
 export default function HomePage() {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Tracker />
       <Navbar />
       <ResumeButton />
+      <GameButton />
       <FloatingActions />
       <InPageNav />
       <Hero />
