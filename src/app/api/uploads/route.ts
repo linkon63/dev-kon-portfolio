@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       folder,
       filename,
       contentType,
-      data: bytes,
+      data: new Uint8Array(bytes),
     },
     select: { id: true },
   });

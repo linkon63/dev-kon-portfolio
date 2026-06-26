@@ -56,8 +56,10 @@ function formatSize(bytes: number): string {
 }
 
 async function main() {
-  console.log("Fetching all uploaded files from Postgres...");
-  const uploads = await prisma.upload.findMany();
+  console.log("Fetching all uploaded files metadata from Postgres...");
+  const uploads = await prisma.upload.findMany({
+    select: { id: true, filename: true, contentType: true },
+  });
 
   let optimizedCount = 0;
   let totalSavedBytes = 0;
@@ -73,10 +75,20 @@ async function main() {
       continue;
     }
 
-    const originalSize = upload.data.length;
+    // Fetch the raw bytes only for this specific file
+    const fileRow = await prisma.upload.findUnique({
+      where: { id: upload.id },
+      select: { data: true },
+    });
+    if (!fileRow || !fileRow.data) {
+      console.log(`  - Could not retrieve data for ${upload.filename}`);
+      continue;
+    }
+
+    const originalSize = fileRow.data.length;
     console.log(`Processing image: ${upload.filename} (${formatSize(originalSize)})...`);
 
-    const result = await optimizeImage(Buffer.from(upload.data), upload.contentType);
+    const result = await optimizeImage(Buffer.from(fileRow.data), upload.contentType);
     if (!result) {
       console.log(`  - sharp skipped or failed for ${upload.filename}`);
       continue;
@@ -107,7 +119,7 @@ async function main() {
       await prisma.upload.update({
         where: { id: upload.id },
         data: {
-          data: result.data,
+          data: new Uint8Array(result.data),
           contentType: result.contentType,
           filename: newFilename,
         },
