@@ -43,7 +43,6 @@ export default function About() {
               fill
               sizes="(max-width: 768px) 16rem, 24rem"
               className="object-cover grayscale contrast-110"
-              unoptimized
             />
           )}
         </div>

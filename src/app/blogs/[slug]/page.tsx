@@ -117,7 +117,6 @@ export default async function BlogDetailPage({ params }: Ctx) {
               alt={blog.title}
               fill
               sizes="(max-width: 768px) 100vw, 42rem"
-              unoptimized
               className="object-cover"
               priority
             />
@@ -141,7 +140,6 @@ export default async function BlogDetailPage({ params }: Ctx) {
                       alt={section.heading || blog.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 42rem"
-                      unoptimized
                       className="object-cover"
                     />
                   </div>

@@ -57,7 +57,6 @@ export default function FeaturedProjects() {
                   alt={project.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  unoptimized
                   className="object-cover grayscale transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               )}

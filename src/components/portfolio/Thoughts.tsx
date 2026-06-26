@@ -49,7 +49,6 @@ export default function Thoughts() {
                 alt={post.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"
-                unoptimized
                 className="object-cover grayscale transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
