@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://dev-kon-portfolio.web.app";
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://linkonsmind.vercel.app");
 
 export const SITE_NAME = "Md Abdul Ahad Linkon — Portfolio";
 export const FULL_NAME = "Md Abdul Ahad Linkon";
