@@ -5,6 +5,7 @@ import PublicPage from "@/components/site/PublicPage";
 import Breadcrumb from "@/components/site/Breadcrumb";
 import CommentsAndLikes from "@/components/site/CommentsAndLikes";
 import ShareButtons from "@/components/site/ShareButtons";
+import { SITE_URL } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -14,8 +15,26 @@ export async function generateMetadata({ params }: Ctx) {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({ where: { slug } });
   if (!blog || !blog.active) return { title: "Post not found" };
-  const url = `/blogs/${blog.slug}`;
-  const images = blog.image ? [{ url: blog.image }] : undefined;
+  const url = `${SITE_URL}/blogs/${blog.slug}`;
+  // Locally-stored uploads are WebP; LinkedIn and some platforms don't render
+  // WebP link previews, so request a JPEG copy for the share image.
+  const isLocalUpload = blog.image?.startsWith("/api/uploads/");
+  const ogImageUrl = blog.image
+    ? blog.image.startsWith("http")
+      ? blog.image
+      : `${SITE_URL}${blog.image}${isLocalUpload ? "?format=jpeg" : ""}`
+    : undefined;
+  const images = ogImageUrl
+    ? [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+          ...(isLocalUpload ? { type: "image/jpeg" } : {}),
+        },
+      ]
+    : undefined;
   return {
     title: `${blog.title} — Md Abdul Ahad Linkon`,
     description: blog.excerpt,
@@ -31,7 +50,7 @@ export async function generateMetadata({ params }: Ctx) {
       card: "summary_large_image",
       title: blog.title,
       description: blog.excerpt,
-      images: blog.image ? [blog.image] : undefined,
+      images: ogImageUrl ? [ogImageUrl] : undefined,
     },
   };
 }
@@ -81,8 +100,7 @@ export default async function BlogDetailPage({ params }: Ctx) {
   const words = totalText.split(/\s+/).filter(Boolean).length;
   const readMins = Math.max(1, Math.round(words / 200));
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://dev-kon-portfolio.web.app";
+  const siteUrl = SITE_URL;
   const shareUrl = `${siteUrl}/blogs/${blog.slug}`;
 
   return (
