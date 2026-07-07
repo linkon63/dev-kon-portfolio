@@ -42,7 +42,7 @@ export async function GET(req: Request, { params }: Ctx) {
     }
   }
 
-  return new Response(data, {
+  return new Response(new Uint8Array(data), {
     headers: {
       "Content-Type": upload.contentType,
       "Cache-Control": "public, max-age=31536000, immutable",
