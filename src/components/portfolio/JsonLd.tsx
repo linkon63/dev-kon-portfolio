@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://dev-kon-portfolio.web.app";
+import { SITE_URL } from "@/lib/seo";
 
 const personSchema = {
   "@context": "https://schema.org",

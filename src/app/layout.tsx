@@ -7,6 +7,7 @@ import HangingLamp from "@/components/portfolio/HangingLamp";
 import { ThemeProvider } from "@/components/portfolio/ThemeProvider";
 import { siteMetadata } from "@/lib/seo";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-0N792Q9769";
 
@@ -52,6 +53,7 @@ export default function RootLayout({
           <HangingLamp />
         </ThemeProvider>
       </body>
+      <Analytics />
     </html>
   );
 }
