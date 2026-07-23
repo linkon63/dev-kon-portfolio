@@ -99,6 +99,17 @@ export const siteMetadata: Metadata = {
   keywords: SEO_KEYWORDS,
   authors: [{ name: FULL_NAME, url: SITE_URL }],
   creator: FULL_NAME,
+  icons: {
+    // SVG first — scalable and razor-sharp on any DPI; modern browsers prefer it.
+    // .ico is the legacy fallback; the 96px PNG covers browsers without SVG support.
+    icon: [
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon/favicon.ico", sizes: "any" },
+      { url: "/favicon/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+    ],
+    apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/favicon/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_US",
