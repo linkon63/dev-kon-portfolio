@@ -198,7 +198,9 @@ sudo ufw enable
 ## 3. GitHub repository secrets
 
 In GitHub → **Settings → Secrets and variables → Actions → New repository
-secret**, add:
+secret**, add **two groups**:
+
+**A. VPS connection** — how GitHub reaches your server (deploy fails without these):
 
 | Secret | Value |
 | --- | --- |
@@ -208,6 +210,25 @@ secret**, add:
 | `VPS_SSH_KEY` | The **private** key printed in step 2.3 (full `-----BEGIN…END-----`) |
 | `VPS_APP_DIR` | Absolute path to the repo, e.g. `/home/deploy/dev-kon-portfolio` |
 
+**B. App environment** — written into the server's `.env` on every deploy
+(GitHub is the source of truth). Use these **exact names**:
+
+| Secret | Notes |
+| --- | --- |
+| `DATABASE_URL` | Production Postgres connection string |
+| `ADMIN_EMAIL` | Admin login |
+| `ADMIN_PASSWORD` | Admin login |
+| `ADMIN_SESSION_SECRET` | `openssl rand -hex 32` |
+| `NEXT_PUBLIC_ADMIN_EMAIL` | Public login-screen hint |
+| `NEXT_PUBLIC_ADMIN_PASSWORD` | Public login-screen hint |
+| `RESEND_API_KEY` | Contact-form email |
+| `CONTACT_TO_EMAIL` | Contact-form recipient (optional — code has a default) |
+| `CONTACT_FROM_EMAIL` | Verified sender (optional — code has a default) |
+
+> The deploy workflow forwards group **B** over SSH and rewrites `.env` **before**
+> the build, so `NEXT_PUBLIC_*` values are baked in correctly. To change an env
+> value, edit the GitHub secret and re-run the deploy — no SSH needed.
+
 > Tip: for a real production setup, create a GitHub **Environment** named
 > `production` and attach these secrets to it plus a required-reviewer rule, so
 > deploys need an approval. (Then add `environment: production` to the deploy job.)
@@ -216,17 +237,20 @@ secret**, add:
 
 ## 4. Environment variables reference
 
-Secrets live in the VPS `.env` (server-side, never shipped to the browser). CI
-only needs placeholders because the build doesn't hit the DB. See
+The app's env vars are stored as **GitHub secrets** (group B above) and written
+into the VPS `.env` on each deploy — server-side, never shipped to the browser.
+The `.env` you create manually in step 2.4 is only for the first bootstrap deploy;
+after that the workflow overwrites it from the secrets. CI itself only needs
+placeholders because the build doesn't hit the DB. See
 [`.env.example`](../.env.example) and [`docs/creadentials.md`](creadentials.md).
 
-| Var | Where | Purpose |
-| --- | --- | --- |
-| `DATABASE_URL` | VPS `.env` | Postgres connection (used at runtime + migrations) |
-| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | VPS `.env` | Admin login check |
-| `ADMIN_SESSION_SECRET` | VPS `.env` | Signs the admin session cookie |
-| `NEXT_PUBLIC_ADMIN_*` | VPS `.env` | Login-screen hint (public) |
-| `RESEND_API_KEY`, `CONTACT_*` | VPS `.env` | Contact-form email |
+| Var | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Postgres connection (used at runtime + migrations) |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Admin login check |
+| `ADMIN_SESSION_SECRET` | Signs the admin session cookie |
+| `NEXT_PUBLIC_ADMIN_*` | Login-screen hint (public) |
+| `RESEND_API_KEY`, `CONTACT_*` | Contact-form email |
 
 ---
 
@@ -246,7 +270,8 @@ If CI fails, fix it before merging — a red build should block deploy.
 ### CD — [`deploy.yml`](../.github/workflows/deploy.yml)
 
 Triggers on push to `dev` (and manual **Run workflow**). It opens an SSH
-session to the VPS and runs [`scripts/deploy.sh`](../scripts/deploy.sh), which:
+session to the VPS, **writes `.env` from the app-env GitHub secrets** (group B),
+then runs [`scripts/deploy.sh`](../scripts/deploy.sh), which:
 
 1. `git fetch` + `git reset --hard origin/dev` (server matches `dev` exactly).
 2. `npm ci`.

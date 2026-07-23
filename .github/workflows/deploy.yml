@@ -24,15 +24,44 @@ jobs:
     steps:
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
+        # App env vars (managed in GitHub secrets) are forwarded into the remote
+        # shell via `envs`, then written to the server's .env before the build.
+        # NEXT_PUBLIC_* must exist BEFORE `npm run build` — they are baked in.
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ADMIN_SESSION_SECRET: ${{ secrets.ADMIN_SESSION_SECRET }}
+          NEXT_PUBLIC_ADMIN_EMAIL: ${{ secrets.NEXT_PUBLIC_ADMIN_EMAIL }}
+          NEXT_PUBLIC_ADMIN_PASSWORD: ${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CONTACT_TO_EMAIL: ${{ secrets.CONTACT_TO_EMAIL }}
+          CONTACT_FROM_EMAIL: ${{ secrets.CONTACT_FROM_EMAIL }}
         with:
           host: ${{ secrets.VPS_HOST }}
           port: ${{ secrets.VPS_PORT }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          # Names of the env vars above to forward into the SSH session.
+          envs: DATABASE_URL,ADMIN_EMAIL,ADMIN_PASSWORD,ADMIN_SESSION_SECRET,NEXT_PUBLIC_ADMIN_EMAIL,NEXT_PUBLIC_ADMIN_PASSWORD,RESEND_API_KEY,CONTACT_TO_EMAIL,CONTACT_FROM_EMAIL
           # Fail the job if any command in the script fails.
           script_stop: true
           command_timeout: 15m
           script: |
             set -euo pipefail
             cd ${{ secrets.VPS_APP_DIR }}
+            # Rewrite .env from the forwarded secrets (GitHub is source of truth).
+            # `printf %s` keeps values with special chars (&, ?, =) intact.
+            umask 077
+            {
+              printf 'DATABASE_URL=%s\n'                "$DATABASE_URL"
+              printf 'ADMIN_EMAIL=%s\n'                 "$ADMIN_EMAIL"
+              printf 'ADMIN_PASSWORD=%s\n'              "$ADMIN_PASSWORD"
+              printf 'ADMIN_SESSION_SECRET=%s\n'        "$ADMIN_SESSION_SECRET"
+              printf 'NEXT_PUBLIC_ADMIN_EMAIL=%s\n'     "$NEXT_PUBLIC_ADMIN_EMAIL"
+              printf 'NEXT_PUBLIC_ADMIN_PASSWORD=%s\n'  "$NEXT_PUBLIC_ADMIN_PASSWORD"
+              printf 'RESEND_API_KEY=%s\n'              "$RESEND_API_KEY"
+              printf 'CONTACT_TO_EMAIL=%s\n'            "$CONTACT_TO_EMAIL"
+              printf 'CONTACT_FROM_EMAIL=%s\n'          "$CONTACT_FROM_EMAIL"
+            } > .env
             ./scripts/deploy.sh
