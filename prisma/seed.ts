@@ -4,7 +4,6 @@ import { PrismaClient } from "../generated/prisma/client";
 import { projects as staticProjects } from "../src/data/projects";
 import { posts as staticPosts } from "../src/data/posts";
 import { services as staticServices } from "../src/data/services";
-import { testimonials as staticTestimonials } from "../src/data/testimonials";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -46,16 +45,6 @@ async function main() {
     });
   }
 
-  if ((await prisma.testimonial.count()) === 0) {
-    await prisma.testimonial.createMany({
-      data: staticTestimonials.map((t) => ({
-        quote: t.quote,
-        name: t.name,
-        role: t.role,
-      })),
-    });
-  }
-
   // Ensure the single settings row exists.
   await prisma.siteSettings.upsert({
     where: { id: "site" },
@@ -63,14 +52,13 @@ async function main() {
     create: { id: "site" },
   });
 
-  const [projects, blogs, services, testimonials] = await Promise.all([
+  const [projects, blogs, services] = await Promise.all([
     prisma.project.count(),
     prisma.blog.count(),
     prisma.service.count(),
-    prisma.testimonial.count(),
   ]);
   console.log(
-    `Seeded — projects: ${projects}, blogs: ${blogs}, services: ${services}, testimonials: ${testimonials}`,
+    `Seeded — projects: ${projects}, blogs: ${blogs}, services: ${services}`,
   );
 }
 

@@ -12,40 +12,40 @@ export default function AllProjectsGrid({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <div className="grid gap-x-8 gap-y-14 md:grid-cols-2">
+      {/* Compact, dense grid so every project is visible at a glance. */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
         {projects.map((project, i) => (
           <motion.button
             key={project.id ?? project.title}
             type="button"
             onClick={() => setSelected(project)}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: (i % 2) * 0.08 }}
-            className="group block w-full text-left cursor-pointer"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: Math.min(i * 0.03, 0.4) }}
+            className="group flex flex-col overflow-hidden rounded-xl bg-white text-left ring-1 ring-black/5 transition-shadow hover:shadow-lg hover:ring-black/10 cursor-pointer"
           >
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[var(--ink)]/5 ring-1 ring-black/5">
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--ink)]/5">
               {project.image && (
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                 />
               )}
+              <span className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-full bg-white/90 text-[var(--ink)] opacity-0 shadow-sm backdrop-blur transition-opacity group-hover:opacity-100">
+                <ArrowUpRight size={15} />
+              </span>
             </div>
-            <h2 className="mt-5 text-2xl font-bold tracking-tight md:text-3xl">
-              {project.title}
-            </h2>
-            <p className="mt-1 line-clamp-2 text-[var(--ink)]/55">{project.text}</p>
-            <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--ink)]/70 transition-colors group-hover:text-[var(--ink)]">
-              View details
-              <ArrowUpRight
-                size={16}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </span>
+            <div className="flex flex-1 flex-col p-3">
+              <h2 className="text-sm font-bold leading-snug tracking-tight sm:text-base line-clamp-1">
+                {project.title}
+              </h2>
+              <p className="mt-1 line-clamp-2 text-xs text-[var(--ink)]/55">
+                {project.text}
+              </p>
+            </div>
           </motion.button>
         ))}
       </div>

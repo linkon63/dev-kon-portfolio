@@ -43,17 +43,6 @@ model Project {
   @@index([createdAt])
 }
 
-model Testimonial {
-  id        String   @id @default(cuid())
-  quote     String
-  name      String
-  role      String
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
-
-  @@index([createdAt])
-}
-
 model Service {
   id        String   @id @default(cuid())
   title     String

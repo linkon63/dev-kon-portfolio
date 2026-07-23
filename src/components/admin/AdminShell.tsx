@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   FileText,
-  MessageSquareQuote,
   FolderGit2,
   Wrench,
   FileUser,
@@ -25,7 +24,6 @@ const nav = [
   { href: "/admin/experience", label: "Experience", icon: Briefcase },
   { href: "/admin/blogs", label: "Thoughts / Blogs", icon: FileText },
   { href: "/admin/projects", label: "Projects", icon: FolderGit2 },
-  { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
   { href: "/admin/services", label: "Services", icon: Wrench },
   { href: "/admin/resume", label: "Resume", icon: FileUser },
 ];

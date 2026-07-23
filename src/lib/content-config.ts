@@ -24,10 +24,6 @@ export const CONTENT = {
     model: "project",
     fields: ["title", "text", "image", "liveUrl", "clientUrl", "serverUrl", "active"],
   },
-  testimonials: {
-    model: "testimonial",
-    fields: ["quote", "name", "role", "active"],
-  },
   services: {
     model: "service",
     fields: ["title", "tags", "active"],

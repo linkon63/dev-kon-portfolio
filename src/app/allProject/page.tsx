@@ -18,19 +18,22 @@ export default async function AllProjectPage() {
 
   return (
     <PublicPage>
-      <section className="mx-auto max-w-6xl px-6 pt-20 pb-12 md:pt-40 md:pb-32">
+      <section className="mx-auto max-w-7xl px-6 pt-20 pb-16 md:pt-32 md:pb-24">
         <Breadcrumb items={[{ label: "All Projects" }]} />
 
-        <header className="mb-14 md:mb-20">
-          <p className="mb-4 text-sm font-medium tracking-widest text-[var(--ink)]/40 uppercase">
-            Portfolio
-          </p>
-          <h1 className="text-4xl sm:text-5xl md:text-8xl font-extrabold tracking-tighter">
-            All Projects
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-[var(--ink)]/55">
+        <header className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-10">
+          <div>
+            <p className="mb-3 text-sm font-medium tracking-widest text-[var(--ink)]/40 uppercase">
+              Portfolio
+            </p>
+            <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl">
+              All Projects
+            </h1>
+          </div>
+          <p className="max-w-md text-base text-[var(--ink)]/55">
             A fuller look at things I&apos;ve designed, built and shipped —
-            full-stack apps, client work and experiments.
+            full-stack apps, client work and experiments. Tap any card for
+            details.
           </p>
         </header>
 

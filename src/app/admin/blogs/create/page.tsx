@@ -52,7 +52,6 @@ const EMPTY: Draft = {
   active: true,
   likes: 0,
   allowLikes: true,
-  allowComments: true,
   file: null,
   preview: "",
   sections: [],
@@ -195,7 +194,6 @@ export default function CreateBlogPage() {
         image,
         active: draft.active,
         allowLikes: draft.allowLikes,
-        allowComments: draft.allowComments,
         likes: 0,
       };
 
@@ -360,16 +358,6 @@ export default function CreateBlogPage() {
                   className="rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900 h-4 w-4"
                 />
                 Allow Likes
-              </label>
-
-              <label className="inline-flex items-center gap-2 text-sm text-neutral-700 font-medium cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={draft.allowComments}
-                  onChange={(e) => setDraft({ ...draft, allowComments: e.target.checked })}
-                  className="rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900 h-4 w-4"
-                />
-                Allow Comments & Discussion
               </label>
             </div>
           </div>
@@ -587,13 +575,8 @@ export default function CreateBlogPage() {
             {/* Likes / Discussion preview placeholders */}
             <div className="mt-16 border-t border-neutral-200 pt-10 opacity-50 select-none">
               {draft.allowLikes && (
-                <p className="text-xs text-neutral-400 font-semibold mb-4">
-                  ❤️ Likes enabled (Preview only)
-                </p>
-              )}
-              {draft.allowComments && (
                 <p className="text-xs text-neutral-400 font-semibold">
-                  💬 Comments enabled (Preview only)
+                  ❤️ Likes enabled (Preview only)
                 </p>
               )}
             </div>

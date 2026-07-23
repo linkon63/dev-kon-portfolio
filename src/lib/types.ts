@@ -27,14 +27,6 @@ export type Comment = {
   replies?: Comment[];
 };
 
-export type Testimonial = {
-  id?: string;
-  quote: string;
-  name: string;
-  role: string;
-  createdAt?: number;
-};
-
 export type Project = {
   id?: string;
   title: string;
@@ -94,7 +86,6 @@ export type Experience = {
 // Content collection names (map to /api/content/:name) — single source of truth.
 export const COLLECTIONS = {
   blogs: "blogs",
-  testimonials: "testimonials",
   projects: "projects",
   services: "services",
   about: "about",

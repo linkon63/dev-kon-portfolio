@@ -7,13 +7,11 @@ import Skills from "@/components/portfolio/Skills";
 import IdeaToLaunch from "@/components/portfolio/IdeaToLaunch";
 import Services from "@/components/portfolio/Services";
 import FeaturedProjects from "@/components/portfolio/FeaturedProjects";
-import Testimonials from "@/components/portfolio/Testimonials";
 import Thoughts from "@/components/portfolio/Thoughts";
 import LetsTalk from "@/components/portfolio/LetsTalk";
 import Footer from "@/components/portfolio/Footer";
 import FloatingActions from "@/components/portfolio/FloatingActions";
 import ResumeButton from "@/components/portfolio/ResumeButton";
-import GameButton from "@/components/portfolio/GameButton";
 import InPageNav from "@/components/portfolio/InPageNav";
 
 export default function HomePage() {
@@ -22,7 +20,6 @@ export default function HomePage() {
       <Tracker />
       <Navbar />
       <ResumeButton />
-      <GameButton />
       <FloatingActions />
       <InPageNav />
       <Hero />
@@ -32,7 +29,6 @@ export default function HomePage() {
       <IdeaToLaunch />
       <Services />
       <FeaturedProjects />
-      <Testimonials />
       <Thoughts />
       <LetsTalk />
       <Footer />

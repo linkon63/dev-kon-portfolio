@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAdminAuth, DEMO_CREDENTIALS } from "@/components/admin/AdminAuth";
+import { useAdminAuth } from "@/components/admin/AdminAuth";
 import { Button, Card, Field, TextInput } from "@/components/admin/ui";
 
 export default function AdminLoginPage() {
@@ -55,11 +55,6 @@ export default function AdminLoginPage() {
           {error && <p className="text-sm text-red-600">{error}</p>}
           <Button type="submit">Sign in</Button>
         </form>
-        <div className="mt-5 rounded-lg bg-neutral-100 p-3 text-xs text-neutral-500">
-          <span className="font-semibold text-neutral-700">Demo login</span>
-          <br />
-          {DEMO_CREDENTIALS.email} / {DEMO_CREDENTIALS.password}
-        </div>
       </Card>
     </div>
   );

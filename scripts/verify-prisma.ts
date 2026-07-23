@@ -6,17 +6,16 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const [projects, blogs, services, testimonials] = await Promise.all([
+  const [projects, blogs, services] = await Promise.all([
     prisma.project.count(),
     prisma.blog.count(),
     prisma.service.count(),
-    prisma.testimonial.count(),
   ]);
   const firstProject = await prisma.project.findFirst({
     orderBy: { createdAt: "desc" },
   });
   console.log(
-    `✅ Connected — projects: ${projects}, blogs: ${blogs}, services: ${services}, testimonials: ${testimonials}.`,
+    `✅ Connected — projects: ${projects}, blogs: ${blogs}, services: ${services}.`,
   );
   if (firstProject) {
     console.log(`   e.g. project "${firstProject.title}".`);
