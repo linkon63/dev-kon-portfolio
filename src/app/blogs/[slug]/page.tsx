@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/site/Breadcrumb";
 import CommentsAndLikes from "@/components/site/CommentsAndLikes";
 import ShareButtons from "@/components/site/ShareButtons";
 import { SITE_URL } from "@/lib/seo";
+import { wordCount, stripHtml } from "@/lib/blog-content";
 
 export const dynamic = "force-dynamic";
 
@@ -67,37 +68,27 @@ export default async function BlogDetailPage({ params }: Ctx) {
   const blog = await prisma.blog.findUnique({ where: { slug } });
   if (!blog || !blog.active) notFound();
 
-  // Parse section-based content
+  // Content is either a single HTML body (Medium-style editor) or, for legacy
+  // posts, a JSON-stringified array of sections. Detect and render both.
   let sections: BlogSection[] = [];
+  let bodyHtml = "";
   const contentRaw = (blog.content || "").trim();
-  if (contentRaw) {
-    if (contentRaw.startsWith("[")) {
-      try {
-        sections = JSON.parse(contentRaw);
-      } catch {
-        // Fallback to plain text splitting if JSON parse fails
-        sections = contentRaw
-          .split(/\n\s*\n/)
-          .filter((p) => p.trim().length > 0)
-          .map((p, idx) => ({
-            id: `legacy-${idx}`,
-            text: p,
-          }));
-      }
-    } else {
-      sections = contentRaw
-        .split(/\n\s*\n/)
-        .filter((p) => p.trim().length > 0)
-        .map((p, idx) => ({
-          id: `legacy-${idx}`,
-          text: p,
-        }));
+  if (contentRaw.startsWith("[")) {
+    try {
+      sections = JSON.parse(contentRaw);
+    } catch {
+      bodyHtml = contentRaw;
     }
+  } else {
+    bodyHtml = contentRaw;
   }
 
-  // Count total words in all text blocks for reading time estimate
-  const totalText = sections.map((s) => s.text || "").join(" ") + " " + blog.excerpt;
-  const words = totalText.split(/\s+/).filter(Boolean).length;
+  // Reading-time estimate from all rendered text.
+  const words =
+    (bodyHtml
+      ? wordCount(bodyHtml)
+      : sections.map((s) => stripHtml(s.text)).join(" ").split(/\s+/).filter(Boolean)
+          .length) + wordCount(blog.excerpt);
   const readMins = Math.max(1, Math.round(words / 200));
 
   const siteUrl = SITE_URL;
@@ -141,9 +132,14 @@ export default async function BlogDetailPage({ params }: Ctx) {
           </div>
         )}
 
-        {/* Sections Rendering */}
+        {/* Body Rendering */}
         <div className="mt-12 space-y-12">
-          {sections.length > 0 ? (
+          {bodyHtml ? (
+            <div
+              className="rich-text text-lg leading-[1.8] text-[var(--ink)]/85"
+              dangerouslySetInnerHTML={{ __html: bodyHtml }}
+            />
+          ) : sections.length > 0 ? (
             sections.map((section) => (
               <div key={section.id} className="space-y-4">
                 {section.heading && (
