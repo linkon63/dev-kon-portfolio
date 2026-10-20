@@ -66,6 +66,43 @@ lives in **Prisma Postgres** and is served through Next.js API routes under
 and served from `/api/uploads/:id`. See [`DEPLOYMENT.md`](DEPLOYMENT.md) for
 environment variables and setup.
 
+### Where the database lives
+
+- **Provider:** Prisma Postgres (Prisma's hosted PostgreSQL), not a local or
+  VPS-hosted database.
+- **Host:** `db.prisma.io:5432`, database `postgres`, SSL required. The full
+  connection string is `DATABASE_URL` in `.env`.
+- **Dashboard:** [console.prisma.io](https://console.prisma.io). Open the
+  project there to see usage, connection limits and connection strings.
+
+### Troubleshooting: "too many connections for role ..."
+
+```
+PrismaClientKnownRequestError: Too many database connections opened:
+too many connections for role "prisma_migration"
+```
+
+Prisma Postgres limits how many direct connections one role can open. Every
+process that creates a `PrismaClient` opens its own `pg` pool, and they all
+share that limit:
+
+- the local `next dev` server
+- the deployed app on the VPS, if it uses the same `DATABASE_URL`
+- `prisma/seed.ts`, `scripts/*.ts` and Prisma Studio
+
+`pg` opens up to 10 connections per pool by default, so a few processes are
+enough to hit the limit. [`src/lib/prisma.ts`](src/lib/prisma.ts) therefore
+caps the pool at 3 connections (override with `DATABASE_POOL_MAX`) and releases
+connections that sit idle for 10 seconds.
+
+If the error shows up:
+
+1. Restart `next dev`. The old process keeps its connections until it exits.
+2. Stop any seed scripts, other scripts or Prisma Studio that are still running.
+3. If it keeps happening, use a separate database for local development, or
+   switch to a pooled connection string from the Prisma console if your plan
+   offers one.
+
 ## Deployment
 
 This is a server-rendered Next.js app (it needs a Node runtime for the API
