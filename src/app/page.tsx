@@ -7,6 +7,7 @@ import Achievements from "@/components/portfolio/Achievements";
 import Skills from "@/components/portfolio/Skills";
 import IdeaToLaunch from "@/components/portfolio/IdeaToLaunch";
 import Services from "@/components/portfolio/Services";
+import { ClientShowcase } from "@/components/portfolio/ClientWork";
 import FeaturedProjects from "@/components/portfolio/FeaturedProjects";
 import Thoughts from "@/components/portfolio/Thoughts";
 import LetsTalk from "@/components/portfolio/LetsTalk";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <Skills />
       <IdeaToLaunch />
       <Services />
+      <ClientShowcase />
       <FeaturedProjects />
       <Thoughts />
       <LetsTalk />

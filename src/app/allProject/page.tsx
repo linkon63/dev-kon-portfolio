@@ -2,12 +2,14 @@ import { prisma } from "@/lib/prisma";
 import PublicPage from "@/components/site/PublicPage";
 import Breadcrumb from "@/components/site/Breadcrumb";
 import AllProjectsGrid from "@/components/portfolio/AllProjectsGrid";
+import { ClientProjectsGrid } from "@/components/portfolio/ClientWork";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "All Projects — Md Abdul Ahad Linkon",
-  description: "Selected and full project work.",
+  description:
+    "Client work for brands across HR, automotive, real estate, travel, manufacturing and retail — plus personal full-stack projects.",
 };
 
 export default async function AllProjectPage() {
@@ -37,6 +39,16 @@ export default async function AllProjectPage() {
           </p>
         </header>
 
+        <div id="client-work" className="mb-14 scroll-mt-28 md:mb-20">
+          <h2 className="mb-5 text-2xl font-extrabold tracking-tight md:text-3xl">
+            Client Work
+          </h2>
+          <ClientProjectsGrid />
+        </div>
+
+        <h2 className="mb-5 text-2xl font-extrabold tracking-tight md:text-3xl">
+          More Projects
+        </h2>
         {projects.length === 0 ? (
           <p className="text-[var(--ink)]/55">No projects yet.</p>
         ) : (
