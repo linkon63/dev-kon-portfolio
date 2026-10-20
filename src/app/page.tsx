@@ -3,6 +3,7 @@ import Navbar from "@/components/portfolio/Navbar";
 import Hero from "@/components/portfolio/Hero";
 import About from "@/components/portfolio/About";
 import Experience from "@/components/portfolio/Experience";
+import Achievements from "@/components/portfolio/Achievements";
 import Skills from "@/components/portfolio/Skills";
 import IdeaToLaunch from "@/components/portfolio/IdeaToLaunch";
 import Services from "@/components/portfolio/Services";
@@ -25,6 +26,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <Experience />
+      <Achievements />
       <Skills />
       <IdeaToLaunch />
       <Services />

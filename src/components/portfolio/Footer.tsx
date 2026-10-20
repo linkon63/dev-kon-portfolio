@@ -41,6 +41,7 @@ export default function Footer() {
     { href: "/#work", label: "Works" },
     { href: "/#contact", label: "Contact" },
     { href: "/allProject", label: "All Projects", highlight: true },
+    { href: "/achievements", label: "Achievements", highlight: true },
     { href: "/blogs", label: "Thoughts", highlight: true },
     { href: resumeUrl, label: "Resume", external: true, highlight: true },
   ];
